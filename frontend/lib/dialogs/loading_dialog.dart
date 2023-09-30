@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:idlebattle/services/navigation.dart';
+import 'package:undervoltage/services/navigation.dart';
 
 class LoadingDialog extends StatelessWidget {
   final String text;

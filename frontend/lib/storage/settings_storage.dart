@@ -1,4 +1,4 @@
-import 'package:idlebattle/storage/base_storage.dart';
+import 'package:undervoltage/storage/base_storage.dart';
 
 class SettingsStorage extends Storage {
   static const FIELD_AUDIO = 'settings.audio';

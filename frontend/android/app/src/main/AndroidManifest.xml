@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mauriciotogneri.idlebattle">
+    package="com.mauriciotogneri.undervoltage">
    <application
         android:label="Idle Battle"
         android:name="${applicationName}"

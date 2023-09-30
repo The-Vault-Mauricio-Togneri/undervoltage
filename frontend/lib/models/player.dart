@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:idlebattle/json/json_player_status.dart';
-import 'package:idlebattle/services/palette.dart';
+import 'package:undervoltage/json/json_player_status.dart';
+import 'package:undervoltage/services/palette.dart';
 
 class Player {
   final String name;

@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:idlebattle/json/json_lane.dart';
-import 'package:idlebattle/json/json_player_status.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:undervoltage/json/json_lane.dart';
+import 'package:undervoltage/json/json_player_status.dart';
 
 part 'json_match_status.g.dart';
 

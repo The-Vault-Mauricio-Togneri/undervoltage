@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:idlebattle/services/initializer.dart';
+import 'package:undervoltage/services/initializer.dart';
 
 class LoggedUser {
   late User _user;

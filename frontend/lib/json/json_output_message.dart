@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:idlebattle/types/output_event.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:undervoltage/types/output_event.dart';
 
 part 'json_output_message.g.dart';
 

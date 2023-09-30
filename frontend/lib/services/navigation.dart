@@ -1,11 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
-import 'package:idlebattle/models/match.dart';
-import 'package:idlebattle/screens/lobby_screen.dart';
-import 'package:idlebattle/screens/main_screen.dart';
-import 'package:idlebattle/screens/match_screen.dart';
-import 'package:idlebattle/services/initializer.dart';
-import 'package:idlebattle/types/match_type.dart';
+import 'package:undervoltage/models/match.dart';
+import 'package:undervoltage/screens/lobby_screen.dart';
+import 'package:undervoltage/screens/main_screen.dart';
+import 'package:undervoltage/screens/match_screen.dart';
+import 'package:undervoltage/services/initializer.dart';
+import 'package:undervoltage/types/match_type.dart';
 
 class Navigation {
   final Routes routes = Routes();

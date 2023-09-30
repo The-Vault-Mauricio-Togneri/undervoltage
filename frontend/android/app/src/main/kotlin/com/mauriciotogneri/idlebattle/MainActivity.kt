@@ -1,4 +1,4 @@
-package com.mauriciotogneri.idlebattle
+package com.mauriciotogneri.undervoltage
 
 import io.flutter.embedding.android.FlutterActivity
 

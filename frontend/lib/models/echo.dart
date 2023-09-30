@@ -1,6 +1,6 @@
-import 'package:idlebattle/app/constants.dart';
-import 'package:idlebattle/json/json_output_message.dart';
-import 'package:idlebattle/services/connection.dart';
+import 'package:undervoltage/app/constants.dart';
+import 'package:undervoltage/json/json_output_message.dart';
+import 'package:undervoltage/services/connection.dart';
 
 class Echo {
   final String matchId;

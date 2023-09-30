@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:idlebattle/app/idle_battle.dart';
-import 'package:idlebattle/services/initializer.dart';
+import 'package:undervoltage/app/undervoltage.dart';
+import 'package:undervoltage/services/initializer.dart';
 
 void main() async {
   await Initializer.load();
-  runApp(IdleBattleApp(uri: Uri.base));
+  runApp(Undervoltage(uri: Uri.base));
 }

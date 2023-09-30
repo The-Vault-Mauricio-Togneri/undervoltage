@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:idlebattle/services/localizations.dart';
-import 'package:idlebattle/services/navigation.dart';
+import 'package:undervoltage/services/localizations.dart';
+import 'package:undervoltage/services/navigation.dart';
 
 class InfoDialog extends StatelessWidget {
   final String text;

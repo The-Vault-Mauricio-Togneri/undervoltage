@@ -1,6 +1,6 @@
-import 'package:idlebattle/services/initializer.dart';
-import 'package:idlebattle/storage/settings_storage.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:undervoltage/services/initializer.dart';
+import 'package:undervoltage/storage/settings_storage.dart';
 
 class Audio {
   final Map<String, AudioPlayer> soundPlayers = {};

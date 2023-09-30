@@ -1,6 +1,6 @@
 {
-    "name": "idlebattle",
-    "short_name": "idlebattle",
+    "name": "undervoltage",
+    "short_name": "undervoltage",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

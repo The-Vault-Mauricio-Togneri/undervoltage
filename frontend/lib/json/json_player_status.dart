@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:idlebattle/models/player.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:undervoltage/models/player.dart';
 
 part 'json_player_status.g.dart';
 

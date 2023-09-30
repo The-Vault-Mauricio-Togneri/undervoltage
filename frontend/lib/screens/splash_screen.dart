@@ -2,13 +2,13 @@ import 'dart:async';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:idlebattle/dialogs/info_dialog.dart';
-import 'package:idlebattle/services/audio.dart';
-import 'package:idlebattle/services/connection.dart';
-import 'package:idlebattle/services/localizations.dart';
-import 'package:idlebattle/services/logged_user.dart';
-import 'package:idlebattle/services/navigation.dart';
-import 'package:idlebattle/widgets/game_container.dart';
+import 'package:undervoltage/dialogs/info_dialog.dart';
+import 'package:undervoltage/services/audio.dart';
+import 'package:undervoltage/services/connection.dart';
+import 'package:undervoltage/services/localizations.dart';
+import 'package:undervoltage/services/logged_user.dart';
+import 'package:undervoltage/services/navigation.dart';
+import 'package:undervoltage/widgets/game_container.dart';
 
 class SplashScreen extends StatelessWidget {
   final SplashState state;

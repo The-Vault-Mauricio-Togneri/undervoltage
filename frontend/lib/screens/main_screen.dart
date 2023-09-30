@@ -1,11 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:idlebattle/screens/leaderboard_screen.dart';
-import 'package:idlebattle/screens/play_screen.dart';
-import 'package:idlebattle/screens/profile_screen.dart';
-import 'package:idlebattle/services/localizations.dart';
-import 'package:idlebattle/services/palette.dart';
-import 'package:idlebattle/widgets/game_container.dart';
+import 'package:undervoltage/screens/leaderboard_screen.dart';
+import 'package:undervoltage/screens/play_screen.dart';
+import 'package:undervoltage/screens/profile_screen.dart';
+import 'package:undervoltage/services/localizations.dart';
+import 'package:undervoltage/services/palette.dart';
+import 'package:undervoltage/widgets/game_container.dart';
 
 class MainScreen extends StatelessWidget {
   final MainState state;

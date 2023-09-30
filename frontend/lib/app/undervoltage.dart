@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:idlebattle/screens/splash_screen.dart';
-import 'package:idlebattle/services/localizations.dart';
-import 'package:idlebattle/services/navigation.dart';
-import 'package:idlebattle/services/palette.dart';
+import 'package:undervoltage/screens/splash_screen.dart';
+import 'package:undervoltage/services/localizations.dart';
+import 'package:undervoltage/services/navigation.dart';
+import 'package:undervoltage/services/palette.dart';
 
-class IdleBattleApp extends StatelessWidget {
+class Undervoltage extends StatelessWidget {
   final Uri uri;
 
-  const IdleBattleApp({required this.uri});
+  const Undervoltage({required this.uri});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,6 @@ class IdleBattleApp extends StatelessWidget {
       navigatorKey: Navigation.get.routes.key,
       theme: ThemeData(
         primarySwatch: Palette.primary,
-        backgroundColor: Palette.white,
         scaffoldBackgroundColor: Palette.white,
       ),
       localizationsDelegates: const [

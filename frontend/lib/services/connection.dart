@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/widgets.dart';
-import 'package:idlebattle/app/constants.dart';
-import 'package:idlebattle/extensions/web_socket_channel_extension.dart';
-import 'package:idlebattle/json/json_input_message.dart';
-import 'package:idlebattle/json/json_output_message.dart';
-import 'package:idlebattle/services/initializer.dart';
-import 'package:idlebattle/services/platform.dart';
+import 'package:undervoltage/app/constants.dart';
+import 'package:undervoltage/extensions/web_socket_channel_extension.dart';
+import 'package:undervoltage/json/json_input_message.dart';
+import 'package:undervoltage/json/json_output_message.dart';
+import 'package:undervoltage/services/initializer.dart';
+import 'package:undervoltage/services/platform.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class Connection {
@@ -18,7 +18,7 @@ class Connection {
     required VoidCallback onConnect,
     required VoidCallback onError,
   }) {
-    channel = WebSocketChannel.connect(Uri.parse('${_host()}/idlebattle'));
+    channel = WebSocketChannel.connect(Uri.parse('${_host()}/undervoltage'));
     stream = channel.stream.asBroadcastStream();
 
     StreamSubscription? streamSubscription;

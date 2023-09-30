@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:idlebattle/services/palette.dart';
+import 'package:undervoltage/services/palette.dart';
 
 class GameContainer extends StatelessWidget {
   final Widget child;

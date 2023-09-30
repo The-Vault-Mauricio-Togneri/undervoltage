@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:idlebattle/json/json_match_configuration.dart';
-import 'package:idlebattle/json/json_match_status.dart';
-import 'package:idlebattle/types/finish_state.dart';
-import 'package:idlebattle/types/input_event.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:undervoltage/json/json_match_configuration.dart';
+import 'package:undervoltage/json/json_match_status.dart';
+import 'package:undervoltage/types/finish_state.dart';
+import 'package:undervoltage/types/input_event.dart';
 
 part 'json_input_message.g.dart';
 

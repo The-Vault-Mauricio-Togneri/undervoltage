@@ -1,9 +1,9 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:idlebattle/services/localizations.dart';
-import 'package:idlebattle/services/navigation.dart';
-import 'package:idlebattle/types/match_type.dart';
-import 'package:idlebattle/widgets/game_container.dart';
+import 'package:undervoltage/services/localizations.dart';
+import 'package:undervoltage/services/navigation.dart';
+import 'package:undervoltage/types/match_type.dart';
+import 'package:undervoltage/widgets/game_container.dart';
 
 class PlayScreen extends StatelessWidget {
   final PlayState state;

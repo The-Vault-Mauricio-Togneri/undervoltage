@@ -1,11 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:idlebattle/build/build_version.dart';
-import 'package:idlebattle/services/audio.dart';
-import 'package:idlebattle/services/localizations.dart';
-import 'package:idlebattle/services/logged_user.dart';
-import 'package:idlebattle/widgets/custom_form_field.dart';
-import 'package:idlebattle/widgets/game_container.dart';
+import 'package:undervoltage/build/build_version.dart';
+import 'package:undervoltage/services/audio.dart';
+import 'package:undervoltage/services/localizations.dart';
+import 'package:undervoltage/services/logged_user.dart';
+import 'package:undervoltage/widgets/custom_form_field.dart';
+import 'package:undervoltage/widgets/game_container.dart';
 
 class ProfileScreen extends StatelessWidget {
   final ProfileState state = ProfileState();

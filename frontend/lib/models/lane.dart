@@ -1,7 +1,7 @@
-import 'package:idlebattle/app/constants.dart';
-import 'package:idlebattle/json/json_lane.dart';
-import 'package:idlebattle/models/units.dart';
-import 'package:idlebattle/services/audio.dart';
+import 'package:undervoltage/app/constants.dart';
+import 'package:undervoltage/json/json_lane.dart';
+import 'package:undervoltage/models/units.dart';
+import 'package:undervoltage/services/audio.dart';
 
 class Lane {
   final int id;

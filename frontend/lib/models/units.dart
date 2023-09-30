@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:idlebattle/services/palette.dart';
+import 'package:undervoltage/services/palette.dart';
 
 class Units {
   final bool isSelf;

@@ -1,5 +1,5 @@
 import 'dart:html';
-import 'package:idlebattle/platform/platform_base.dart';
+import 'package:undervoltage/platform/platform_base.dart';
 
 class PlatformMethods extends PlatformMethodsBase {
   @override
