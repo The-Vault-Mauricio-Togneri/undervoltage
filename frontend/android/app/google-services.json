@@ -1,0 +1,40 @@
+{
+    "project_info": {
+      "project_number": "703834333589",
+      "firebase_url": "https://idle-battle-default-rtdb.firebaseio.com",
+      "project_id": "idle-battle",
+      "storage_bucket": "idle-battle.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:703834333589:android:3364b831fb7ca44f91969c",
+          "android_client_info": {
+            "package_name": "com.mauriciotogneri.idlebattle"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "703834333589-kre95slm9eljeak4l43e603l8fs8dc89.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyBZGUU3irPyU-V_JgKj3GSlpStYLForBuA"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "703834333589-kre95slm9eljeak4l43e603l8fs8dc89.apps.googleusercontent.com",
+                "client_type": 3
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }
