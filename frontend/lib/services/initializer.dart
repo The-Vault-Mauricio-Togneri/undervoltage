@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:undervoltage/services/logged_user.dart';
 import 'package:undervoltage/services/navigation.dart';
 import 'package:undervoltage/services/platform.dart';
-import 'package:url_strategy/url_strategy.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -18,7 +17,8 @@ class Initializer {
         options: const FirebaseOptions(
           apiKey: 'AIzaSyDWAZs8_dNgfZl6EpLnTI7_P-JRvh4SzBI',
           authDomain: 'tensionplanet.firebaseapp.com',
-          databaseURL: 'https://tensionplanet-default-rtdb.europe-west1.firebasedatabase.app',
+          databaseURL:
+              'https://tensionplanet-default-rtdb.europe-west1.firebasedatabase.app',
           projectId: 'tensionplanet',
           storageBucket: 'tensionplanet.appspot.com',
           messagingSenderId: '589993680424',
@@ -31,7 +31,7 @@ class Initializer {
     }
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    setPathUrlStrategy();
+    //setPathUrlStrategy();
     getIt.registerSingleton<Navigation>(Navigation());
     getIt.registerSingleton<LoggedUser>(LoggedUser());
   }

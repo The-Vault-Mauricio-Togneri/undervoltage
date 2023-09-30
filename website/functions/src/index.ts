@@ -17,14 +17,13 @@ exports.createMatch = onCall(async (request) => {
     await matches.push({
         numberOfPlayers: 3,
         createdAt: new Date(),
+        text: request.data.text,
+        uid: request.auth?.uid,
     });
 
-    const text = request.data.text
-    const uid = request.auth?.uid
-
     return {
-        text: text,
-        uid: uid,
+        text: request.data.text,
+        uid: request.auth?.uid,
     }
 })
 

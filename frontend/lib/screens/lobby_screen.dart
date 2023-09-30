@@ -2,7 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:undervoltage/app/constants.dart';
-import 'package:undervoltage/models/echo.dart';
+import 'package:undervoltage/callables/create_match.dart';
 import 'package:undervoltage/services/clipboard_text.dart';
 import 'package:undervoltage/services/localizations.dart';
 import 'package:undervoltage/services/platform.dart';
@@ -13,7 +13,8 @@ class LobbyScreen extends StatelessWidget {
 
   const LobbyScreen._(this.state);
 
-  factory LobbyScreen.instance({required Uri uri}) => LobbyScreen._(LobbyState(uri: uri));
+  factory LobbyScreen.instance({required Uri uri}) =>
+      LobbyScreen._(LobbyState(uri: uri));
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +33,21 @@ class LobbyScreen extends StatelessWidget {
 }
 
 class LobbyState extends BaseState {
-  String? matchId;
   final Uri uri;
-
-  Match? match;
-  Echo? echo;
 
   LobbyState({required this.uri});
 
   String? getMatchId() => uri.queryParameters['match'];
 
+  @override
+  void onLoad() {
+    super.onLoad();
+
+    const CreateMatch()(text: 'YES!');
+  }
+
   void onCopyAndShare() {
-    final String link = '${Constants.PRIVATE_MATCH_LINK}$matchId';
+    const String link = Constants.PRIVATE_MATCH_LINK;
 
     _copyToClipboard(link);
 
