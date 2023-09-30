@@ -41,14 +41,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
-  audio_session:
-    dependency: transitive
-    description:
-      name: audio_session
-      sha256: f952f7a98640ba1d07520465a1cdaed6df0994390ac6fa73920d1741207147b8
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.10"
   boolean_selector:
     dependency: transitive
     description:
@@ -421,30 +413,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.3.1"
-  just_audio:
-    dependency: "direct main"
-    description:
-      name: just_audio
-      sha256: e209d85cd7666b2f692e9b15f2959d31c7f32a1df32dba205b8564939f115193
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.28"
-  just_audio_platform_interface:
-    dependency: transitive
-    description:
-      name: just_audio_platform_interface
-      sha256: eff112d5138bea3ba544b6338b1e0537a32b5e1425e4d0dc38f732771cda7c84
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.0"
-  just_audio_web:
-    dependency: transitive
-    description:
-      name: just_audio_web
-      sha256: "89d8db6f19f3821bb6bf908c4bfb846079afb2ab575b783d781a6bf119e3abaf"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.7"
   lints:
     dependency: transitive
     description:
@@ -613,14 +581,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
-  rxdart:
-    dependency: transitive
-    description:
-      name: rxdart
-      sha256: "5d22055fd443806c03ef24a02000637cf51eae49c2a0168d38a43fc166b0209c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.27.5"
   share_plus:
     dependency: "direct main"
     description:

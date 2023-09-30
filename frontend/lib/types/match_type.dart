@@ -1,4 +1,0 @@
-enum MatchType {
-  PUBLIC,
-  PRIVATE,
-}

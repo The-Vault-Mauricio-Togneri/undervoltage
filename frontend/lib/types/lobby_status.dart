@@ -1,6 +1,0 @@
-enum LobbyStatus {
-  EMPTY,
-  WAITING_PUBLIC,
-  WAITING_PRIVATE,
-  READY,
-}

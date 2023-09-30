@@ -2,8 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:undervoltage/services/audio.dart';
-import 'package:undervoltage/services/connection.dart';
 import 'package:undervoltage/services/logged_user.dart';
 import 'package:undervoltage/services/navigation.dart';
 import 'package:undervoltage/services/platform.dart';
@@ -35,8 +33,6 @@ class Initializer {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     setPathUrlStrategy();
     getIt.registerSingleton<Navigation>(Navigation());
-    getIt.registerSingleton<Audio>(Audio());
     getIt.registerSingleton<LoggedUser>(LoggedUser());
-    getIt.registerSingleton<Connection>(Connection());
   }
 }
