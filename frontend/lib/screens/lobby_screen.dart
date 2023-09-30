@@ -1,4 +1,5 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:undervoltage/app/constants.dart';
@@ -42,6 +43,9 @@ class LobbyState extends BaseState {
   @override
   void onLoad() {
     super.onLoad();
+
+    final User? user = FirebaseAuth.instance.currentUser;
+    print(user);
 
     const CreateMatch()(text: 'YES!');
   }
