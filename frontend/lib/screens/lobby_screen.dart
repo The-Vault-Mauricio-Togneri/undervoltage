@@ -1,5 +1,4 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:undervoltage/app/constants.dart';
@@ -41,13 +40,11 @@ class LobbyState extends BaseState {
   String? getMatchId() => uri.queryParameters['match'];
 
   @override
-  void onLoad() {
+  Future onLoad() async {
     super.onLoad();
 
-    final User? user = FirebaseAuth.instance.currentUser;
-    print(user);
-
-    const CreateMatch()(text: 'YES!');
+    final result = await const CreateMatch()(text: 'YES!');
+    print(result.data['id']);
   }
 
   void onCopyAndShare() {

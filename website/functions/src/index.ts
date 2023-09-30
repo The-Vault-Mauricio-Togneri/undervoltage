@@ -11,10 +11,8 @@ admin.initializeApp()
 const db = getDatabase()
 
 exports.createMatch = onCall(async (request) => {
-    const matches = db.ref('matches/foo')
-    console.log(`KEY: ${matches.key}`)
-
-    await matches.push({
+    const matches = db.ref('matches')
+    const matchRef = await matches.push({
         numberOfPlayers: 3,
         createdAt: new Date(),
         text: request.data.text,
@@ -22,8 +20,7 @@ exports.createMatch = onCall(async (request) => {
     });
 
     return {
-        text: request.data.text,
-        uid: request.auth?.uid,
+        id: matchRef.key,
     }
 })
 
