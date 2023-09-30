@@ -23,37 +23,53 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
-android {
-    compileSdkVersion flutter.compileSdkVersion
+android
+{
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
-    compileOptions {
+    compileOptions
+    {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions {
+    kotlinOptions
+    {
         jvmTarget = '1.8'
     }
 
-    sourceSets {
+    sourceSets
+    {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    defaultConfig {
+    defaultConfig
+    {
+        minSdkVersion 27
+        targetSdkVersion 33
         applicationId 'com.mauriciotogneri.undervoltage'
-        minSdkVersion 19
-        targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
     }
 
-    buildTypes {
-        release {
+    buildTypes
+    {
+        debug
+        {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+        }
+
+        release
+        {
             signingConfig signingConfigs.debug
         }
     }
@@ -66,4 +82,5 @@ flutter {
 dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 }

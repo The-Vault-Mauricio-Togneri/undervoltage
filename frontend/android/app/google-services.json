@@ -1,40 +1,40 @@
 {
     "project_info": {
-      "project_number": "703834333589",
-      "firebase_url": "https://idle-battle-default-rtdb.firebaseio.com",
-      "project_id": "idle-battle",
-      "storage_bucket": "idle-battle.appspot.com"
+        "project_number": "589993680424",
+        "firebase_url": "https://tensionplanet-default-rtdb.europe-west1.firebasedatabase.app",
+        "project_id": "tensionplanet",
+        "storage_bucket": "tensionplanet.appspot.com"
     },
     "client": [
-      {
-        "client_info": {
-          "mobilesdk_app_id": "1:703834333589:android:3364b831fb7ca44f91969c",
-          "android_client_info": {
-            "package_name": "com.mauriciotogneri.undervoltage"
-          }
-        },
-        "oauth_client": [
-          {
-            "client_id": "703834333589-kre95slm9eljeak4l43e603l8fs8dc89.apps.googleusercontent.com",
-            "client_type": 3
-          }
-        ],
-        "api_key": [
-          {
-            "current_key": "AIzaSyBZGUU3irPyU-V_JgKj3GSlpStYLForBuA"
-          }
-        ],
-        "services": {
-          "appinvite_service": {
-            "other_platform_oauth_client": [
-              {
-                "client_id": "703834333589-kre95slm9eljeak4l43e603l8fs8dc89.apps.googleusercontent.com",
-                "client_type": 3
-              }
-            ]
-          }
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:589993680424:android:9cdc1266816ab12e819f1d",
+                "android_client_info": {
+                    "package_name": "com.mauriciotogneri.undervoltage"
+                }
+            },
+            "oauth_client": [
+                {
+                    "client_id": "589993680424-t7vklbgm95qh5gqgahbea1ar6sf47q6o.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyDzZZMxpDz3S9ppGVE1hCdrCz7Ma6MGk_4"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "589993680424-t7vklbgm95qh5gqgahbea1ar6sf47q6o.apps.googleusercontent.com",
+                            "client_type": 3
+                        }
+                    ]
+                }
+            }
         }
-      }
     ],
     "configuration_version": "1"
-  }
+}

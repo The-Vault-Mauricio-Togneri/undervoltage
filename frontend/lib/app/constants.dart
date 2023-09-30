@@ -8,5 +8,5 @@ class Constants {
   static const String HOST_DEBUG_MOBILE = 'ws://10.0.2.2:8080';
   static const String HOST_PROD = 'wss://zeronest.com:8888';
 
-  static const String PRIVATE_MATCH_LINK = 'https://idle-battle.web.app?match=';
+  static const String PRIVATE_MATCH_LINK = 'https://undervoltage.web.app?match=';
 }

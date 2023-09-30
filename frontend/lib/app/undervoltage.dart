@@ -13,7 +13,7 @@ class Undervoltage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Idle Battle',
+      title: 'Undervoltage',
       debugShowCheckedModeBanner: false,
       navigatorKey: Navigation.get.routes.key,
       theme: ThemeData(
