@@ -5,10 +5,16 @@ module.exports = {
     node: true,
   },
   extends: [
+    'eslint:recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
+    'google',
+    'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: ['tsconfig.json', 'tsconfig.dev.json'],
+    project: ['**/tsconfig.json', '**/tsconfig.dev.json'],
     sourceType: 'module',
   },
   ignorePatterns: [
@@ -18,5 +24,26 @@ module.exports = {
     '@typescript-eslint',
     'import',
   ],
-  rules: {},
+  rules: {
+    'brace-style': ['error'],
+    'space-in-parens': ['error', 'never'],
+    'import/no-unresolved': 0,
+    'max-len': 'off',
+    'require-jsdoc': 'off',
+    'no-unused-vars': 'off',
+    'no-return-await': 'error',
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        'argsIgnorePattern': '^_',
+        'varsIgnorePattern': '^_',
+        'caughtErrorsIgnorePattern': '^_',
+      },
+    ],
+    '@typescript-eslint/no-floating-promises': 'error',
+    '@typescript-eslint/await-thenable': 'error',
+    'object-curly-newline': ['error', {
+      'ImportDeclaration': 'never',
+    }],
+  },
 };
