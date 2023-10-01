@@ -4,15 +4,19 @@ import {getDatabase} from 'firebase-admin/database';
 import {Player} from './player';
 
 export class Match {
+  private id: string;
+
   constructor(
-    readonly id: string,
+      id: string,
     readonly numberOfPlayers: number,
     readonly maxPoints: number,
     readonly createdAt: Date,
     readonly creator: string,
     readonly status: MatchStatus,
     readonly players: Record<string, Player>,
-  ) {}
+  ) {
+    this.id = id;
+  }
 
   static new(params: {
     creator: UserRecord,
@@ -28,10 +32,30 @@ export class Match {
         'waitingForPlayers',
         {
           [params.creator.uid]: new Player(
+              params.creator.uid,
               params.creator.displayName ?? 'Anonymous',
               0,
           ),
         },
+    );
+  }
+
+  static parse(data: any): Match {
+    const players: Record<string, Player> = {};
+
+    for (const playerData of data['players']) {
+      const player = Player.parse(playerData);
+      players[player.id] = player;
+    }
+
+    return new Match(
+        data['id'],
+        data['numberOfPlayers'],
+        data['maxPoints'],
+        data['createdAt'],
+        data['creator'],
+        data['status'],
+        players,
     );
   }
 
@@ -43,6 +67,7 @@ export class Match {
     }
 
     return {
+      id: this.id,
       numberOfPlayers: this.numberOfPlayers,
       maxPoints: this.maxPoints,
       createdAt: this.createdAt,
@@ -53,11 +78,13 @@ export class Match {
   }
 
   public async create() {
-    const matchesRef = getDatabase().ref('matches');
-    const matchRef = await matchesRef.push(this.json());
+    this.id = getDatabase().ref('matches').push().key ?? '';
+
+    const matchesRef = getDatabase().ref(`matches/${this.id}`);
+    await matchesRef.update(this.json());
 
     return {
-      id: matchRef.key,
+      id: this.id,
     };
   }
 }

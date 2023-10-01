@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import {CallableRequest} from 'firebase-functions/v2/https';
-import {Match} from './models/match';
+import {Match} from '../models/match';
 
 export const createMatch = async (request: CallableRequest) => {
   const user = await admin.auth().getUser(request.auth?.uid ?? '');
