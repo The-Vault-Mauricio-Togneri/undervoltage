@@ -2,22 +2,23 @@ import 'dart:async';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:undervoltage/json/json_match.dart';
 import 'package:undervoltage/services/palette.dart';
 import 'package:undervoltage/widgets/base_screen.dart';
 import 'package:undervoltage/widgets/label.dart';
 
 class MatchScreen extends StatelessWidget {
-  final LobbyState state;
+  final MatchState state;
 
   const MatchScreen._(this.state);
 
   factory MatchScreen.instance({required String matchId}) =>
-      MatchScreen._(LobbyState(matchId: matchId));
+      MatchScreen._(MatchState(matchId: matchId));
 
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      child: StateProvider<LobbyState>(
+      child: StateProvider<MatchState>(
         state: state,
         builder: (context, state) => Padding(
           padding: const EdgeInsets.all(20),
@@ -40,21 +41,25 @@ class MatchScreen extends StatelessWidget {
   }
 }
 
-class LobbyState extends BaseState {
+class MatchState extends BaseState {
   final String matchId;
-  DatabaseReference? matchRef;
-  StreamSubscription? subscription;
+  late final DatabaseReference matchRef;
+  late final StreamSubscription subscription;
+  JsonMatch? match;
 
-  LobbyState({required this.matchId});
+  MatchState({required this.matchId});
 
   @override
   void onLoad() {
     super.onLoad();
 
     matchRef = FirebaseDatabase.instance.ref('matches/$matchId');
-    subscription = matchRef!.onValue.listen((event) {
+    subscription = matchRef.onValue.listen((event) {
       final Map<Object?, Object?>? data =
           event.snapshot.value as Map<Object?, Object?>?;
+      final test =
+          JsonMatch.fromJson(event.snapshot.value as Map<String, dynamic>);
+      print(test);
 
       if (data != null) {
         onMatchUpdated(data);
@@ -76,6 +81,6 @@ class LobbyState extends BaseState {
   void onDestroy() {
     super.onDestroy();
 
-    subscription?.cancel();
+    subscription.cancel();
   }
 }

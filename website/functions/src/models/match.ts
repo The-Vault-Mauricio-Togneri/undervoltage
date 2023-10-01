@@ -60,7 +60,7 @@ export class Match {
         data['id'],
         data['numberOfPlayers'],
         data['maxPoints'],
-        data['createdAt'],
+        new Date(data['createdAt']),
         data['creator'],
         data['status'],
         players,
@@ -73,9 +73,7 @@ export class Match {
     const matchesRef = getDatabase().ref(`matches/${this.id}`);
     await matchesRef.update(this.json());
 
-    return {
-      id: this.id,
-    };
+    return this.id;
   }
 
   public async join(user: UserRecord) {

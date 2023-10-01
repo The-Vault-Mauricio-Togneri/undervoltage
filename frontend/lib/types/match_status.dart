@@ -1,0 +1,4 @@
+enum MatchStatus {
+  waitingForPlayers,
+  started;
+}
