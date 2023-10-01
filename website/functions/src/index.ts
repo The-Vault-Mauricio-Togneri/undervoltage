@@ -4,24 +4,26 @@ import {onCreateMatch} from './entry-points/on-create-match';
 import {onValueUpdated} from 'firebase-functions/v2/database';
 import {onMatchUpdated} from './entry-points/on-match-updated';
 import {onJoinMatch} from './entry-points/on-join-match';
+import {UserRecord} from 'firebase-admin/auth';
 
 admin.initializeApp();
 
 const isEmulator = Boolean(process.env.FUNCTIONS_EMULATOR);
 
-exports.createMatch = onCall(async (request: CallableRequest) => {
-  const user = await admin.auth().getUser(request.auth?.uid ?? '');
-  const result = await onCreateMatch(request, user);
+type CallableHandler = (request: CallableRequest, user: UserRecord) => Promise<unknown>
 
-  return result;
-});
+const handleCallable = (handler: CallableHandler) => {
+  return onCall(async (request: CallableRequest) => {
+    const user = await admin.auth().getUser(request.auth?.uid ?? '');
+    const result = await handler(request, user);
 
-exports.joinMatch = onCall(async (request: CallableRequest) => {
-  const user = await admin.auth().getUser(request.auth?.uid ?? '');
-  const result = await onJoinMatch(request, user);
+    return result;
+  });
+};
 
-  return result;
-});
+export const createMatch = handleCallable(onCreateMatch);
+
+export const joinMatch = handleCallable(onJoinMatch);
 
 export const onMatchUpdatedTrigger = onValueUpdated({
   ref: '/matches/{matchId}',
