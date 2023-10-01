@@ -7,7 +7,6 @@ import 'package:undervoltage/app/constants.dart';
 import 'package:undervoltage/callables/create_match.dart';
 import 'package:undervoltage/dialogs/loading_dialog.dart';
 import 'package:undervoltage/services/clipboard_text.dart';
-import 'package:undervoltage/services/localizations.dart';
 import 'package:undervoltage/services/navigation.dart';
 import 'package:undervoltage/services/palette.dart';
 import 'package:undervoltage/services/platform.dart';
@@ -68,6 +67,9 @@ class LobbyScreen extends StatelessWidget {
 
 class LobbyState extends BaseState {
   final Uri uri;
+  final TextEditingController numberOfPlayersController =
+      TextEditingController();
+  final TextEditingController maxPointsController = TextEditingController();
   final TextEditingController matchIdController = TextEditingController();
   bool joinMatchButtonEnabled = false;
 
@@ -78,14 +80,25 @@ class LobbyState extends BaseState {
     notify();
   }
 
-  String? getMatchId() => uri.queryParameters['match'];
+  @override
+  void onLoad() {
+    super.onLoad();
+
+    final String? matchId = uri.queryParameters['match'];
+
+    if (matchId != null) {
+      _joinMatch(matchId);
+    }
+  }
 
   Future onCreateMatch() async {
     final DialogController controller = LoadingDialog.loading('Creating match');
 
     try {
-      final HttpsCallableResult result =
-          await const CreateMatch()(text: 'YES!');
+      final HttpsCallableResult result = await const CreateMatch()(
+        numberOfPlayers: 3,
+        maxPoints: 100,
+      );
       final String matchId = result.data['id'];
       controller.close();
       onCopyAndShare(matchId);
@@ -95,7 +108,9 @@ class LobbyState extends BaseState {
     }
   }
 
-  Future onJoinMatch() async {}
+  void onJoinMatch() => _joinMatch(matchIdController.text.trim());
+
+  Future _joinMatch(String matchId) async {}
 
   void onCopyAndShare(String matchId) {
     final String link = '${Constants.MATCH_URL}$matchId';
@@ -111,7 +126,10 @@ class LobbyState extends BaseState {
 
   void _onShare(String link) {
     try {
-      Share.share(link, subject: Localized.get.shareSubject);
+      Share.share(
+        link,
+        subject: 'Share the link for people can join the match',
+      );
     } catch (e) {
       // ignore
     }

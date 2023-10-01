@@ -5,10 +5,12 @@ class CreateMatch extends Callable {
   const CreateMatch() : super('createMatch');
 
   Future<HttpsCallableResult<T>> call<T>({
-    required String text,
+    required int numberOfPlayers,
+    required int maxPoints,
   }) {
     final Map<String, Object?> parameters = {
-      'text': text,
+      'numberOfPlayers': numberOfPlayers,
+      'maxPoints': maxPoints,
     };
 
     return super.invoke(parameters);
