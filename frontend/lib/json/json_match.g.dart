@@ -26,5 +26,7 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
 
 const _$MatchStatusEnumMap = {
   MatchStatus.waitingForPlayers: 'waitingForPlayers',
-  MatchStatus.started: 'started',
+  MatchStatus.playing: 'playing',
+  MatchStatus.summary: 'summary',
+  MatchStatus.finished: 'finished',
 };

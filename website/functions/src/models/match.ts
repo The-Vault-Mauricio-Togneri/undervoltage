@@ -1,21 +1,24 @@
 import {UserRecord} from 'firebase-admin/auth';
 import {MatchStatus} from '../types/match-status';
 import {getDatabase} from 'firebase-admin/database';
-import {Player} from './player';
+import {Player, Players} from './player';
+import {Round} from './round';
 
 export class Match {
   constructor(
-    private id: string,
-    private numberOfPlayers: number,
-    private maxPoints: number,
-    private createdAt: Date,
-    private creator: string,
-    private status: MatchStatus,
-    private players: Record<string, Player>,
+    public id: string,
+    public numberOfPlayers: number,
+    public maxPoints: number,
+    public createdAt: Date,
+    public creator: string,
+    public status: MatchStatus,
+    public players: Players,
+    public roundCount: number,
+    public round: Round,
   ) {}
 
   public get playersJoined(): number {
-    return Object.keys(this.players).length;
+    return this.players.length;
   }
 
   static new(params: {
@@ -23,6 +26,9 @@ export class Match {
     numberOfPlayers: number,
     maxPoints: number,
   }): Match {
+    const players = new Players();
+    players.add(Player.fromUser(params.creator));
+
     return new Match(
         '',
         params.numberOfPlayers,
@@ -30,9 +36,9 @@ export class Match {
         new Date(),
         params.creator.uid,
         'waitingForPlayers',
-        {
-          [params.creator.uid]: Player.fromUser(params.creator),
-        },
+        players,
+        1,
+        new Round(),
     );
   }
 
@@ -43,13 +49,6 @@ export class Match {
   }
 
   static parse(data: any): Match {
-    const players: Record<string, Player> = {};
-    const playersMap = data['players'];
-
-    for (const playerId of Object.keys(playersMap)) {
-      players[playerId] = Player.parse(playersMap[playerId]);
-    }
-
     return new Match(
         data['id'],
         data['numberOfPlayers'],
@@ -57,41 +56,45 @@ export class Match {
         new Date(data['createdAt']),
         data['creator'],
         data['status'],
-        players,
+        Players.parse(data['players']),
+        data['roundCount'],
+        new Round(), // TODO
     );
   }
 
   public async create() {
     this.id = getDatabase().ref('matches').push().key ?? '';
-
-    const matchesRef = getDatabase().ref(`matches/${this.id}`);
-    await matchesRef.update(this.json());
+    await this.update();
 
     return this.id;
   }
 
   public async join(user: UserRecord) {
     if (this.playersJoined < this.numberOfPlayers) {
-      this.players[user.uid] = Player.fromUser(user);
+      this.players.add(Player.fromUser(user));
 
       if (this.playersJoined === this.numberOfPlayers) {
-        this.status = 'started';
+        this.status = 'playing';
+
+        for (const player of this.players.list) {
+          player.setStatus('playing');
+        }
+
+        this.round = Round.new(this.players);
       }
 
-      const matchesRef = getDatabase().ref(`matches/${this.id}`);
-      await matchesRef.update(this.json());
+      await this.update();
     } else {
       throw new Error('Match is full');
     }
   }
 
+  private async update() {
+    const matchesRef = getDatabase().ref(`matches/${this.id}`);
+    await matchesRef.update(this.json());
+  }
+
   public json() {
-    const players: any = {};
-
-    for (const [key, value] of Object.entries(this.players)) {
-      players[key] = value.json();
-    }
-
     return {
       id: this.id,
       numberOfPlayers: this.numberOfPlayers,
@@ -99,7 +102,9 @@ export class Match {
       createdAt: this.createdAt,
       creator: this.creator,
       status: this.status,
-      players: players,
+      players: this.players.json(),
+      roundCount: this.roundCount,
+      round: this.round.json(),
     };
   }
 }

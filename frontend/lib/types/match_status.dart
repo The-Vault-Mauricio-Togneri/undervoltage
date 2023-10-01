@@ -1,4 +1,6 @@
 enum MatchStatus {
   waitingForPlayers,
-  started;
+  playing,
+  summary,
+  finished;
 }

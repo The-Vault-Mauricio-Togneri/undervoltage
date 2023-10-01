@@ -30,7 +30,7 @@ class MatchScreen extends StatelessWidget {
   Widget _child(MatchState state) {
     if (state.isWaitingForPlayers) {
       return WaitingForPlayers(state);
-    } else if (state.isStarted) {
+    } else if (state.isPlaying) {
       return Started(state);
     } else {
       return const Empty();
@@ -65,7 +65,7 @@ class Started extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Label(
-        text: 'Started',
+        text: 'Playing',
         color: Palette.grey,
         size: 14,
       ),
@@ -84,7 +84,7 @@ class MatchState extends BaseState {
   bool get isWaitingForPlayers =>
       match?.status == MatchStatus.waitingForPlayers;
 
-  bool get isStarted => match?.status == MatchStatus.started;
+  bool get isPlaying => match?.status == MatchStatus.playing;
 
   int get numberOfPlayers => match?.numberOfPlayers ?? 0;
 

@@ -1,10 +1,51 @@
 import {UserRecord} from 'firebase-admin/auth';
+import {PlayerStatus} from '../types/player-status';
+
+export class Players {
+  constructor(
+    private data: Record<string, Player> = {}
+  ) {
+  }
+
+  public get length() {
+    return Object.keys(this.data).length;
+  }
+
+  public get list() {
+    return Object.values(this.data);
+  }
+
+  public add(player: Player) {
+    this.data[player.id] = player;
+  }
+
+  public json() {
+    const result: any = {};
+
+    for (const [key, value] of Object.entries(this.data)) {
+      result[key] = value.json();
+    }
+
+    return result;
+  }
+
+  public static parse(data: any) {
+    const result = new Players();
+
+    for (const playerId of Object.keys(data)) {
+      result.add(Player.parse(data[playerId]));
+    }
+
+    return result;
+  }
+}
 
 export class Player {
   constructor(
-    private id: string,
-    private name: string,
-    private points: number,
+    public id: string,
+    public name: string,
+    public points: number,
+    public status: PlayerStatus,
   ) {}
 
   static fromUser(user: UserRecord): Player {
@@ -12,6 +53,7 @@ export class Player {
         user.uid,
         user.displayName ?? 'Anonymous',
         0,
+        'ready',
     );
   }
 
@@ -20,7 +62,12 @@ export class Player {
         data['id'],
         data['name'],
         data['points'],
+        data['status'],
     );
+  }
+
+  public setStatus(newStatus: PlayerStatus) {
+    this.status = newStatus;
   }
 
   public json() {
@@ -28,6 +75,7 @@ export class Player {
       id: this.id,
       name: this.name,
       points: this.points,
+      status: this.status,
     };
   }
 }
