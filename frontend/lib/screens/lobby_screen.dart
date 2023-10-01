@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -8,7 +9,7 @@ import 'package:undervoltage/callables/create_match.dart';
 import 'package:undervoltage/services/clipboard_text.dart';
 import 'package:undervoltage/services/localizations.dart';
 import 'package:undervoltage/services/platform.dart';
-import 'package:undervoltage/widgets/game_container.dart';
+import 'package:undervoltage/widgets/base_screen.dart';
 
 class LobbyScreen extends StatelessWidget {
   final LobbyState state;
@@ -24,7 +25,7 @@ class LobbyScreen extends StatelessWidget {
       onWillPop: () async {
         return false;
       },
-      child: GameContainer(
+      child: BaseScreen(
         child: StateProvider<LobbyState>(
           state: state,
           builder: (context, state) => Column(
@@ -54,6 +55,7 @@ class LobbyState extends BaseState {
   DatabaseReference? ref;
   int localCounter = 1;
   String remoteCounter = '';
+  StreamSubscription? subscription;
 
   LobbyState({required this.uri});
 
@@ -64,7 +66,7 @@ class LobbyState extends BaseState {
     final String matchId = result.data['id'];
 
     ref = FirebaseDatabase.instance.ref('matches/$matchId');
-    ref!.onValue.listen((event) {
+    subscription = ref!.onValue.listen((event) {
       final Map<Object?, Object?>? data =
           event.snapshot.value as Map<Object?, Object?>?;
 
@@ -105,8 +107,10 @@ class LobbyState extends BaseState {
     }
   }
 
-  /*@override
+  @override
   void onDestroy() {
     super.onDestroy();
-  }*/
+
+    subscription?.cancel();
+  }
 }

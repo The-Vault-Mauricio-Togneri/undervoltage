@@ -9,11 +9,13 @@ class CustomFormField extends StatelessWidget {
   final TextInputType inputType;
   final bool canBeEmpty;
   final bool enabled;
+  final bool autofocus;
   final TextAlign textAlign;
   final FocusNode? focusNode;
   final IconData? icon;
   final VoidCallback? onPressed;
   final VoidCallback? onIconPressed;
+  final Function(String)? onTextChanged;
   final String? suffixText;
 
   const CustomFormField({
@@ -23,11 +25,13 @@ class CustomFormField extends StatelessWidget {
     this.inputType = TextInputType.text,
     this.canBeEmpty = false,
     this.enabled = true,
+    this.autofocus = false,
     this.textAlign = TextAlign.start,
     this.focusNode,
     this.icon,
     this.onPressed,
     this.onIconPressed,
+    this.onTextChanged,
     this.suffixText,
   });
 
@@ -41,8 +45,10 @@ class CustomFormField extends StatelessWidget {
       obscureText: isPassword,
       keyboardType: inputType,
       focusNode: focusNode,
+      autofocus: autofocus,
       maxLength: 20,
       textCapitalization: TextCapitalization.sentences,
+      onChanged: onTextChanged,
       decoration: InputDecoration(
         labelText: label,
         suffixText: suffixText,

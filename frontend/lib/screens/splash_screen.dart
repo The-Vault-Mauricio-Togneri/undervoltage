@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:undervoltage/services/logged_user.dart';
 import 'package:undervoltage/services/navigation.dart';
-import 'package:undervoltage/widgets/game_container.dart';
+import 'package:undervoltage/widgets/base_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   final SplashState state;
@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GameContainer(
+    return const BaseScreen(
       child: Center(
         child: CircularProgressIndicator(),
       ),
@@ -39,8 +39,14 @@ class SplashState extends BaseState {
   Future _processUser(User? user) async {
     final User signedUser = await _getSignedUser(user);
     LoggedUser.get.load(signedUser);
-    Navigation.lobbyScreen(uri);
+
+    if (LoggedUser.get.hasName) {
+      Navigation.lobbyScreen(uri);
+    } else {
+      Navigation.setNameScreen();
+    }
   }
 
-  Future<User> _getSignedUser(User? user) async => user ?? (await FirebaseAuth.instance.signInAnonymously()).user!;
+  Future<User> _getSignedUser(User? user) async =>
+      user ?? (await FirebaseAuth.instance.signInAnonymously()).user!;
 }

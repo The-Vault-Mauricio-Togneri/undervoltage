@@ -6,9 +6,11 @@ class LoggedUser {
 
   String get id => _user.uid;
 
-  String get name => _user.displayName ?? 'Anonymous${id.hashCode % 1000}';
+  String get name => _user.displayName ?? 'Anonymous ${id.hashCode % 1000}';
 
   bool get isAnonymous => _user.isAnonymous;
+
+  bool get hasName => _user.displayName?.isNotEmpty ?? false;
 
   static LoggedUser get get => getIt<LoggedUser>();
 

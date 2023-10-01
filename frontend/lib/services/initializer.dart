@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:undervoltage/services/logged_user.dart';
 import 'package:undervoltage/services/navigation.dart';
@@ -30,7 +29,7 @@ class Initializer {
       await Firebase.initializeApp();
     }
 
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     //setPathUrlStrategy();
     getIt.registerSingleton<Navigation>(Navigation());
     getIt.registerSingleton<LoggedUser>(LoggedUser());
