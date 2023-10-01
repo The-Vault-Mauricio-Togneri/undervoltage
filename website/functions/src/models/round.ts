@@ -8,20 +8,55 @@ export class Round {
     private playersHand: Hands = new Hands(),
   ) {}
 
+  static randomCard(): Card {
+    const colorChoice = this.random(1, 3);
+    const color = (colorChoice === 1) ? 'red' : (
+      (colorChoice === 2) ? 'yellow' : 'blue'
+    );
+    const valueChoice = this.random(1, 10);
+    const diffChoice = this.random(1, 3);
+
+    return new Card(color, valueChoice, diffChoice);
+  }
+
+  static random(min: number, max: number): number {
+    return Math.floor(Math.random() * max + min);
+  }
+
   static new(players: Players): Round {
-    console.log(players);
+    let cards = [];
+
+    for (let i = 0; i < 73; i++) {
+      cards.push(this.randomCard());
+    }
+
+    cards = cards.sort(() => Math.random() - 0.5);
+    const firstCard = cards.pop();
+
+    const hands: Record<string, Hand> = {};
+
+    for (const player of players.list) {
+      hands[player.id] = new Hand(
+          [],
+          [],
+      );
+    }
+
+    while (cards.length >= players.length) {
+      for (const player of players.list) {
+        const hand = hands[player.id];
+
+        if (hand.revealedPile.length < 4) {
+          hand.revealedPile.push(cards.pop()!);
+        } else {
+          hand.hiddenPile.push(cards.pop()!);
+        }
+      }
+    }
 
     return new Round(
-        [
-          new Card('red', 1, 2),
-        ],
-        new Hands({
-          'xxx': new Hand([
-            new Card('yellow', 3, 4),
-          ], [
-            new Card('blue', 5, 6),
-          ]),
-        }),
+        [firstCard!],
+        new Hands(hands),
     );
   }
 

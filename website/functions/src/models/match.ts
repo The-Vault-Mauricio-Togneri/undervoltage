@@ -37,7 +37,7 @@ export class Match {
         params.creator.uid,
         'waitingForPlayers',
         players,
-        1,
+        0,
         new Round(),
     );
   }
@@ -80,6 +80,7 @@ export class Match {
           player.setStatus('playing');
         }
 
+        this.roundCount++;
         this.round = Round.new(this.players);
       }
 
