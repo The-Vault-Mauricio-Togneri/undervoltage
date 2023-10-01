@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:undervoltage/screens/lobby_screen.dart';
+import 'package:undervoltage/screens/match_screen.dart';
 import 'package:undervoltage/screens/set_name_screen.dart';
 import 'package:undervoltage/services/initializer.dart';
 
@@ -24,6 +25,13 @@ class Navigation {
         FadeRoute(
           LobbyScreen.instance(uri: uri),
           name: 'lobby',
+        ),
+      );
+
+  static void matchScreen(String matchId) => get.routes.push(
+        FadeRoute(
+          MatchScreen.instance(matchId: matchId),
+          name: 'match',
         ),
       );
 }

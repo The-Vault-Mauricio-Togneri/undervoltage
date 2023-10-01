@@ -28,7 +28,7 @@ class LoadingDialog extends StatelessWidget {
         content: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircularProgressIndicator(color: Theme.of(context).colorScheme.primary),
+            const CircularProgressIndicator(),
             const HBox(30),
             Text(text),
           ],
