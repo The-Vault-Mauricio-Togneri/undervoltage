@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:undervoltage/services/logged_user.dart';
@@ -16,33 +15,28 @@ class SetNameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: BaseScreen(
-        child: StateProvider<SetNameState>(
-          state: state,
-          builder: (context, state) => Padding(
-            padding: const EdgeInsets.all(20),
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CustomFormField(
-                    label: 'Nickname',
-                    autofocus: true,
-                    controller: state.nameController,
-                    onTextChanged: state.onTextChanged,
-                  ),
-                  const VBox(20),
-                  ElevatedButton(
-                    onPressed: state.buttonEnabled ? state.setName : null,
-                    child: const Text('SET NICKNAME'),
-                  ),
-                ],
-              ),
+    return BaseScreen(
+      child: StateProvider<SetNameState>(
+        state: state,
+        builder: (context, state) => Padding(
+          padding: const EdgeInsets.all(20),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomFormField(
+                  label: 'Nickname',
+                  autofocus: true,
+                  controller: state.nameController,
+                  onTextChanged: state.onTextChanged,
+                ),
+                const VBox(20),
+                ElevatedButton(
+                  onPressed: state.buttonEnabled ? state.setName : null,
+                  child: const Text('SET NICKNAME'),
+                ),
+              ],
             ),
           ),
         ),
