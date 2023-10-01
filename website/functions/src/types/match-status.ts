@@ -1,1 +1,1 @@
-export type MatchStatus = 'waitingForPlayers'
+export type MatchStatus = 'waitingForPlayers' | 'started'

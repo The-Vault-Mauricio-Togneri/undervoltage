@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:undervoltage/app/constants.dart';
 import 'package:undervoltage/callables/create_match.dart';
+import 'package:undervoltage/callables/join_match.dart';
 import 'package:undervoltage/dialogs/loading_dialog.dart';
 import 'package:undervoltage/services/clipboard_text.dart';
 import 'package:undervoltage/services/navigation.dart';
@@ -92,7 +93,8 @@ class LobbyState extends BaseState {
   }
 
   Future onCreateMatch() async {
-    final DialogController controller = LoadingDialog.loading('Creating match');
+    final DialogController controller =
+        LoadingDialog.loading('Creating match...');
 
     try {
       final HttpsCallableResult result = await const CreateMatch()(
@@ -111,7 +113,21 @@ class LobbyState extends BaseState {
 
   void onJoinMatch() => _joinMatch(matchIdController.text.trim());
 
-  Future _joinMatch(String matchId) async {}
+  Future _joinMatch(String matchId) async {
+    final DialogController controller =
+        LoadingDialog.loading('Joining match...');
+
+    try {
+      await const JoinMatch()(
+        matchId: matchId,
+      );
+      controller.close();
+      Navigation.matchScreen(matchId);
+    } catch (e) {
+      controller.close();
+      print(e);
+    }
+  }
 
   void onCopyAndShare(String matchId) {
     final String link = '${Constants.MATCH_URL}$matchId';

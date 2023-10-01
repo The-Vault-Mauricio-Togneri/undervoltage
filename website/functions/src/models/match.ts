@@ -5,6 +5,7 @@ import {Player} from './player';
 
 export class Match {
   private id: string;
+  private status: MatchStatus;
 
   constructor(
       id: string,
@@ -12,10 +13,15 @@ export class Match {
     readonly maxPoints: number,
     readonly createdAt: Date,
     readonly creator: string,
-    readonly status: MatchStatus,
+    status: MatchStatus,
     readonly players: Record<string, Player>,
   ) {
     this.id = id;
+    this.status = status;
+  }
+
+  public get playersJoined(): number {
+    return Object.keys(this.players).length;
   }
 
   static new(params: {
@@ -31,13 +37,15 @@ export class Match {
         params.creator.uid,
         'waitingForPlayers',
         {
-          [params.creator.uid]: new Player(
-              params.creator.uid,
-              params.creator.displayName ?? 'Anonymous',
-              0,
-          ),
+          [params.creator.uid]: Player.fromUser(params.creator),
         },
     );
+  }
+
+  static async load(matchId: string) {
+    const snapshot = await getDatabase().ref(`matches/${matchId}`).get();
+
+    return Match.parse(snapshot.toJSON());
   }
 
   static parse(data: any): Match {
@@ -59,6 +67,32 @@ export class Match {
     );
   }
 
+  public async create() {
+    this.id = getDatabase().ref('matches').push().key ?? '';
+
+    const matchesRef = getDatabase().ref(`matches/${this.id}`);
+    await matchesRef.update(this.json());
+
+    return {
+      id: this.id,
+    };
+  }
+
+  public async join(user: UserRecord) {
+    if (this.playersJoined < this.numberOfPlayers) {
+      this.players[user.uid ?? ''] = Player.fromUser(user);
+
+      if (this.playersJoined === this.numberOfPlayers) {
+        this.status = 'started';
+      }
+
+      const matchesRef = getDatabase().ref(`matches/${this.id}`);
+      await matchesRef.update(this.json());
+    } else {
+      throw new Error('Match is full');
+    }
+  }
+
   public json() {
     const players: any = {};
 
@@ -74,17 +108,6 @@ export class Match {
       creator: this.creator,
       status: this.status,
       players: players,
-    };
-  }
-
-  public async create() {
-    this.id = getDatabase().ref('matches').push().key ?? '';
-
-    const matchesRef = getDatabase().ref(`matches/${this.id}`);
-    await matchesRef.update(this.json());
-
-    return {
-      id: this.id,
     };
   }
 }
