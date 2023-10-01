@@ -99,7 +99,7 @@ class LobbyState extends BaseState {
         numberOfPlayers: 3,
         maxPoints: 100,
       );
-      final String matchId = result.data['id'];
+      final String matchId = result.data['matchId'];
       controller.close();
       onCopyAndShare(matchId);
       Navigation.matchScreen(matchId);
