@@ -96,7 +96,7 @@ class LobbyState extends BaseState {
 
     try {
       final HttpsCallableResult result = await const CreateMatch()(
-        numberOfPlayers: 3,
+        numberOfPlayers: 2,
         maxPoints: 100,
       );
       final String matchId = result.data['matchId'];
