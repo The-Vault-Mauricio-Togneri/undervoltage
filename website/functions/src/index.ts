@@ -8,9 +8,11 @@ admin.initializeApp();
 
 exports.createMatch = onCall(createMatch);
 
+const isEmulator = Boolean(process.env.FUNCTIONS_EMULATOR);
+
 export const onMatchUpdatedTrigger = onValueUpdated({
   ref: '/matches/{matchId}',
-  region: 'europe-west1',
+  region: isEmulator ? 'us-central1' : 'europe-west1',
 }, (event) => {
   return onMatchUpdated(event.data.after, event.params);
 });
