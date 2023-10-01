@@ -87,9 +87,9 @@ class LobbyState extends BaseState {
       final HttpsCallableResult result =
           await const CreateMatch()(text: 'YES!');
       final String matchId = result.data['id'];
+      controller.close();
       onCopyAndShare(matchId);
       Navigation.matchScreen(matchId);
-      controller.close();
     } catch (e) {
       controller.close();
     }
