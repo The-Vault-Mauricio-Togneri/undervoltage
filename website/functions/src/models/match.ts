@@ -42,10 +42,10 @@ export class Match {
 
   static parse(data: any): Match {
     const players: Record<string, Player> = {};
+    const playersMap = data['players'];
 
-    for (const playerData of data['players']) {
-      const player = Player.parse(playerData);
-      players[player.id] = player;
+    for (const playerId of Object.keys(playersMap)) {
+      players[playerId] = Player.parse(playersMap[playerId]);
     }
 
     return new Match(

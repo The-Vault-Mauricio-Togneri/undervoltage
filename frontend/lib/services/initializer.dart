@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -6,6 +7,7 @@ import 'package:undervoltage/services/navigation.dart';
 import 'package:undervoltage/services/platform.dart';
 
 final GetIt getIt = GetIt.instance;
+bool isLocal = true;
 
 class Initializer {
   static Future load() async {
@@ -27,6 +29,10 @@ class Initializer {
       );
     } else {
       await Firebase.initializeApp();
+    }
+
+    if (isLocal) {
+      FirebaseAuth.instance.useAuthEmulator('10.0.2.2', 9099);
     }
 
     //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);

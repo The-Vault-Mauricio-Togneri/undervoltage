@@ -105,6 +105,7 @@ class LobbyState extends BaseState {
       Navigation.matchScreen(matchId);
     } catch (e) {
       controller.close();
+      print(e);
     }
   }
 
