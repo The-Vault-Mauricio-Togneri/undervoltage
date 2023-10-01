@@ -1,5 +1,5 @@
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:undervoltage/services/initializer.dart';
+import 'package:undervoltage/environments/environment.dart';
 
 abstract class Callable {
   final String name;
@@ -15,7 +15,7 @@ abstract class Callable {
   HttpsCallable _callable({
     required String name,
   }) {
-    if (isLocal) {
+    if (Environment.get.isLocal) {
       FirebaseFunctions.instance.useFunctionsEmulator('10.0.2.2', 5001);
 
       return FirebaseFunctions.instance.httpsCallableFromUrl(

@@ -1,17 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:undervoltage/environments/environment.dart';
 import 'package:undervoltage/services/logged_user.dart';
 import 'package:undervoltage/services/navigation.dart';
 import 'package:undervoltage/services/platform.dart';
 
-final GetIt getIt = GetIt.instance;
-bool isLocal = true;
+final GetIt locator = GetIt.instance;
 
-class Initializer {
-  static Future load() async {
+class Locator {
+  static Future initialize(Environment environment) async {
     WidgetsFlutterBinding.ensureInitialized();
+
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
     if (Platform.isWeb) {
       await Firebase.initializeApp(
@@ -31,13 +36,11 @@ class Initializer {
       await Firebase.initializeApp();
     }
 
-    if (isLocal) {
-      FirebaseAuth.instance.useAuthEmulator('10.0.2.2', 9099);
-    }
-
-    //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     //setPathUrlStrategy();
-    getIt.registerSingleton<Navigation>(Navigation());
-    getIt.registerSingleton<LoggedUser>(LoggedUser());
+    locator.registerSingleton<Environment>(environment);
+    locator.registerSingleton<Navigation>(Navigation());
+    locator.registerSingleton<LoggedUser>(LoggedUser());
+
+    await environment.configure();
   }
 }

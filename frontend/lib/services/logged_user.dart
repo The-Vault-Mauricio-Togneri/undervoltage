@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:undervoltage/services/initializer.dart';
+import 'package:undervoltage/services/locator.dart';
 
 class LoggedUser {
   late User _user;
@@ -12,7 +12,7 @@ class LoggedUser {
 
   bool get hasName => _user.displayName?.isNotEmpty ?? false;
 
-  static LoggedUser get get => getIt<LoggedUser>();
+  static LoggedUser get get => locator<LoggedUser>();
 
   void load(User user) => _user = user;
 

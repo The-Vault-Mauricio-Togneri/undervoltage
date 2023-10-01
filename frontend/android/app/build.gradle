@@ -73,6 +73,21 @@ android
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions 'app'
+
+    productFlavors
+    {
+        local
+        {
+            dimension 'app'
+        }
+ 
+        remote
+        {
+            dimension 'app'
+        }
+    }
 }
 
 flutter {
