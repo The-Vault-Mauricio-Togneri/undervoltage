@@ -1,15 +1,15 @@
-import {initializeApp, auth} from 'firebase-admin';
+import * as admin from 'firebase-admin';
 import {getDatabase} from 'firebase-admin/database';
 import {onCall} from 'firebase-functions/v2/https';
 
-initializeApp();
+admin.initializeApp();
 const db = getDatabase();
 
 exports.createMatch = onCall(async (request) => {
   const userId = request.auth?.uid;
 
   if (userId) {
-    const user = await auth().getUser(userId);
+    const user = await admin.auth().getUser(userId);
     const matchesRef = db.ref('matches');
     const matchRef = await matchesRef.push({
       numberOfPlayers: Number(request.data.numberOfPlayers),
