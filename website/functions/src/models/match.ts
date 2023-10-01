@@ -4,21 +4,15 @@ import {getDatabase} from 'firebase-admin/database';
 import {Player} from './player';
 
 export class Match {
-  private id: string;
-  private status: MatchStatus;
-
   constructor(
-      id: string,
-    readonly numberOfPlayers: number,
-    readonly maxPoints: number,
-    readonly createdAt: Date,
-    readonly creator: string,
-    status: MatchStatus,
-    readonly players: Record<string, Player>,
-  ) {
-    this.id = id;
-    this.status = status;
-  }
+    private id: string,
+    private numberOfPlayers: number,
+    private maxPoints: number,
+    private createdAt: Date,
+    private creator: string,
+    private status: MatchStatus,
+    private players: Record<string, Player>,
+  ) {}
 
   public get playersJoined(): number {
     return Object.keys(this.players).length;
@@ -78,7 +72,7 @@ export class Match {
 
   public async join(user: UserRecord) {
     if (this.playersJoined < this.numberOfPlayers) {
-      this.players[user.uid ?? ''] = Player.fromUser(user);
+      this.players[user.uid] = Player.fromUser(user);
 
       if (this.playersJoined === this.numberOfPlayers) {
         this.status = 'started';

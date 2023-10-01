@@ -2,9 +2,9 @@ import {UserRecord} from 'firebase-admin/auth';
 
 export class Player {
   constructor(
-    readonly id: string,
-    readonly name: string,
-    readonly points: number,
+    private id: string,
+    private name: string,
+    private points: number,
   ) {}
 
   static fromUser(user: UserRecord): Player {
