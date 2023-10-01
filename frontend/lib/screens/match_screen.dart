@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:undervoltage/json/json_match.dart';
 import 'package:undervoltage/services/palette.dart';
+import 'package:undervoltage/types/match_status.dart';
 import 'package:undervoltage/widgets/base_screen.dart';
 import 'package:undervoltage/widgets/label.dart';
 
@@ -21,22 +22,52 @@ class MatchScreen extends StatelessWidget {
     return BaseScreen(
       child: StateProvider<MatchState>(
         state: state,
-        builder: (context, state) => Padding(
-          padding: const EdgeInsets.all(20),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Label(
-                  text: state.matchId,
-                  color: Palette.grey,
-                  size: 14,
-                ),
-              ],
-            ),
-          ),
-        ),
+        builder: (context, state) => _child(state),
+      ),
+    );
+  }
+
+  Widget _child(MatchState state) {
+    if (state.isWaitingForPlayers) {
+      return WaitingForPlayers(state);
+    } else if (state.isStarted) {
+      return Started(state);
+    } else {
+      return const Empty();
+    }
+  }
+}
+
+class WaitingForPlayers extends StatelessWidget {
+  final MatchState state;
+
+  const WaitingForPlayers(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Label(
+        text:
+            'Waiting for players: ${state.playersJoined}/${state.numberOfPlayers}',
+        color: Palette.grey,
+        size: 14,
+      ),
+    );
+  }
+}
+
+class Started extends StatelessWidget {
+  final MatchState state;
+
+  const Started(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Label(
+        text: 'Started',
+        color: Palette.grey,
+        size: 14,
       ),
     );
   }
@@ -49,6 +80,15 @@ class MatchState extends BaseState {
   JsonMatch? match;
 
   MatchState({required this.matchId});
+
+  bool get isWaitingForPlayers =>
+      match?.status == MatchStatus.waitingForPlayers;
+
+  bool get isStarted => match?.status == MatchStatus.started;
+
+  int get numberOfPlayers => match?.numberOfPlayers ?? 0;
+
+  int get playersJoined => match?.playersJoined ?? 0;
 
   @override
   void onLoad() {
@@ -70,6 +110,7 @@ class MatchState extends BaseState {
 
   void onMatchUpdated(JsonMatch match) {
     print(match);
+    notify();
   }
 
   @override

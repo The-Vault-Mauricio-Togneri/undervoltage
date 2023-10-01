@@ -11,6 +11,9 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       numberOfPlayers: json['numberOfPlayers'] as int,
       maxPoints: json['maxPoints'] as int,
       status: $enumDecode(_$MatchStatusEnumMap, json['status']),
+      players: (json['players'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, JsonPlayer.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
@@ -18,6 +21,7 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'numberOfPlayers': instance.numberOfPlayers,
       'maxPoints': instance.maxPoints,
       'status': _$MatchStatusEnumMap[instance.status]!,
+      'players': instance.players,
     };
 
 const _$MatchStatusEnumMap = {
