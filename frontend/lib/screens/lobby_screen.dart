@@ -103,7 +103,7 @@ class LobbyState extends BaseState {
       );
       final String matchId = result.data['matchId'];
       controller.close();
-      onCopyAndShare(matchId);
+      // onCopyAndShare(matchId);
       Navigation.matchScreen(matchId);
     } catch (e) {
       controller.close();

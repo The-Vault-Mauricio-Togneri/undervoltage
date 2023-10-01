@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -55,15 +56,9 @@ class MatchState extends BaseState {
 
     matchRef = FirebaseDatabase.instance.ref('matches/$matchId');
     subscription = matchRef.onValue.listen((event) {
-      final Map<Object?, Object?>? data =
-          event.snapshot.value as Map<Object?, Object?>?;
-      final test =
-          JsonMatch.fromJson(event.snapshot.value as Map<String, dynamic>);
-      print(test);
-
-      if (data != null) {
-        onMatchUpdated(data);
-      }
+      final json = jsonEncode(event.snapshot.value);
+      match = JsonMatch.fromJson(jsonDecode(json));
+      onMatchUpdated(match!);
     });
   }
 
@@ -73,8 +68,8 @@ class MatchState extends BaseState {
     });
   }*/
 
-  void onMatchUpdated(Map<Object?, Object?> data) {
-    print(data);
+  void onMatchUpdated(JsonMatch match) {
+    print(match);
   }
 
   @override
