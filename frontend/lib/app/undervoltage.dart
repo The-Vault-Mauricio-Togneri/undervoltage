@@ -17,7 +17,7 @@ class Undervoltage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: Navigation.get.routes.key,
       theme: ThemeData(
-        primarySwatch: Palette.primary,
+        colorScheme: ColorScheme.fromSeed(seedColor: Palette.primary),
         scaffoldBackgroundColor: Palette.white,
       ),
       localizationsDelegates: const [

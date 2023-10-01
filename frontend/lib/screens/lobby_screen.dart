@@ -1,4 +1,6 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dafluta/dafluta.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:undervoltage/app/constants.dart';
@@ -25,7 +27,22 @@ class LobbyScreen extends StatelessWidget {
       child: GameContainer(
         child: StateProvider<LobbyState>(
           state: state,
-          builder: (context, state) => const Empty(),
+          builder: (context, state) => Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: state.onCreateMatch,
+                child: const Text('CREATE MATCH'),
+              ),
+              const VBox(20),
+              ElevatedButton(
+                onPressed: state.onPutCard,
+                child: const Text('PUT CARD'),
+              ),
+              const VBox(20),
+              Text(state.remoteCounter),
+            ],
+          ),
         ),
       ),
     );
@@ -34,17 +51,38 @@ class LobbyScreen extends StatelessWidget {
 
 class LobbyState extends BaseState {
   final Uri uri;
+  DatabaseReference? ref;
+  int localCounter = 1;
+  String remoteCounter = '';
 
   LobbyState({required this.uri});
 
   String? getMatchId() => uri.queryParameters['match'];
 
-  @override
-  Future onLoad() async {
-    super.onLoad();
+  Future onCreateMatch() async {
+    final HttpsCallableResult result = await const CreateMatch()(text: 'YES!');
+    final String matchId = result.data['id'];
 
-    final result = await const CreateMatch()(text: 'YES!');
-    print(result.data['id']);
+    ref = FirebaseDatabase.instance.ref('matches/$matchId');
+    ref!.onValue.listen((event) {
+      final Map<Object?, Object?>? data =
+          event.snapshot.value as Map<Object?, Object?>?;
+
+      if (data != null) {
+        onMatchUpdated(data);
+      }
+    });
+  }
+
+  Future onPutCard() async {
+    ref?.update({
+      'counter': localCounter++,
+    });
+  }
+
+  void onMatchUpdated(Map<Object?, Object?> data) {
+    remoteCounter = data['counter']?.toString() ?? '';
+    notify();
   }
 
   void onCopyAndShare() {
