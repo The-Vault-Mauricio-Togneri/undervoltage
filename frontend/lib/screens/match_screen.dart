@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:undervoltage/app/constants.dart';
 import 'package:undervoltage/json/json_card.dart';
 import 'package:undervoltage/json/json_hand.dart';
 import 'package:undervoltage/json/json_match.dart';
@@ -11,6 +10,8 @@ import 'package:undervoltage/services/logged_user.dart';
 import 'package:undervoltage/services/palette.dart';
 import 'package:undervoltage/types/match_status.dart';
 import 'package:undervoltage/widgets/base_screen.dart';
+import 'package:undervoltage/widgets/face_down_pile.dart';
+import 'package:undervoltage/widgets/face_up_card.dart';
 import 'package:undervoltage/widgets/label.dart';
 
 class MatchScreen extends StatelessWidget {
@@ -160,148 +161,6 @@ class PlayerHandRevealed extends StatelessWidget {
               ),
             ),
         ],
-      ),
-    );
-  }
-}
-
-class FaceUpCard extends StatelessWidget {
-  final JsonCard card;
-  final Function(JsonCard) onPressed;
-
-  const FaceUpCard({
-    required this.card,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final double cardWidth = (MediaQuery.of(context).size.width - 104) / 4;
-
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        border: Border.all(
-          width: 0.5,
-          color: Palette.grey,
-        ),
-      ),
-      child: Container(
-        width: cardWidth,
-        height: cardWidth * 1.56,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          border: Border.all(
-            width: cardWidth / 15,
-            color: Palette.white,
-          ),
-          color: Palette.fromCard(card),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(cardWidth / 20),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Label(
-                  text: '±${card.diff}',
-                  color: Palette.white,
-                  size: cardWidth / 3,
-                  weight: FontWeight.bold,
-                ),
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Label(
-                  text: card.value.toString(),
-                  color: Palette.white,
-                  size: cardWidth / 3.5,
-                  weight: FontWeight.bold,
-                ),
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Label(
-                  text: card.value.toString(),
-                  color: Palette.white,
-                  size: cardWidth / 3.5,
-                  weight: FontWeight.bold,
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Label(
-                  text: card.value.toString(),
-                  color: Palette.white,
-                  size: cardWidth / 3.5,
-                  weight: FontWeight.bold,
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Label(
-                  text: card.value.toString(),
-                  color: Palette.white,
-                  size: cardWidth / 3.5,
-                  weight: FontWeight.bold,
-                ),
-              ),
-              Material(
-                color: Palette.transparent,
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                child: InkWell(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  onTap: () => onPressed(card),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class FaceDownPile extends StatelessWidget {
-  final List<JsonCard> cards;
-  final VoidCallback? onPressed;
-
-  const FaceDownPile({
-    required this.cards,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final double cardWidth = (MediaQuery.of(context).size.width - 104) / 4;
-
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        border: Border.all(
-          width: 0.5,
-          color: Palette.grey,
-        ),
-      ),
-      child: Container(
-        width: cardWidth,
-        height: cardWidth * 1.56,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          border: Border.all(
-            width: cardWidth / 15,
-            color: Palette.white,
-          ),
-          color: Palette.grey,
-        ),
-        child: Material(
-          color: Palette.transparent,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          child: InkWell(
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            onTap: onPressed,
-          ),
-        ),
       ),
     );
   }
