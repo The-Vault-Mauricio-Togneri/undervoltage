@@ -14,8 +14,8 @@ class MatchScreen extends StatelessWidget {
 
   const MatchScreen._(this.state);
 
-  factory MatchScreen.instance({required String matchId}) =>
-      MatchScreen._(MatchState(matchId: matchId));
+  factory MatchScreen.instance({required JsonMatch match}) =>
+      MatchScreen._(MatchState(match: match));
 
   @override
   Widget build(BuildContext context) {
@@ -74,31 +74,29 @@ class Started extends StatelessWidget {
 }
 
 class MatchState extends BaseState {
-  final String matchId;
   late final DatabaseReference matchRef;
   late final StreamSubscription subscription;
-  JsonMatch? match;
+  JsonMatch match;
 
-  MatchState({required this.matchId});
+  MatchState({required this.match});
 
-  bool get isWaitingForPlayers =>
-      match?.status == MatchStatus.waitingForPlayers;
+  bool get isWaitingForPlayers => match.status == MatchStatus.waitingForPlayers;
 
-  bool get isPlaying => match?.status == MatchStatus.playing;
+  bool get isPlaying => match.status == MatchStatus.playing;
 
-  int get numberOfPlayers => match?.numberOfPlayers ?? 0;
+  int get numberOfPlayers => match.numberOfPlayers;
 
-  int get playersJoined => match?.playersJoined ?? 0;
+  int get playersJoined => match.playersJoined;
 
   @override
   void onLoad() {
     super.onLoad();
 
-    matchRef = FirebaseDatabase.instance.ref('matches/$matchId');
+    matchRef = FirebaseDatabase.instance.ref('matches/${match.id}');
     subscription = matchRef.onValue.listen((event) {
       final json = jsonEncode(event.snapshot.value);
       match = JsonMatch.fromJson(jsonDecode(json));
-      onMatchUpdated(match!);
+      onMatchUpdated(match);
     });
   }
 

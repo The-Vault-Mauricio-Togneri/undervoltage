@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
+import 'package:undervoltage/json/json_match.dart';
 import 'package:undervoltage/screens/lobby_screen.dart';
 import 'package:undervoltage/screens/match_screen.dart';
 import 'package:undervoltage/screens/set_name_screen.dart';
@@ -28,9 +29,9 @@ class Navigation {
         ),
       );
 
-  static void matchScreen(String matchId) => get.routes.push(
+  static void matchScreen(JsonMatch match) => get.routes.push(
         FadeRoute(
-          MatchScreen.instance(matchId: matchId),
+          MatchScreen.instance(match: match),
           name: 'match',
         ),
       );

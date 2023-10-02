@@ -23,6 +23,14 @@ class JsonMatch {
 
   int get playersJoined => players.length;
 
+  factory JsonMatch.fromId(String id) => JsonMatch(
+        id: id,
+        numberOfPlayers: 0,
+        maxPoints: 0,
+        status: MatchStatus.waitingForPlayers,
+        players: {},
+      );
+
   factory JsonMatch.fromString(String json) =>
       JsonMatch.fromJson(jsonDecode(json));
 

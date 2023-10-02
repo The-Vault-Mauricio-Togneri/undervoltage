@@ -7,6 +7,7 @@ import 'package:undervoltage/app/constants.dart';
 import 'package:undervoltage/callables/create_match.dart';
 import 'package:undervoltage/callables/join_match.dart';
 import 'package:undervoltage/dialogs/loading_dialog.dart';
+import 'package:undervoltage/json/json_match.dart';
 import 'package:undervoltage/services/clipboard_text.dart';
 import 'package:undervoltage/services/navigation.dart';
 import 'package:undervoltage/services/palette.dart';
@@ -102,9 +103,10 @@ class LobbyState extends BaseState {
         maxPoints: 100,
       );
       final String matchId = result.data['matchId'];
+      final JsonMatch match = JsonMatch.fromId(matchId);
       controller.close();
       // onCopyAndShare(matchId);
-      Navigation.matchScreen(matchId);
+      Navigation.matchScreen(match);
     } catch (e) {
       controller.close();
       print(e);
@@ -122,7 +124,8 @@ class LobbyState extends BaseState {
         matchId: matchId,
       );
       controller.close();
-      Navigation.matchScreen(matchId);
+      final JsonMatch match = JsonMatch.fromId(matchId);
+      Navigation.matchScreen(match);
     } catch (e) {
       controller.close();
       print(e);
