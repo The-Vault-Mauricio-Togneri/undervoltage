@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:undervoltage/json/json_hand.dart';
 import 'package:undervoltage/json/json_match.dart';
+import 'package:undervoltage/services/logged_user.dart';
 import 'package:undervoltage/services/palette.dart';
 import 'package:undervoltage/types/match_status.dart';
 import 'package:undervoltage/widgets/base_screen.dart';
@@ -88,6 +90,13 @@ class MatchState extends BaseState {
 
   int get playersJoined => match.playersJoined;
 
+  JsonHand get hand =>
+      match.round.playersHand[LoggedUser.get.id] ??
+      const JsonHand(
+        hiddenPile: [],
+        revealedPile: [],
+      );
+
   @override
   void onLoad() {
     super.onLoad();
@@ -100,11 +109,18 @@ class MatchState extends BaseState {
     });
   }
 
-  /*Future onPutCard() async {
-    ref?.update({
-      'counter': localCounter++,
+  Future onPutCard() async {
+    await matchRef.runTransaction((Object? post) {
+      if (post == null) {
+        return Transaction.abort();
+      }
+
+      final Map<String, dynamic> _post = Map<String, dynamic>.from(post as Map);
+      _post['stars'] = 0;
+
+      return Transaction.success(_post);
     });
-  }*/
+  }
 
   void onMatchUpdated(JsonMatch match) {
     print(match);

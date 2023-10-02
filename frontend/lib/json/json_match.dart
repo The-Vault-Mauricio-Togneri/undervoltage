@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:undervoltage/json/json_player.dart';
+import 'package:undervoltage/json/json_round.dart';
 import 'package:undervoltage/types/match_status.dart';
 
 part 'json_match.g.dart';
@@ -12,6 +13,8 @@ class JsonMatch {
   final int maxPoints;
   final MatchStatus status;
   final Map<String, JsonPlayer> players;
+  final int roundCount;
+  final JsonRound round;
 
   const JsonMatch({
     required this.id,
@@ -19,6 +22,8 @@ class JsonMatch {
     required this.maxPoints,
     required this.status,
     required this.players,
+    required this.roundCount,
+    required this.round,
   });
 
   int get playersJoined => players.length;
@@ -29,6 +34,11 @@ class JsonMatch {
         maxPoints: 0,
         status: MatchStatus.waitingForPlayers,
         players: {},
+        roundCount: 0,
+        round: const JsonRound(
+          discardPile: [],
+          playersHand: {},
+        ),
       );
 
   factory JsonMatch.fromString(String json) =>
