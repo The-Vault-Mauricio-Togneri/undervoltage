@@ -8,7 +8,7 @@ class JoinMatch extends Callable {
     required String matchId,
   }) {
     final Map<String, Object?> parameters = {
-      'matchId': matchId,
+      'matchId': matchId.trim(),
     };
 
     return super.invoke(parameters);

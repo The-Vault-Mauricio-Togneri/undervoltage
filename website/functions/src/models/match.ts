@@ -70,6 +70,10 @@ export class Match {
   }
 
   public async join(user: UserRecord) {
+    if (this.players.has(user.uid)) {
+      return;
+    }
+
     if (this.playersJoined < this.numberOfPlayers) {
       this.players.add(Player.fromUser(user));
 

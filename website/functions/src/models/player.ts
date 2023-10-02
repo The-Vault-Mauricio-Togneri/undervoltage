@@ -15,6 +15,10 @@ export class Players {
     return Object.values(this.data);
   }
 
+  public has(playerId: string) {
+    return Object.keys(this.data).includes(playerId);
+  }
+
   public add(player: Player) {
     this.data[player.id] = player;
   }
