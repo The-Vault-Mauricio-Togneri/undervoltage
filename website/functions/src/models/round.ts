@@ -39,6 +39,7 @@ export class Round {
       hands[player.id] = new Hand(
           [],
           [],
+          0,
       );
     }
 
@@ -62,8 +63,8 @@ export class Round {
 
   static parse(data: any): Round {
     return new Round(
-        data['discardPile'],
-        data['playersHand'],
+        data['discardPile'], // TODO
+        data['playersHand'], // TODO
     );
   }
 

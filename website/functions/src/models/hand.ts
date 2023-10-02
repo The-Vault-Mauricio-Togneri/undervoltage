@@ -44,12 +44,14 @@ export class Hand {
   constructor(
     public hiddenPile: Card[],
     public revealedPile: Card[],
+    public faults: number,
   ) {}
 
   static parse(data: any): Hand {
     return new Hand(
-        data['hiddenPile'],
-        data['discardPile'],
+        data['hiddenPile'], // TODO
+        data['discardPile'], // TODO
+        data['number'] as number,
     );
   }
 

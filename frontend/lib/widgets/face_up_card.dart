@@ -5,7 +5,7 @@ import 'package:undervoltage/widgets/label.dart';
 
 class FaceUpCard extends StatelessWidget {
   final JsonCard card;
-  final Function(JsonCard) onPressed;
+  final Function(JsonCard)? onPressed;
 
   const FaceUpCard({
     required this.card,
@@ -89,7 +89,7 @@ class FaceUpCard extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: InkWell(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  onTap: () => onPressed(card),
+                  onTap: () => onPressed?.call(card),
                 ),
               ),
             ],

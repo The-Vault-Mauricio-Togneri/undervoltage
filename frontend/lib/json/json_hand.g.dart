@@ -7,12 +7,14 @@ part of 'json_hand.dart';
 // **************************************************************************
 
 JsonHand _$JsonHandFromJson(Map<String, dynamic> json) => JsonHand(
-      hiddenPile: (json['hiddenPile'] as List<dynamic>)
-          .map((e) => JsonCard.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      revealedPile: (json['revealedPile'] as List<dynamic>)
-          .map((e) => JsonCard.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      hiddenPile: (json['hiddenPile'] as List<dynamic>?)
+              ?.map((e) => JsonCard.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      revealedPile: (json['revealedPile'] as List<dynamic>?)
+              ?.map((e) => JsonCard.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$JsonHandToJson(JsonHand instance) => <String, dynamic>{

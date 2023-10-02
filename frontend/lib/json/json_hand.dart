@@ -10,9 +10,24 @@ class JsonHand {
   final List<JsonCard> revealedPile;
 
   const JsonHand({
-    required this.hiddenPile,
-    required this.revealedPile,
+    this.hiddenPile = const [],
+    this.revealedPile = const [],
   });
+
+  void revealCard() {
+    if (hiddenPile.isNotEmpty) {
+      final JsonCard topCard = hiddenPile.removeLast();
+      revealedPile.add(topCard);
+    }
+  }
+
+  void playCard(JsonCard card) {
+    revealedPile.remove(card);
+
+    if (revealedPile.isEmpty) {
+      revealCard();
+    }
+  }
 
   factory JsonHand.fromString(String json) =>
       JsonHand.fromJson(jsonDecode(json));

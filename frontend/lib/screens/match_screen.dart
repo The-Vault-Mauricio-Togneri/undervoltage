@@ -98,8 +98,8 @@ class DiscardPile extends StatelessWidget {
         top: 50,
         bottom: 50,
       ),
-      child: FaceDownPile(
-        cards: state.match.round.discardPile,
+      child: FaceUpCard(
+        card: state.match.round.discardPile.last,
         onPressed: null,
       ),
     );
@@ -119,10 +119,14 @@ class PlayerHand extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            FaceDownPile(
-              cards: state.hand.hiddenPile,
-              onPressed: state.onDiscardPilePressed,
-            ),
+            if (state.hand.hiddenPile.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: FaceDownPile(
+                  cards: state.hand.hiddenPile,
+                  onPressed: state.onDiscardPilePressed,
+                ),
+              ),
             PlayerHandRevealed(
               cards: state.hand.revealedPile,
               onPressed: state.onPlayCard,
@@ -226,12 +230,15 @@ class MatchState extends BaseState {
 
   void onDiscardPilePressed() {
     final JsonHand currentHand = hand;
-    final JsonCard topCard = currentHand.hiddenPile.removeLast();
-    currentHand.revealedPile.add(topCard);
+    currentHand.revealCard();
     updateHand(currentHand);
   }
 
-  void onPlayCard(JsonCard json) {}
+  void onPlayCard(JsonCard card) {
+    final JsonHand currentHand = hand;
+    currentHand.playCard(card);
+    updateHand(currentHand);
+  }
 
   void onMatchUpdated(JsonMatch match) {
     print(match);

@@ -11,8 +11,8 @@ class JsonRound {
   final Map<String, JsonHand> playersHand;
 
   const JsonRound({
-    required this.discardPile,
     required this.playersHand,
+    this.discardPile = const [],
   });
 
   factory JsonRound.fromString(String json) =>
