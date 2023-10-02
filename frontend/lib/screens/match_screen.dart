@@ -146,6 +146,7 @@ class PlayerHandRevealed extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Wrap(
+        alignment: WrapAlignment.center,
         children: [
           for (final JsonCard card in cards)
             Padding(
@@ -175,6 +176,8 @@ class FaceUpCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double cardWidth = (MediaQuery.of(context).size.width - 104) / 4;
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -184,18 +187,18 @@ class FaceUpCard extends StatelessWidget {
         ),
       ),
       child: Container(
-        width: Constants.CARD_WIDTH,
-        height: Constants.CARD_WIDTH * 1.56,
+        width: cardWidth,
+        height: cardWidth * 1.56,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           border: Border.all(
-            width: Constants.CARD_WIDTH / 15,
+            width: cardWidth / 15,
             color: Palette.white,
           ),
           color: Palette.fromCard(card),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(Constants.CARD_WIDTH / 20),
+          padding: EdgeInsets.all(cardWidth / 20),
           child: Stack(
             children: [
               Align(
@@ -203,7 +206,7 @@ class FaceUpCard extends StatelessWidget {
                 child: Label(
                   text: '±${card.diff}',
                   color: Palette.white,
-                  size: Constants.CARD_WIDTH / 3,
+                  size: cardWidth / 3,
                   weight: FontWeight.bold,
                 ),
               ),
@@ -212,7 +215,7 @@ class FaceUpCard extends StatelessWidget {
                 child: Label(
                   text: card.value.toString(),
                   color: Palette.white,
-                  size: Constants.CARD_WIDTH / 3.5,
+                  size: cardWidth / 3.5,
                   weight: FontWeight.bold,
                 ),
               ),
@@ -221,7 +224,7 @@ class FaceUpCard extends StatelessWidget {
                 child: Label(
                   text: card.value.toString(),
                   color: Palette.white,
-                  size: Constants.CARD_WIDTH / 3.5,
+                  size: cardWidth / 3.5,
                   weight: FontWeight.bold,
                 ),
               ),
@@ -230,7 +233,7 @@ class FaceUpCard extends StatelessWidget {
                 child: Label(
                   text: card.value.toString(),
                   color: Palette.white,
-                  size: Constants.CARD_WIDTH / 3.5,
+                  size: cardWidth / 3.5,
                   weight: FontWeight.bold,
                 ),
               ),
@@ -239,7 +242,7 @@ class FaceUpCard extends StatelessWidget {
                 child: Label(
                   text: card.value.toString(),
                   color: Palette.white,
-                  size: Constants.CARD_WIDTH / 3.5,
+                  size: cardWidth / 3.5,
                   weight: FontWeight.bold,
                 ),
               ),
@@ -270,6 +273,8 @@ class FaceDownPile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double cardWidth = (MediaQuery.of(context).size.width - 104) / 4;
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -279,12 +284,12 @@ class FaceDownPile extends StatelessWidget {
         ),
       ),
       child: Container(
-        width: Constants.CARD_WIDTH,
-        height: Constants.CARD_WIDTH * 1.56,
+        width: cardWidth,
+        height: cardWidth * 1.56,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           border: Border.all(
-            width: Constants.CARD_WIDTH / 15,
+            width: cardWidth / 15,
             color: Palette.white,
           ),
           color: Palette.grey,
