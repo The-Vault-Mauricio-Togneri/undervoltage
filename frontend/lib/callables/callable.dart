@@ -16,10 +16,11 @@ abstract class Callable {
     required String name,
   }) {
     if (Environment.get.isLocal) {
-      FirebaseFunctions.instance.useFunctionsEmulator('10.0.2.2', 5001);
+      FirebaseFunctions.instance
+          .useFunctionsEmulator(Environment.get.host, 5001);
 
       return FirebaseFunctions.instance.httpsCallableFromUrl(
-        'http://10.0.2.2:5001/tensionplanet/us-central1/$name',
+        'http://${Environment.get.host}:5001/tensionplanet/us-central1/$name',
       );
     } else {
       return FirebaseFunctions.instance.httpsCallable(

@@ -8,7 +8,7 @@ class LocalEnvironment extends Environment {
 
   @override
   Future configure() async {
-    await FirebaseAuth.instance.useAuthEmulator('10.0.2.2', 9099);
-    FirebaseDatabase.instance.useDatabaseEmulator('10.0.2.2', 9000);
+    await FirebaseAuth.instance.useAuthEmulator(Environment.get.host, 9099);
+    FirebaseDatabase.instance.useDatabaseEmulator(Environment.get.host, 9000);
   }
 }
