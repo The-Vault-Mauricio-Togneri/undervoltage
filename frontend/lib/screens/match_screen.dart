@@ -167,6 +167,7 @@ class PlayerHandRevealed extends StatelessWidget {
 }
 
 class MatchState extends BaseState {
+  late final String playerId;
   late final DatabaseReference matchRef;
   late final StreamSubscription subscription;
   JsonMatch match;
@@ -182,7 +183,7 @@ class MatchState extends BaseState {
   int get playersJoined => match.playersJoined;
 
   JsonHand get hand =>
-      match.round.playersHand[LoggedUser.get.id] ??
+      match.round.playersHand[playerId] ??
       const JsonHand(
         hiddenPile: [],
         revealedPile: [],
@@ -192,6 +193,8 @@ class MatchState extends BaseState {
   void onLoad() {
     super.onLoad();
 
+    playerId = LoggedUser.get.id;
+
     matchRef = FirebaseDatabase.instance.ref('matches/${match.id}');
     subscription = matchRef.onValue.listen((event) {
       final json = jsonEncode(event.snapshot.value);
@@ -200,20 +203,33 @@ class MatchState extends BaseState {
     });
   }
 
-  Future onPutCard() async {
-    await matchRef.runTransaction((Object? post) {
-      if (post == null) {
-        return Transaction.abort();
-      }
+  Future updateHand(JsonHand hand) async {
+    final handRef = FirebaseDatabase.instance
+        .ref('matches/${match.id}/round/playersHand/$playerId');
+    final TransactionResult result = await handRef.runTransaction(
+      (Object? post) {
+        if (post == null) {
+          return Transaction.abort();
+        } else {
+          final Map<String, dynamic> newHand =
+              Map<String, dynamic>.from(post as Map);
+          newHand['hiddenPile'] = hand.hiddenPile.map((e) => e.toJson());
+          newHand['revealedPile'] = hand.revealedPile.map((e) => e.toJson());
 
-      final Map<String, dynamic> _post = Map<String, dynamic>.from(post as Map);
-      _post['stars'] = 0;
-
-      return Transaction.success(_post);
-    });
+          return Transaction.success(newHand);
+        }
+      },
+      applyLocally: false,
+    );
+    print(result.committed);
   }
 
-  void onDiscardPilePressed() {}
+  void onDiscardPilePressed() {
+    final JsonHand currentHand = hand;
+    final JsonCard topCard = currentHand.hiddenPile.removeLast();
+    currentHand.revealedPile.add(topCard);
+    updateHand(currentHand);
+  }
 
   void onPlayCard(JsonCard json) {}
 

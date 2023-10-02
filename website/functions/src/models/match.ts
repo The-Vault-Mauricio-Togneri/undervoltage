@@ -45,7 +45,11 @@ export class Match {
   static async load(matchId: string) {
     const snapshot = await getDatabase().ref(`matches/${matchId}`).get();
 
-    return Match.parse(snapshot.toJSON());
+    if (snapshot.exists()) {
+      return Match.parse(snapshot.toJSON());
+    } else {
+      throw new Error(`Match with ID ${matchId} does not exist`);
+    }
   }
 
   static parse(data: any): Match {
