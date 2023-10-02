@@ -69,13 +69,17 @@ class Started extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const VBox(50),
         Label(
           text: 'Other players: ${state.match.numberOfPlayers - 1}',
           color: Palette.black,
           size: 14,
         ),
+        const Spacer(),
         DiscardPile(state),
+        const Spacer(),
         PlayerHand(state),
+        const VBox(50),
       ],
     );
   }
@@ -140,17 +144,22 @@ class PlayerHandRevealed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: [
-        for (final JsonCard card in cards)
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: FaceUpCard(
-              card: card,
-              onPressed: onPressed,
+    return Expanded(
+      child: Wrap(
+        children: [
+          for (final JsonCard card in cards)
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                bottom: 20,
+              ),
+              child: FaceUpCard(
+                card: card,
+                onPressed: onPressed,
+              ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }
