@@ -11,7 +11,7 @@ class JsonRound {
   final Map<String, JsonHand> playersHand;
 
   const JsonRound({
-    required this.playersHand,
+    this.playersHand = const {},
     this.discardPile = const [],
   });
 

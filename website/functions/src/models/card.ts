@@ -2,9 +2,9 @@ import {CardColor} from '../types/card-color';
 
 export class Card {
   constructor(
-    private color: CardColor,
-    private value: number,
-    private diff: number,
+    public color: CardColor,
+    public value: number,
+    public diff: number,
   ) {}
 
   static parse(data: any): Card {

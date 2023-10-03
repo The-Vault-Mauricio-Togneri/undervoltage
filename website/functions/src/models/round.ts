@@ -4,8 +4,8 @@ import {Players} from './player';
 
 export class Round {
   constructor(
-    private discardPile: Card[] = [],
-    private playersHand: Hands = new Hands(),
+    public discardPile: Card[] = [],
+    public playersHand: Hands = new Hands(),
   ) {}
 
   static randomCard(): Card {

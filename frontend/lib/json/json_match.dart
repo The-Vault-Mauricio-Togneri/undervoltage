@@ -23,7 +23,7 @@ class JsonMatch {
     required this.status,
     required this.players,
     required this.roundCount,
-    required this.round,
+    this.round = const JsonRound(),
   });
 
   int get playersJoined => players.length;

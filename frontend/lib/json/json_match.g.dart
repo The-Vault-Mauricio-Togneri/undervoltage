@@ -15,7 +15,9 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
         (k, e) => MapEntry(k, JsonPlayer.fromJson(e as Map<String, dynamic>)),
       ),
       roundCount: json['roundCount'] as int,
-      round: JsonRound.fromJson(json['round'] as Map<String, dynamic>),
+      round: json['round'] == null
+          ? const JsonRound()
+          : JsonRound.fromJson(json['round'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
