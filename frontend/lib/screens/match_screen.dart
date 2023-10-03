@@ -220,9 +220,15 @@ class MatchState extends BaseState {
           return Transaction.abort();
         } else {
           final List<dynamic> newPile = List<dynamic>.from(old as List);
-          newPile.add(card.toJson());
+          final JsonCard topCard = JsonCard.fromJson(newPile.last);
 
-          return Transaction.success(newPile);
+          if (topCard.canAccept(card)) {
+            newPile.add(card.toJson());
+
+            return Transaction.success(newPile);
+          } else {
+            return Transaction.abort();
+          }
         }
       },
       applyLocally: false,
