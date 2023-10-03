@@ -70,7 +70,7 @@ class Started extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const VBox(50),
+        const VBox(30),
         Label(
           text: 'Other players: ${state.match.numberOfPlayers - 1}',
           color: Palette.black,
@@ -80,7 +80,7 @@ class Started extends StatelessWidget {
         DiscardPile(state),
         const Spacer(),
         PlayerHand(state),
-        const VBox(50),
+        const VBox(30),
       ],
     );
   }
@@ -93,16 +93,10 @@ class DiscardPile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 50,
-        bottom: 50,
-      ),
-      child: FaceUpCard(
-        card: state.match.round.discardPile.last,
-        width: (MediaQuery.of(context).size.width - 104) / 4,
-        onPressed: null,
-      ),
+    return FaceUpCard(
+      card: state.match.round.discardPile.last,
+      width: (MediaQuery.of(context).size.width - 104) / 4,
+      onPressed: null,
     );
   }
 }
@@ -112,8 +106,20 @@ class PlayerHand extends StatelessWidget {
 
   const PlayerHand(this.state);
 
+  double _cardWidth(BuildContext context) {
+    if (state.hand.revealedPile.length > 20) {
+      return (MediaQuery.of(context).size.width - 107) / 7;
+    } else if (state.hand.revealedPile.length > 9) {
+      return (MediaQuery.of(context).size.width - 105) / 6;
+    } else {
+      return (MediaQuery.of(context).size.width - 104) / 4;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final double cardWidth = _cardWidth(context);
+
     return Container(
       color: state.blocked ? Palette.grey : Palette.transparent,
       child: Center(
@@ -127,11 +133,13 @@ class PlayerHand extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 20),
                   child: FaceDownPile(
                     cards: state.hand.hiddenPile,
+                    width: cardWidth,
                     onPressed: state.onDiscardPilePressed,
                   ),
                 ),
               PlayerHandRevealed(
                 cards: state.hand.revealedPile,
+                cardWidth: cardWidth,
                 onPressed: state.onPlayCard,
               ),
             ],
@@ -144,20 +152,14 @@ class PlayerHand extends StatelessWidget {
 
 class PlayerHandRevealed extends StatelessWidget {
   final List<JsonCard> cards;
+  final double cardWidth;
   final Function(JsonCard) onPressed;
 
   const PlayerHandRevealed({
     required this.cards,
+    required this.cardWidth,
     required this.onPressed,
   });
-
-  double cardWidth(BuildContext context) {
-    if (cards.length > 9) {
-      return (MediaQuery.of(context).size.width - 105) / 5;
-    } else {
-      return (MediaQuery.of(context).size.width - 104) / 4;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +175,7 @@ class PlayerHandRevealed extends StatelessWidget {
               ),
               child: FaceUpCard(
                 card: card,
-                width: cardWidth(context),
+                width: cardWidth,
                 onPressed: onPressed,
               ),
             ),
