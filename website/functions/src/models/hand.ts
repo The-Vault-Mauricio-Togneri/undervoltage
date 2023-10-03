@@ -48,9 +48,9 @@ export class Hand {
 
   static parse(data: any): Hand {
     return new Hand(
-        data['hiddenPile'], // TODO
-        data['discardPile'], // TODO
-        data['number'],
+        data['hiddenPile'].map((c: any) => Card.parse(c)),
+        data['revealedPile'].map((c: any) => Card.parse(c)),
+        data['faults'],
     );
   }
 
