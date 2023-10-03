@@ -30,10 +30,9 @@ export class Hands {
 
   public static parse(data: any) {
     const result = new Hands();
-    const playersMap = data['players'];
 
-    for (const playerId of Object.keys(playersMap)) {
-      result.add(playerId, Hand.parse(playersMap[playerId]));
+    for (const playerId of Object.keys(data)) {
+      result.add(playerId, Hand.parse(data[playerId]));
     }
 
     return result;
@@ -51,7 +50,7 @@ export class Hand {
     return new Hand(
         data['hiddenPile'], // TODO
         data['discardPile'], // TODO
-        data['number'] as number,
+        data['number'],
     );
   }
 

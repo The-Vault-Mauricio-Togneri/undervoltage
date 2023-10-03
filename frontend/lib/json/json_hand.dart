@@ -8,10 +8,12 @@ part 'json_hand.g.dart';
 class JsonHand {
   final List<JsonCard> hiddenPile;
   final List<JsonCard> revealedPile;
+  final int faults;
 
   const JsonHand({
     this.hiddenPile = const [],
     this.revealedPile = const [],
+    this.faults = 0,
   });
 
   void revealCard() {

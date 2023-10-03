@@ -15,9 +15,11 @@ JsonHand _$JsonHandFromJson(Map<String, dynamic> json) => JsonHand(
               ?.map((e) => JsonCard.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      faults: json['faults'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$JsonHandToJson(JsonHand instance) => <String, dynamic>{
       'hiddenPile': instance.hiddenPile,
       'revealedPile': instance.revealedPile,
+      'faults': instance.faults,
     };
