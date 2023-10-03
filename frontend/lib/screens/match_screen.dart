@@ -124,30 +124,27 @@ class PlayerHand extends StatelessWidget {
   Widget build(BuildContext context) {
     final double cardWidth = _cardWidth(context);
 
-    return Container(
-      color: state.blocked ? Palette.grey : Palette.transparent,
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (state.hand.hiddenPile.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: FaceDownPile(
-                    cards: state.hand.hiddenPile,
-                    width: cardWidth,
-                    onPressed: state.onDiscardPilePressed,
-                  ),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (state.hand.hiddenPile.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: FaceDownPile(
+                  cards: state.hand.hiddenPile,
+                  width: cardWidth,
+                  onPressed: state.onDiscardPilePressed,
                 ),
-              PlayerHandRevealed(
-                cards: state.hand.revealedPile,
-                cardWidth: cardWidth,
-                onPressed: state.onPlayCard,
               ),
-            ],
-          ),
+            PlayerHandRevealed(
+              cards: state.hand.revealedPile,
+              cardWidth: cardWidth,
+              onPressed: state.onPlayCard,
+            ),
+          ],
         ),
       ),
     );
@@ -194,7 +191,6 @@ class MatchState extends BaseState {
   late final DatabaseReference matchRef;
   late final StreamSubscription subscription;
   JsonMatch match;
-  bool blocked = false;
 
   MatchState({required this.match});
 
@@ -291,18 +287,12 @@ class MatchState extends BaseState {
     final JsonCard topCard = match.round.discardPile.last;
 
     if (topCard.canAccept(card)) {
-      blocked = true;
-      notify();
-
       final bool success = await playCard(card);
 
       if (success) {
         currentHand.playCard(card);
         updateHand(currentHand);
       }
-
-      blocked = false;
-      notify();
     } else {
       updateHand(currentHand.withNewFault);
     }
