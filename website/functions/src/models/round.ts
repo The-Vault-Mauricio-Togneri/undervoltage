@@ -56,10 +56,14 @@ export class Round {
   }
 
   static parse(data: any): Round {
-    return new Round(
-        Card.parseList(data['discardPile']),
-        Hands.parse(data['playersHand']),
-    );
+    if (data) {
+      return new Round(
+          Card.parseList(data['discardPile']),
+          Hands.parse(data['playersHand']),
+      );
+    } else {
+      return new Round();
+    }
   }
 
   public json() {

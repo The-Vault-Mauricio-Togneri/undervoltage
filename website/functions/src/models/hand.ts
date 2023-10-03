@@ -31,8 +31,10 @@ export class Hands {
   public static parse(data: any) {
     const result = new Hands();
 
-    for (const playerId of Object.keys(data)) {
-      result.add(playerId, Hand.parse(data[playerId]));
+    if (data) {
+      for (const playerId of Object.keys(data)) {
+        result.add(playerId, Hand.parse(data[playerId]));
+      }
     }
 
     return result;

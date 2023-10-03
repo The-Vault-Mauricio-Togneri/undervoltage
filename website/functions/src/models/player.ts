@@ -36,8 +36,10 @@ export class Players {
   public static parse(data: any) {
     const result = new Players();
 
-    for (const playerId of Object.keys(data)) {
-      result.add(Player.parse(data[playerId]));
+    if (data) {
+      for (const playerId of Object.keys(data)) {
+        result.add(Player.parse(data[playerId]));
+      }
     }
 
     return result;

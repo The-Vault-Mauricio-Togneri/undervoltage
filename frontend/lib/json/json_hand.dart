@@ -16,6 +16,12 @@ class JsonHand {
     this.faults = 0,
   });
 
+  JsonHand get withNewFault => JsonHand(
+        hiddenPile: hiddenPile,
+        revealedPile: revealedPile,
+        faults: faults + 1,
+      );
+
   void revealCard() {
     if (hiddenPile.isNotEmpty) {
       final JsonCard topCard = hiddenPile.removeLast();

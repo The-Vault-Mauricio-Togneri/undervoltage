@@ -207,6 +207,7 @@ class MatchState extends BaseState {
       const JsonHand(
         hiddenPile: [],
         revealedPile: [],
+        faults: 0,
       );
 
   @override
@@ -261,6 +262,7 @@ class MatchState extends BaseState {
               Map<String, dynamic>.from(old as Map);
           newHand['hiddenPile'] = hand.hiddenPile.map((e) => e.toJson());
           newHand['revealedPile'] = hand.revealedPile.map((e) => e.toJson());
+          newHand['faults'] = hand.faults;
 
           return Transaction.success(newHand);
         }
@@ -281,13 +283,13 @@ class MatchState extends BaseState {
   }
 
   Future onPlayCard(JsonCard card) async {
+    final JsonHand currentHand = hand;
     final JsonCard topCard = match.round.discardPile.last;
 
     if (topCard.canAccept(card)) {
       blocked = true;
       notify();
 
-      final JsonHand currentHand = hand;
       final bool success = await playCard(card);
 
       if (success) {
@@ -297,6 +299,8 @@ class MatchState extends BaseState {
 
       blocked = false;
       notify();
+    } else {
+      updateHand(currentHand.withNewFault);
     }
   }
 
