@@ -1,1 +1,1 @@
-const int BUILD_VERSION = 69;
+const int BUILD_VERSION = 70;

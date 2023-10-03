@@ -36,6 +36,7 @@ class LobbyScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
+                const Spacer(),
                 ElevatedButton(
                   onPressed: state.onCreateMatch,
                   child: const Text('CREATE MATCH'),
@@ -58,6 +59,13 @@ class LobbyScreen extends StatelessWidget {
                       state.joinMatchButtonEnabled ? state.onJoinMatch : null,
                   child: const Text('JOIN MATCH'),
                 ),
+                const Spacer(),
+                const Label(
+                  text: 'Version 1',
+                  color: Palette.grey,
+                  size: 14,
+                ),
+                const VBox(20),
               ],
             ),
           ),
