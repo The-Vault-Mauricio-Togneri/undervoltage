@@ -108,13 +108,17 @@ class PlayerHand extends StatelessWidget {
 
   double _cardWidth(BuildContext context) {
     if (state.hand.revealedPile.length > 20) {
-      return (MediaQuery.of(context).size.width - 107) / 7;
+      return _fit(context, 6);
     } else if (state.hand.revealedPile.length > 9) {
-      return (MediaQuery.of(context).size.width - 105) / 6;
+      return _fit(context, 5);
     } else {
-      return (MediaQuery.of(context).size.width - 104) / 4;
+      return _fit(context, 4);
     }
   }
+
+  double _fit(BuildContext context, int amount) =>
+      (MediaQuery.of(context).size.width - ((amount + 1) * 20) - amount) /
+      amount;
 
   @override
   Widget build(BuildContext context) {

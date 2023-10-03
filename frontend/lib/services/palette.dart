@@ -14,8 +14,8 @@ class Palette {
   static Color fromCard(JsonCard card) {
     if (card.color == 'red') {
       return Colors.red;
-    } else if (card.color == 'yellow') {
-      return Colors.yellow;
+    } else if (card.color == 'green') {
+      return Colors.green;
     } else if (card.color == 'blue') {
       return Colors.blue;
     } else {

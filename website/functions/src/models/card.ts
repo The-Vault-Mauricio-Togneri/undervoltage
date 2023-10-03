@@ -51,17 +51,17 @@ export class Card {
       ...this.generate(2, new Card('blue', 10, 1)), // 10
     ];
 
-    const yellow = [
-      ...this.generate(2, new Card('yellow', 1, 2)), // 1
-      ...this.generate(2, new Card('yellow', 2, 2)), // 2
-      ...this.generate(2, new Card('yellow', 3, 2)), // 3
-      ...this.generate(2, new Card('yellow', 4, 2)), // 4
-      ...this.generate(3, new Card('yellow', 5, 2)), // 5
-      ...this.generate(3, new Card('yellow', 6, 2)), // 6
-      ...this.generate(3, new Card('yellow', 7, 2)), // 7
-      ...this.generate(3, new Card('yellow', 8, 2)), // 8
-      ...this.generate(2, new Card('yellow', 9, 2)), // 9
-      ...this.generate(2, new Card('yellow', 10, 2)), // 10
+    const green = [
+      ...this.generate(2, new Card('green', 1, 2)), // 1
+      ...this.generate(2, new Card('green', 2, 2)), // 2
+      ...this.generate(2, new Card('green', 3, 2)), // 3
+      ...this.generate(2, new Card('green', 4, 2)), // 4
+      ...this.generate(3, new Card('green', 5, 2)), // 5
+      ...this.generate(3, new Card('green', 6, 2)), // 6
+      ...this.generate(3, new Card('green', 7, 2)), // 7
+      ...this.generate(3, new Card('green', 8, 2)), // 8
+      ...this.generate(2, new Card('green', 9, 2)), // 9
+      ...this.generate(2, new Card('green', 10, 2)), // 10
     ];
 
     const red = [
@@ -79,7 +79,7 @@ export class Card {
 
     return [
       ...blue,
-      ...yellow,
+      ...green,
       ...red,
     ];
   }

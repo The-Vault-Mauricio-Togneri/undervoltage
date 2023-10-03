@@ -4,22 +4,22 @@
 
 Numbers: 1-2-3
 3 blue
-2 yellow
+2 green
 3 red
 
 Number 4
 3 blue
-2 yellow
+2 green
 2 red
 
 Numbers: 5-6-7-8
 2 blue
-3 yellow
+3 green
 2 red
 
 Numbers: 9-10
 2 blue
-2 yellow
+2 green
 3 red
 
 blue: 24 
@@ -34,7 +34,7 @@ blue: 24
 9:  2
 10: 2
 
-yellow: 24
+green: 24
 1:  2
 2:  2
 3:  2
