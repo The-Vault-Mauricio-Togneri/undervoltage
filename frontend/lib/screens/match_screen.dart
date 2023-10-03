@@ -113,25 +113,28 @@ class PlayerHand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (state.hand.hiddenPile.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: FaceDownPile(
-                  cards: state.hand.hiddenPile,
-                  onPressed: state.onDiscardPilePressed,
+    return Container(
+      color: state.blocked ? Palette.grey : Palette.transparent,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (state.hand.hiddenPile.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: FaceDownPile(
+                    cards: state.hand.hiddenPile,
+                    onPressed: state.onDiscardPilePressed,
+                  ),
                 ),
+              PlayerHandRevealed(
+                cards: state.hand.revealedPile,
+                onPressed: state.onPlayCard,
               ),
-            PlayerHandRevealed(
-              cards: state.hand.revealedPile,
-              onPressed: state.onPlayCard,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -175,6 +178,7 @@ class MatchState extends BaseState {
   late final DatabaseReference matchRef;
   late final StreamSubscription subscription;
   JsonMatch match;
+  bool blocked = false;
 
   MatchState({required this.match});
 
@@ -207,16 +211,36 @@ class MatchState extends BaseState {
     });
   }
 
+  Future playCard(JsonCard card) async {
+    final pileRef =
+        FirebaseDatabase.instance.ref('matches/${match.id}/round/discardPile');
+    final TransactionResult result = await pileRef.runTransaction(
+      (Object? old) {
+        if (old == null) {
+          return Transaction.abort();
+        } else {
+          final List<dynamic> newPile = List<dynamic>.from(old as List);
+          newPile.add(card.toJson());
+
+          return Transaction.success(newPile);
+        }
+      },
+      applyLocally: false,
+    );
+
+    return result.committed;
+  }
+
   Future updateHand(JsonHand hand) async {
     final handRef = FirebaseDatabase.instance
         .ref('matches/${match.id}/round/playersHand/$playerId');
     final TransactionResult result = await handRef.runTransaction(
-      (Object? post) {
-        if (post == null) {
+      (Object? old) {
+        if (old == null) {
           return Transaction.abort();
         } else {
           final Map<String, dynamic> newHand =
-              Map<String, dynamic>.from(post as Map);
+              Map<String, dynamic>.from(old as Map);
           newHand['hiddenPile'] = hand.hiddenPile.map((e) => e.toJson());
           newHand['revealedPile'] = hand.revealedPile.map((e) => e.toJson());
 
@@ -225,7 +249,8 @@ class MatchState extends BaseState {
       },
       applyLocally: false,
     );
-    print(result.committed);
+
+    return result.committed;
   }
 
   void onDiscardPilePressed() {
@@ -237,14 +262,23 @@ class MatchState extends BaseState {
     }
   }
 
-  void onPlayCard(JsonCard card) {
+  Future onPlayCard(JsonCard card) async {
+    blocked = true;
+    notify();
+
     final JsonHand currentHand = hand;
-    currentHand.playCard(card);
-    updateHand(currentHand);
+    final bool success = await playCard(card);
+
+    if (success) {
+      currentHand.playCard(card);
+      updateHand(currentHand);
+    }
+
+    blocked = false;
+    notify();
   }
 
   void onMatchUpdated(JsonMatch match) {
-    print(match);
     notify();
   }
 
