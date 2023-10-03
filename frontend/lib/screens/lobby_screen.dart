@@ -4,6 +4,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:undervoltage/app/constants.dart';
+import 'package:undervoltage/build/build_version.dart';
 import 'package:undervoltage/callables/create_match.dart';
 import 'package:undervoltage/callables/join_match.dart';
 import 'package:undervoltage/dialogs/loading_dialog.dart';
@@ -61,7 +62,7 @@ class LobbyScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 const Label(
-                  text: 'Version 2',
+                  text: 'Version $BUILD_VERSION',
                   color: Palette.grey,
                   size: 14,
                 ),
