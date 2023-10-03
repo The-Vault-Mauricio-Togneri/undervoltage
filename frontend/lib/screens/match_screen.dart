@@ -127,25 +127,58 @@ class PlayerHand extends StatelessWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Row(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (state.hand.hiddenPile.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: FaceDownPile(
-                  cards: state.hand.hiddenPile,
-                  width: cardWidth,
-                  onPressed: state.onDiscardPilePressed,
-                ),
+            Center(
+              child: Wrap(
+                children: [
+                  for (int i = 0; i < state.hand.faults; i++)
+                    const FaultBullet(),
+                ],
               ),
-            PlayerHandRevealed(
-              cards: state.hand.revealedPile,
-              cardWidth: cardWidth,
-              onPressed: state.onPlayCard,
+            ),
+            const VBox(20),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (state.hand.hiddenPile.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: FaceDownPile(
+                      cards: state.hand.hiddenPile,
+                      width: cardWidth,
+                      onPressed: state.onDiscardPilePressed,
+                    ),
+                  ),
+                PlayerHandRevealed(
+                  cards: state.hand.revealedPile,
+                  cardWidth: cardWidth,
+                  onPressed: state.onPlayCard,
+                ),
+              ],
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class FaultBullet extends StatelessWidget {
+  const FaultBullet();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.only(
+        left: 5,
+        right: 5,
+      ),
+      child: Icon(
+        Icons.close,
+        color: Palette.red,
+        size: 20,
       ),
     );
   }
