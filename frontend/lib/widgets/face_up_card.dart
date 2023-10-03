@@ -6,16 +6,17 @@ import 'package:undervoltage/widgets/label.dart';
 
 class FaceUpCard extends StatelessWidget {
   final JsonCard card;
+  final double width;
   final Function(JsonCard)? onPressed;
 
   const FaceUpCard({
     required this.card,
+    required this.width,
     required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    final double cardWidth = (MediaQuery.of(context).size.width - 104) / 4;
 
     return Container(
       decoration: BoxDecoration(
@@ -26,12 +27,12 @@ class FaceUpCard extends StatelessWidget {
         ),
       ),
       child: Container(
-        width: cardWidth,
-        height: cardWidth * 1.56,
+        width: width,
+        height: width * 1.56,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           border: Border.all(
-            width: cardWidth / 15,
+            width: width / 15,
             color: Palette.white,
           ),
           color: Palette.fromCard(card),
@@ -43,7 +44,7 @@ class FaceUpCard extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             onTap: () => onPressed?.call(card),
             child: Padding(
-              padding: EdgeInsets.all(cardWidth / 20),
+              padding: EdgeInsets.all(width / 20),
               child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -51,14 +52,14 @@ class FaceUpCard extends StatelessWidget {
                     Label(
                       text: card.value.toString(),
                       color: Palette.white,
-                      size: cardWidth / 2.5,
+                      size: width / 2.5,
                       weight: FontWeight.bold,
                     ),
-                    VBox(cardWidth / 10),
+                    VBox(width / 10),
                     Label(
                       text: '±${card.diff}',
                       color: Palette.white,
-                      size: cardWidth / 4,
+                      size: width / 4,
                       weight: FontWeight.bold,
                     ),
                   ],

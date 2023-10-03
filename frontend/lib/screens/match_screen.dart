@@ -100,6 +100,7 @@ class DiscardPile extends StatelessWidget {
       ),
       child: FaceUpCard(
         card: state.match.round.discardPile.last,
+        width: (MediaQuery.of(context).size.width - 104) / 4,
         onPressed: null,
       ),
     );
@@ -150,6 +151,14 @@ class PlayerHandRevealed extends StatelessWidget {
     required this.onPressed,
   });
 
+  double cardWidth(BuildContext context) {
+    if (cards.length > 9) {
+      return (MediaQuery.of(context).size.width - 105) / 5;
+    } else {
+      return (MediaQuery.of(context).size.width - 104) / 4;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -164,6 +173,7 @@ class PlayerHandRevealed extends StatelessWidget {
               ),
               child: FaceUpCard(
                 card: card,
+                width: cardWidth(context),
                 onPressed: onPressed,
               ),
             ),
@@ -261,11 +271,8 @@ class MatchState extends BaseState {
 
   void onDiscardPilePressed() {
     final JsonHand currentHand = hand;
-
-    if (currentHand.revealedPile.length < 9) {
-      currentHand.revealCard();
-      updateHand(currentHand);
-    }
+    currentHand.revealCard();
+    updateHand(currentHand);
   }
 
   Future onPlayCard(JsonCard card) async {

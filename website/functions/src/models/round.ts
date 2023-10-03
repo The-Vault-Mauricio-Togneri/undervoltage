@@ -57,7 +57,7 @@ export class Round {
 
   static parse(data: any): Round {
     return new Round(
-        data['discardPile'].map((c: any) => Card.parse(c)),
+        Card.parseList(data['discardPile']),
         Hands.parse(data['playersHand']),
     );
   }

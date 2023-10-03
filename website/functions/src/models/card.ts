@@ -15,6 +15,16 @@ export class Card {
     );
   }
 
+  public static parseList(data: any) {
+    const result: Card[] = [];
+
+    for (const key of Object.keys(data)) {
+      result.push(Card.parse(data[key]));
+    }
+
+    return result;
+  }
+
   static generate(amount: number, card: Card) {
     const result = [];
 
