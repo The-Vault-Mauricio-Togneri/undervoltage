@@ -263,19 +263,23 @@ class MatchState extends BaseState {
   }
 
   Future onPlayCard(JsonCard card) async {
-    blocked = true;
-    notify();
+    final JsonCard topCard = match.round.discardPile.last;
 
-    final JsonHand currentHand = hand;
-    final bool success = await playCard(card);
+    if (topCard.canAccept(card)) {
+      blocked = true;
+      notify();
 
-    if (success) {
-      currentHand.playCard(card);
-      updateHand(currentHand);
+      final JsonHand currentHand = hand;
+      final bool success = await playCard(card);
+
+      if (success) {
+        currentHand.playCard(card);
+        updateHand(currentHand);
+      }
+
+      blocked = false;
+      notify();
     }
-
-    blocked = false;
-    notify();
   }
 
   void onMatchUpdated(JsonMatch match) {

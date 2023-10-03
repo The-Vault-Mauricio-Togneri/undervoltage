@@ -62,7 +62,7 @@ export class Match {
         data['status'],
         Players.parse(data['players']),
         data['roundCount'],
-        new Round(), // TODO
+        Round.parse(data['round']),
     );
   }
 

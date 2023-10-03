@@ -59,6 +59,7 @@ export class Hand {
     return {
       hiddenPile: this.hiddenPile.map((c) => c.json()),
       revealedPile: this.revealedPile.map((c) => c.json()),
+      faults: this.faults,
     };
   }
 }

@@ -15,6 +15,23 @@ class JsonCard {
     required this.value,
   });
 
+  bool canAccept(JsonCard card) {
+    final num value1 = _normalize(value + diff);
+    final num value2 = _normalize(value - diff);
+
+    return (card.value == value1) || (card.value == value2);
+  }
+
+  num _normalize(int value) {
+    if (value > 10) {
+      return value - 10;
+    } else if (value < 1) {
+      return value + 10;
+    } else {
+      return value;
+    }
+  }
+
   factory JsonCard.fromString(String json) =>
       JsonCard.fromJson(jsonDecode(json));
 
