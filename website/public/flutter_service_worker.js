@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"main.dart.js": "cd7e8580592e81c35d5e7326cbc70959",
+const RESOURCES = {"main.dart.js": "f632e5d276dd05be5274196e4d2882a8",
 "assets/NOTICES": "a9d95fd6ee7eb74b54642eb0c08aa017",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/fonts/MaterialIcons-Regular.otf": "32fce58e2acb9c420eab0fe7b828b761",
@@ -20,10 +20,10 @@ const RESOURCES = {"main.dart.js": "cd7e8580592e81c35d5e7326cbc70959",
 "canvaskit/chromium/canvaskit.js": "96ae916cd2d1b7320fff853ee22aebb0",
 "flutter.js": "6fef97aeca90b426343ba6c5c9dc5d4a",
 "firebase-messaging-sw.js": "04cc6accd53cc3c32846d3890e6be865",
-"favicon.png": "462b94923c3e2d42960f5e605a0895f2",
+"favicon.ico": "6f0b2e9bbab965ebcea729f2e1cbcfbd",
 "version.json": "1a50a8320d446965c0e1480c5223194d",
-"index.html": "c74f4c7c822091b29735b8be65fdb7ab",
-"/": "c74f4c7c822091b29735b8be65fdb7ab"};
+"index.html": "d389af03350a129bcc432ecea2ff3247",
+"/": "d389af03350a129bcc432ecea2ff3247"};
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",

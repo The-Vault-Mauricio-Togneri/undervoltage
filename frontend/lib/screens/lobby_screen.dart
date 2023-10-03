@@ -61,7 +61,7 @@ class LobbyScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 const Label(
-                  text: 'Version 1',
+                  text: 'Version 2',
                   color: Palette.grey,
                   size: 14,
                 ),
