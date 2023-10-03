@@ -24,13 +24,7 @@ export class Round {
   }
 
   static new(players: Players): Round {
-    let cards = [];
-
-    for (let i = 0; i < 73; i++) {
-      cards.push(this.randomCard());
-    }
-
-    cards = cards.sort(() => Math.random() - 0.5);
+    const cards = Card.all().sort(() => Math.random() - 0.5);
     const firstCard = cards.pop();
 
     const hands: Record<string, Hand> = {};
