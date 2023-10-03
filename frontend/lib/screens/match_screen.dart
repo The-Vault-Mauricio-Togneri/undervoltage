@@ -230,8 +230,11 @@ class MatchState extends BaseState {
 
   void onDiscardPilePressed() {
     final JsonHand currentHand = hand;
-    currentHand.revealCard();
-    updateHand(currentHand);
+
+    if (currentHand.revealedPile.length < 9) {
+      currentHand.revealCard();
+      updateHand(currentHand);
+    }
   }
 
   void onPlayCard(JsonCard card) {

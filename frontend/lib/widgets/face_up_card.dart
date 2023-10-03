@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:undervoltage/json/json_card.dart';
 import 'package:undervoltage/services/palette.dart';
@@ -35,64 +36,35 @@ class FaceUpCard extends StatelessWidget {
           ),
           color: Palette.fromCard(card),
         ),
-        child: Padding(
-          padding: EdgeInsets.all(cardWidth / 20),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Label(
-                  text: '±${card.diff}',
-                  color: Palette.white,
-                  size: cardWidth / 3,
-                  weight: FontWeight.bold,
+        child: Material(
+          color: Palette.transparent,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          child: InkWell(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            onTap: () => onPressed?.call(card),
+            child: Padding(
+              padding: EdgeInsets.all(cardWidth / 20),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Label(
+                      text: card.value.toString(),
+                      color: Palette.white,
+                      size: cardWidth / 2.5,
+                      weight: FontWeight.bold,
+                    ),
+                    VBox(cardWidth / 10),
+                    Label(
+                      text: '±${card.diff}',
+                      color: Palette.white,
+                      size: cardWidth / 4,
+                      weight: FontWeight.bold,
+                    ),
+                  ],
                 ),
               ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Label(
-                  text: card.value.toString(),
-                  color: Palette.white,
-                  size: cardWidth / 3.5,
-                  weight: FontWeight.bold,
-                ),
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Label(
-                  text: card.value.toString(),
-                  color: Palette.white,
-                  size: cardWidth / 3.5,
-                  weight: FontWeight.bold,
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Label(
-                  text: card.value.toString(),
-                  color: Palette.white,
-                  size: cardWidth / 3.5,
-                  weight: FontWeight.bold,
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Label(
-                  text: card.value.toString(),
-                  color: Palette.white,
-                  size: cardWidth / 3.5,
-                  weight: FontWeight.bold,
-                ),
-              ),
-              Material(
-                color: Palette.transparent,
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                child: InkWell(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  onTap: () => onPressed?.call(card),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

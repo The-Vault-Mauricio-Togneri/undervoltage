@@ -32,7 +32,7 @@ class JsonMatch {
         id: id,
         numberOfPlayers: 0,
         maxPoints: 0,
-        status: MatchStatus.waitingForPlayers,
+        status: MatchStatus.loading,
         players: {},
         roundCount: 0,
         round: const JsonRound(
