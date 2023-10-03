@@ -29,6 +29,7 @@ class SetNameScreen extends StatelessWidget {
                   label: 'Nickname',
                   autofocus: true,
                   controller: state.nameController,
+                  maxLength: 20,
                   onTextChanged: state.onTextChanged,
                 ),
                 const VBox(20),

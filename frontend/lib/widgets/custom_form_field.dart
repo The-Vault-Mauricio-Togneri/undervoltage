@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:undervoltage/services/localizations.dart';
 import 'package:undervoltage/services/palette.dart';
 
@@ -13,6 +14,7 @@ class CustomFormField extends StatelessWidget {
   final TextAlign textAlign;
   final FocusNode? focusNode;
   final IconData? icon;
+  final int? maxLength;
   final VoidCallback? onPressed;
   final VoidCallback? onIconPressed;
   final Function(String)? onTextChanged;
@@ -29,6 +31,7 @@ class CustomFormField extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.focusNode,
     this.icon,
+    this.maxLength,
     this.onPressed,
     this.onIconPressed,
     this.onTextChanged,
@@ -49,6 +52,9 @@ class CustomFormField extends StatelessWidget {
       maxLength: 20,
       textCapitalization: TextCapitalization.sentences,
       onChanged: onTextChanged,
+      inputFormatters: (maxLength != null)
+          ? [LengthLimitingTextInputFormatter(maxLength)]
+          : null,
       decoration: InputDecoration(
         labelText: label,
         suffixText: suffixText,
