@@ -113,6 +113,17 @@ class LobbyState extends BaseState {
 
   LobbyState({required this.uri});
 
+  @override
+  void onLoad() {
+    super.onLoad();
+
+    final String? matchId = uri.queryParameters['match'];
+
+    if (matchId != null) {
+      _joinMatch(matchId);
+    }
+  }
+
   void onCreateMatchInputChanged(String text) {
     createMatchButtonEnabled =
         numberOfPlayersController.text.trim().isNotEmpty &&
@@ -125,15 +136,11 @@ class LobbyState extends BaseState {
     notify();
   }
 
-  @override
-  void onLoad() {
-    super.onLoad();
-
-    final String? matchId = uri.queryParameters['match'];
-
-    if (matchId != null) {
-      _joinMatch(matchId);
-    }
+  void _clearFields() {
+    numberOfPlayersController.text = '';
+    maxPointsController.text = '';
+    matchIdController.text = '';
+    notify();
   }
 
   Future onCreateMatch() async {
@@ -153,6 +160,7 @@ class LobbyState extends BaseState {
         onCopyAndShare(matchId);
       }
 
+      _clearFields();
       Navigation.matchScreen(match);
     } catch (e) {
       controller.close();
@@ -172,6 +180,8 @@ class LobbyState extends BaseState {
       );
       controller.close();
       final JsonMatch match = JsonMatch.fromId(matchId);
+
+      _clearFields();
       Navigation.matchScreen(match);
     } catch (e) {
       controller.close();

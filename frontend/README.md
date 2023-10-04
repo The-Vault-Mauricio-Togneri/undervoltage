@@ -1,6 +1,6 @@
 # Undervoltage (unter spannung)
 
+Use new Firebase project
+Unblock logic
 End round condition
 End match condition
-Lobby inputs (number of players and maximum points)
-Use new Firebase project
