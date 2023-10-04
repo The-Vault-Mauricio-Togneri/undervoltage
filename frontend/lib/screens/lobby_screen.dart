@@ -39,8 +39,30 @@ class LobbyScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Spacer(),
+                SizedBox(
+                  width: 120,
+                  child: CustomFormField(
+                    label: 'Players',
+                    controller: state.numberOfPlayersController,
+                    inputType: TextInputType.number,
+                    onTextChanged: state.onCreateMatchInputChanged,
+                  ),
+                ),
+                const VBox(20),
+                SizedBox(
+                  width: 120,
+                  child: CustomFormField(
+                    label: 'Max points',
+                    controller: state.maxPointsController,
+                    inputType: TextInputType.number,
+                    onTextChanged: state.onCreateMatchInputChanged,
+                  ),
+                ),
+                const VBox(20),
                 ElevatedButton(
-                  onPressed: state.onCreateMatch,
+                  onPressed: state.createMatchButtonEnabled
+                      ? state.onCreateMatch
+                      : null,
                   child: const Text('CREATE MATCH'),
                 ),
                 const VBox(40),
@@ -50,10 +72,13 @@ class LobbyScreen extends StatelessWidget {
                   size: 14,
                 ),
                 const VBox(40),
-                CustomFormField(
-                  label: 'Match ID',
-                  controller: state.matchIdController,
-                  onTextChanged: state.onMatchIdInputChanged,
+                SizedBox(
+                  width: 250,
+                  child: CustomFormField(
+                    label: 'Match ID',
+                    controller: state.matchIdController,
+                    onTextChanged: state.onJoinMatchInputChanged,
+                  ),
                 ),
                 const VBox(20),
                 ElevatedButton(
@@ -83,11 +108,19 @@ class LobbyState extends BaseState {
       TextEditingController();
   final TextEditingController maxPointsController = TextEditingController();
   final TextEditingController matchIdController = TextEditingController();
+  bool createMatchButtonEnabled = false;
   bool joinMatchButtonEnabled = false;
 
   LobbyState({required this.uri});
 
-  void onMatchIdInputChanged(String text) {
+  void onCreateMatchInputChanged(String text) {
+    createMatchButtonEnabled =
+        numberOfPlayersController.text.trim().isNotEmpty &&
+            maxPointsController.text.trim().isNotEmpty;
+    notify();
+  }
+
+  void onJoinMatchInputChanged(String text) {
     joinMatchButtonEnabled = text.trim().isNotEmpty;
     notify();
   }
@@ -109,8 +142,8 @@ class LobbyState extends BaseState {
 
     try {
       final HttpsCallableResult result = await const CreateMatch()(
-        numberOfPlayers: 2,
-        maxPoints: 100,
+        numberOfPlayers: int.parse(numberOfPlayersController.text),
+        maxPoints: int.parse(maxPointsController.text),
       );
       final String matchId = result.data['matchId'];
       final JsonMatch match = JsonMatch.fromId(matchId);
