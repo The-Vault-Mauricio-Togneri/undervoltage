@@ -142,6 +142,11 @@ class PlayerHand extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
+                PlayerHandRevealed(
+                  cards: state.hand.revealedPile,
+                  cardWidth: cardWidth,
+                  onPressed: state.onPlayCard,
+                ),
                 if (state.hand.hiddenPile.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
@@ -151,11 +156,6 @@ class PlayerHand extends StatelessWidget {
                       onPressed: state.onDiscardPilePressed,
                     ),
                   ),
-                PlayerHandRevealed(
-                  cards: state.hand.revealedPile,
-                  cardWidth: cardWidth,
-                  onPressed: state.onPlayCard,
-                ),
               ],
             ),
           ],
@@ -204,7 +204,7 @@ class PlayerHandRevealed extends StatelessWidget {
           for (final JsonCard card in cards)
             Padding(
               padding: const EdgeInsets.only(
-                left: 20,
+                right: 20,
                 bottom: 20,
               ),
               child: FaceUpCard(
