@@ -11,7 +11,17 @@ class BaseScreen extends StatelessWidget {
     return DarkStatusBar(
       child: Scaffold(
         body: SafeArea(
-          child: child,
+          child: CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [Expanded(child: child)],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
