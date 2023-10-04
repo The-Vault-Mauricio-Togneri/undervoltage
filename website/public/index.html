@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base href="/">
+
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="Undervoltage">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="undervoltage">
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            authDomain: "undervoltage.firebaseapp.com",
+            databaseURL: "https://undervoltage-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "undervoltage",
+            storageBucket: "undervoltage.appspot.com",
+            messagingSenderId: "963808568802",
+            appId: "1:963808568802:web:b9cb1b44dcc8ab50b045bb",
+            measurementId: "G-7RMJ54P739"
+        }
+
+        firebase.initializeApp(firebaseConfig)
+    </script>
+
+    <title>Undervoltage</title>
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        html {
+            background-color: black;
+        }
+
+        .lds-dual-ring {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: calc(50% - 20px);
+            left: calc(50% - 20px);
+        }
+
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 6px solid #fff;
+            border-color: #fff transparent #fff transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <script>
+        const serviceWorkerVersion = "3653786887";
+    </script>
+    <script src="flutter.js" defer></script>
+
+</head>
+
+<body>
+
+    <div id="loading" class="lds-dual-ring"></div>
+
+    <script>
+        window.addEventListener('load', function (ev) {
+            _flutter.loader.loadEntrypoint({
+                serviceWorker: {
+                    serviceWorkerVersion: serviceWorkerVersion,
+                }
+            }).then(function (engineInitializer) {
+                return engineInitializer.initializeEngine();
+            }).then(function (appRunner) {
+                return appRunner.runApp();
+            });
+        });
+    </script>
+</body>
+
+</html>
