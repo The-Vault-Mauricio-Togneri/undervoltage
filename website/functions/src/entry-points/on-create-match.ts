@@ -9,6 +9,8 @@ export const onCreateMatch = async (request: CallableRequest, user: UserRecord) 
     maxPoints: Number(request.data.maxPoints),
   });
 
+  console.log('test');
+
   const matchId = await match.create();
 
   return {

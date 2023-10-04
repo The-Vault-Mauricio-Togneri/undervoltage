@@ -7,5 +7,7 @@ export const onJoinMatch = async (request: CallableRequest, user: UserRecord) =>
   const match = await Match.load(matchId);
   await match.join(user);
 
+  console.log('test');
+
   return {};
 };

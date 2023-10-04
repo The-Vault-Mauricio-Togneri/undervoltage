@@ -6,6 +6,7 @@ import 'package:undervoltage/environments/environment.dart';
 import 'package:undervoltage/services/logged_user.dart';
 import 'package:undervoltage/services/navigation.dart';
 import 'package:undervoltage/services/platform.dart';
+import 'package:undervoltage/utils/empty_url_strategy.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -36,7 +37,7 @@ class Locator {
       await Firebase.initializeApp();
     }
 
-    //setPathUrlStrategy();
+    EmptyUrlStrategy();
     locator.registerSingleton<Environment>(environment);
     locator.registerSingleton<Navigation>(Navigation());
     locator.registerSingleton<LoggedUser>(LoggedUser());
