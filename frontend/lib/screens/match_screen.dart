@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:undervoltage/json/json_card.dart';
 import 'package:undervoltage/json/json_hand.dart';
 import 'package:undervoltage/json/json_match.dart';
+import 'package:undervoltage/json/json_player.dart';
 import 'package:undervoltage/services/logged_user.dart';
 import 'package:undervoltage/services/palette.dart';
 import 'package:undervoltage/types/match_status.dart';
@@ -13,6 +14,7 @@ import 'package:undervoltage/widgets/base_screen.dart';
 import 'package:undervoltage/widgets/face_down_pile.dart';
 import 'package:undervoltage/widgets/face_up_card.dart';
 import 'package:undervoltage/widgets/label.dart';
+import 'package:undervoltage/widgets/summary_pile.dart';
 
 class MatchScreen extends StatelessWidget {
   final MatchState state;
@@ -70,17 +72,64 @@ class Started extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const VBox(30),
-        Label(
-          text: 'Other players: ${state.match.numberOfPlayers - 1}',
-          color: Palette.black,
-          size: 14,
-        ),
+        OtherPlayers(state),
         const Spacer(),
         DiscardPile(state),
         const Spacer(),
         PlayerHand(state),
-        const VBox(30),
+      ],
+    );
+  }
+}
+
+class OtherPlayers extends StatelessWidget {
+  final MatchState state;
+
+  const OtherPlayers(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 20,
+        left: 20,
+        right: 20,
+        bottom: 20,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          for (final JsonPlayer player in state.match.players.values)
+            if (player.id != state.playerId)
+              OtherPlayerPile(
+                  player, state.match.round.playersHand[player.id]!),
+        ],
+      ),
+    );
+  }
+}
+
+class OtherPlayerPile extends StatelessWidget {
+  final JsonPlayer player;
+  final JsonHand hand;
+
+  const OtherPlayerPile(this.player, this.hand);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SummaryPile(
+          amount: hand.hiddenPile.length + hand.revealedPile.length,
+          width: MediaQuery.of(context).size.width / 8,
+        ),
+        const VBox(10),
+        Label(
+          text: player.name,
+          color: Palette.grey,
+          size: 16,
+        ),
       ],
     );
   }
