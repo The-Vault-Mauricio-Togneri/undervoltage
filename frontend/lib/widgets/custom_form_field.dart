@@ -28,7 +28,7 @@ class CustomFormField extends StatelessWidget {
       readOnly: !enabled,
       keyboardType: inputType,
       autofocus: autofocus,
-      maxLength: 20,
+      maxLength: maxLength,
       textCapitalization: TextCapitalization.sentences,
       onChanged: onTextChanged,
       inputFormatters: (maxLength != null)
