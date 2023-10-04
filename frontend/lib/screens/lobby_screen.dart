@@ -8,6 +8,7 @@ import 'package:undervoltage/build/build_version.dart';
 import 'package:undervoltage/callables/create_match.dart';
 import 'package:undervoltage/callables/join_match.dart';
 import 'package:undervoltage/dialogs/loading_dialog.dart';
+import 'package:undervoltage/environments/environment.dart';
 import 'package:undervoltage/json/json_match.dart';
 import 'package:undervoltage/services/clipboard_text.dart';
 import 'package:undervoltage/services/navigation.dart';
@@ -114,7 +115,11 @@ class LobbyState extends BaseState {
       final String matchId = result.data['matchId'];
       final JsonMatch match = JsonMatch.fromId(matchId);
       controller.close();
-      // onCopyAndShare(matchId);
+
+      if (Environment.get.isRemote) {
+        onCopyAndShare(matchId);
+      }
+
       Navigation.matchScreen(match);
     } catch (e) {
       controller.close();

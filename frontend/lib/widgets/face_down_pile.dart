@@ -32,7 +32,6 @@ class FaceDownPile extends StatelessWidget {
             width: width / 15,
             color: Palette.white,
           ),
-          color: Palette.grey,
         ),
         child: Material(
           color: Palette.transparent,
@@ -40,6 +39,10 @@ class FaceDownPile extends StatelessWidget {
           child: InkWell(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             onTap: onPressed,
+            child: Image.asset(
+              'assets/images/background.png',
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
