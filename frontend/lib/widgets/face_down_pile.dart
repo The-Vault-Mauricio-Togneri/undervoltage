@@ -39,9 +39,12 @@ class FaceDownPile extends StatelessWidget {
           child: InkWell(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             onTap: onPressed,
-            child: Image.asset(
-              'assets/images/background.png',
-              fit: BoxFit.cover,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(7)),
+              child: Image.asset(
+                'assets/images/background.png',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
