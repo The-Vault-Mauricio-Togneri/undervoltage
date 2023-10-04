@@ -1,37 +1,27 @@
 {
     "project_info": {
-        "project_number": "589993680424",
-        "firebase_url": "https://tensionplanet-default-rtdb.europe-west1.firebasedatabase.app",
-        "project_id": "tensionplanet",
-        "storage_bucket": "tensionplanet.appspot.com"
+        "project_number": "963808568802",
+        "firebase_url": "https://undervoltage-default-rtdb.europe-west1.firebasedatabase.app",
+        "project_id": "undervoltage",
+        "storage_bucket": "undervoltage.appspot.com"
     },
     "client": [
         {
             "client_info": {
-                "mobilesdk_app_id": "1:589993680424:android:9cdc1266816ab12e819f1d",
+                "mobilesdk_app_id": "1:963808568802:android:2c1cb3a43a8b77c0b045bb",
                 "android_client_info": {
                     "package_name": "com.mauriciotogneri.undervoltage"
                 }
             },
-            "oauth_client": [
-                {
-                    "client_id": "589993680424-t7vklbgm95qh5gqgahbea1ar6sf47q6o.apps.googleusercontent.com",
-                    "client_type": 3
-                }
-            ],
+            "oauth_client": [],
             "api_key": [
                 {
-                    "current_key": "AIzaSyDzZZMxpDz3S9ppGVE1hCdrCz7Ma6MGk_4"
+                    "current_key": "AIzaSyDBVmygkVOiMpEzFXeWClm6RQwbuLu6Jlk"
                 }
             ],
             "services": {
                 "appinvite_service": {
-                    "other_platform_oauth_client": [
-                        {
-                            "client_id": "589993680424-t7vklbgm95qh5gqgahbea1ar6sf47q6o.apps.googleusercontent.com",
-                            "client_type": 3
-                        }
-                    ]
+                    "other_platform_oauth_client": []
                 }
             }
         }
