@@ -7,6 +7,7 @@ import 'package:undervoltage/app/constants.dart';
 import 'package:undervoltage/build/build_version.dart';
 import 'package:undervoltage/callables/create_match.dart';
 import 'package:undervoltage/callables/join_match.dart';
+import 'package:undervoltage/dialogs/info_dialog.dart';
 import 'package:undervoltage/dialogs/loading_dialog.dart';
 import 'package:undervoltage/environments/environment.dart';
 import 'package:undervoltage/json/json_match.dart';
@@ -164,6 +165,7 @@ class LobbyState extends BaseState {
       Navigation.matchScreen(match);
     } catch (e) {
       controller.close();
+      InfoDialog.error(text: e.toString());
       print(e);
     }
   }
@@ -185,6 +187,13 @@ class LobbyState extends BaseState {
       Navigation.matchScreen(match);
     } catch (e) {
       controller.close();
+
+      if (e is FirebaseFunctionsException) {
+        InfoDialog.error(text: e.message!);
+      } else {
+        InfoDialog.error(text: e.toString());
+      }
+
       print(e);
     }
   }

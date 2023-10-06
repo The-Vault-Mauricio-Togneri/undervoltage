@@ -9,7 +9,7 @@ class InfoDialog extends StatelessWidget {
 
   const InfoDialog._(this.text, this.onAccept);
 
-  static DialogController show({
+  static DialogController _show({
     required String text,
     VoidCallback? onAccept,
   }) {
@@ -23,6 +23,11 @@ class InfoDialog extends StatelessWidget {
 
     return DialogController(context);
   }
+
+  static DialogController error({
+    required String text,
+  }) =>
+      _show(text: text);
 
   @override
   Widget build(BuildContext context) {

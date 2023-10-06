@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin';
-import {CallableRequest, onCall} from 'firebase-functions/v2/https';
+import {CallableRequest, HttpsError, onCall} from 'firebase-functions/v2/https';
 import {onCreateMatch} from './entry-points/on-create-match';
 import {onValueUpdated} from 'firebase-functions/v2/database';
 import {onMatchUpdated} from './entry-points/on-match-updated';
@@ -14,10 +14,18 @@ type CallableHandler = (request: CallableRequest, user: UserRecord) => Promise<u
 
 const handleCallable = (handler: CallableHandler) => {
   return onCall(async (request: CallableRequest) => {
-    const user = await admin.auth().getUser(request.auth?.uid ?? '');
-    const result = await handler(request, user);
+    try {
+      const user = await admin.auth().getUser(request.auth?.uid ?? '');
+      const result = await handler(request, user);
 
-    return result;
+      return result;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new HttpsError('internal', e.message);
+      } else {
+        throw new HttpsError('internal', 'Error');
+      }
+    }
   });
 };
 

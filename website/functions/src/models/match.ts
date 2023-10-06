@@ -48,7 +48,7 @@ export class Match {
     if (snapshot.exists()) {
       return Match.parse(snapshot.toJSON());
     } else {
-      throw new Error(`Match with ID ${matchId} does not exist`);
+      throw new Error(`Match with ID "${matchId}" does not exist`);
     }
   }
 
