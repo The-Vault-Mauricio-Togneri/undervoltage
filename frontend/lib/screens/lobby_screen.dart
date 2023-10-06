@@ -30,70 +30,110 @@ class LobbyScreen extends StatelessWidget {
         state: state,
         builder: (context, state) => Padding(
           padding: const EdgeInsets.all(20),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Spacer(),
-                SizedBox(
-                  width: 120,
-                  child: CustomFormField(
-                    label: 'Players',
-                    controller: state.numberOfPlayersController,
-                    inputType: TextInputType.number,
-                    onTextChanged: state.onCreateMatchInputChanged,
-                  ),
-                ),
-                const VBox(20),
-                SizedBox(
-                  width: 120,
-                  child: CustomFormField(
-                    label: 'Max points',
-                    controller: state.maxPointsController,
-                    inputType: TextInputType.number,
-                    onTextChanged: state.onCreateMatchInputChanged,
-                  ),
-                ),
-                const VBox(20),
-                ElevatedButton(
-                  onPressed: state.createMatchButtonEnabled
-                      ? state.onCreateMatch
-                      : null,
-                  child: const Text('CREATE MATCH'),
-                ),
-                const VBox(40),
-                const Label(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Spacer(),
+              CreateMatchSection(state),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 40),
+                child: Label(
                   text: 'or',
                   color: Palette.grey,
                   size: 14,
                 ),
-                const VBox(40),
-                SizedBox(
-                  width: 250,
-                  child: CustomFormField(
-                    label: 'Match ID',
-                    controller: state.matchIdController,
-                    onTextChanged: state.onJoinMatchInputChanged,
-                  ),
-                ),
-                const VBox(20),
-                ElevatedButton(
-                  onPressed:
-                      state.joinMatchButtonEnabled ? state.onJoinMatch : null,
-                  child: const Text('JOIN MATCH'),
-                ),
-                const Spacer(),
-                const Label(
-                  text: 'Version $BUILD_VERSION',
-                  color: Palette.grey,
-                  size: 14,
-                ),
-                const VBox(20),
-              ],
-            ),
+              ),
+              JoinMatchSection(state),
+              const Spacer(),
+              const Footer(),
+            ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CreateMatchSection extends StatelessWidget {
+  final LobbyState state;
+
+  const CreateMatchSection(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          width: 120,
+          child: CustomFormField(
+            label: 'Players',
+            controller: state.numberOfPlayersController,
+            inputType: TextInputType.number,
+            onTextChanged: state.onCreateMatchInputChanged,
+          ),
+        ),
+        const VBox(20),
+        SizedBox(
+          width: 120,
+          child: CustomFormField(
+            label: 'Max points',
+            controller: state.maxPointsController,
+            inputType: TextInputType.number,
+            onTextChanged: state.onCreateMatchInputChanged,
+          ),
+        ),
+        const VBox(20),
+        ElevatedButton(
+          onPressed:
+              state.createMatchButtonEnabled ? state.onCreateMatch : null,
+          child: const Text('CREATE MATCH'),
+        ),
+      ],
+    );
+  }
+}
+
+class JoinMatchSection extends StatelessWidget {
+  final LobbyState state;
+
+  const JoinMatchSection(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          width: 250,
+          child: CustomFormField(
+            label: 'Match ID',
+            controller: state.matchIdController,
+            onTextChanged: state.onJoinMatchInputChanged,
+          ),
+        ),
+        const VBox(20),
+        ElevatedButton(
+          onPressed: state.joinMatchButtonEnabled ? state.onJoinMatch : null,
+          child: const Text('JOIN MATCH'),
+        ),
+      ],
+    );
+  }
+}
+
+class Footer extends StatelessWidget {
+  const Footer();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.only(bottom: 20),
+      child: Label(
+        text: 'Version $BUILD_VERSION',
+        color: Palette.grey,
+        size: 14,
       ),
     );
   }

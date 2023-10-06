@@ -1,7 +1,8 @@
 # Undervoltage (unter spannung)
 
-Edit user profile ans settings
+Edit user profile and settings
 Animation when a new card appears
+
 Unblock logic
 End round condition
 End match condition
