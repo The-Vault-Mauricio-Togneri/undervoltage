@@ -15,12 +15,18 @@ class Navigation {
 
   static BuildContext context() => get.routes.key.currentContext!;
 
-  static void setNameScreen() => get.routes.pushAlone(
-        FadeRoute(
-          SetNameScreen.instance(),
-          name: 'set_name',
-        ),
-      );
+  static void setNameScreen(Uri uri, bool pushAlone) {
+    final FadeRoute route = FadeRoute(
+      SetNameScreen.instance(uri),
+      name: 'set_name',
+    );
+
+    if (pushAlone) {
+      get.routes.pushAlone(route);
+    } else {
+      get.routes.push(route);
+    }
+  }
 
   static void lobbyScreen(Uri uri) => get.routes.pushAlone(
         FadeRoute(

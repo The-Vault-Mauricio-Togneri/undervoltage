@@ -1,6 +1,5 @@
 # Undervoltage (unter spannung)
 
-Edit user profile and settings
 Animation when a new card appears
 
 Unblock logic

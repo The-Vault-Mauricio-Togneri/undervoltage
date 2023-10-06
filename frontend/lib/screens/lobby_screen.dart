@@ -28,27 +28,46 @@ class LobbyScreen extends StatelessWidget {
     return BaseScreen(
       child: StateProvider<LobbyState>(
         state: state,
-        builder: (context, state) => Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Spacer(),
-              CreateMatchSection(state),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 40),
-                child: Label(
-                  text: 'or',
-                  color: Palette.grey,
-                  size: 14,
-                ),
+        builder: (context, state) => Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Header(state),
+            const Spacer(),
+            CreateMatchSection(state),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 40),
+              child: Label(
+                text: 'or',
+                color: Palette.grey,
+                size: 14,
               ),
-              JoinMatchSection(state),
-              const Spacer(),
-              const Footer(),
-            ],
-          ),
+            ),
+            JoinMatchSection(state),
+            const Spacer(),
+            const Footer(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Header extends StatelessWidget {
+  final LobbyState state;
+
+  const Header(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: IconButton(
+        onPressed: state.onSettings,
+        icon: const Icon(
+          Icons.settings,
+          color: Palette.grey,
+          size: 25,
         ),
       ),
     );
@@ -229,4 +248,6 @@ class LobbyState extends BaseState {
       print(e);
     }
   }
+
+  void onSettings() => Navigation.setNameScreen(Uri(), false);
 }

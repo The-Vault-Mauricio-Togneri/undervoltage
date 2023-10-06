@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:undervoltage/services/logged_user.dart';
@@ -11,7 +10,7 @@ class SetNameScreen extends StatelessWidget {
 
   const SetNameScreen._(this.state);
 
-  factory SetNameScreen.instance() => SetNameScreen._(SetNameState());
+  factory SetNameScreen.instance(Uri uri) => SetNameScreen._(SetNameState(uri));
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +46,17 @@ class SetNameScreen extends StatelessWidget {
 }
 
 class SetNameState extends BaseState {
+  final Uri uri;
   bool buttonEnabled = false;
   final TextEditingController nameController = TextEditingController();
 
-  Future setName() async {
+  SetNameState(this.uri) {
+    nameController.text = LoggedUser.get.name;
+  }
+
+  void setName() {
     LoggedUser.get.updateName(nameController.text.trim());
-    Navigation.lobbyScreen(Uri());
+    Navigation.lobbyScreen(uri);
   }
 
   void onTextChanged(String text) {

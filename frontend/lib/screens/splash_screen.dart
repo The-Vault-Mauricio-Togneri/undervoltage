@@ -28,7 +28,6 @@ class SplashState extends BaseState {
 
   @override
   Future onLoad() async {
-    //await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
     StreamSubscription? subscription;
     subscription = FirebaseAuth.instance.authStateChanges().listen((user) {
       subscription?.cancel();
@@ -43,7 +42,7 @@ class SplashState extends BaseState {
     if (LoggedUser.get.hasName) {
       Navigation.lobbyScreen(uri);
     } else {
-      Navigation.setNameScreen();
+      Navigation.setNameScreen(uri, true);
     }
   }
 

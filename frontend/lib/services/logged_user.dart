@@ -6,7 +6,7 @@ class LoggedUser {
 
   String get id => _user.uid;
 
-  String get name => _user.displayName ?? 'Anonymous ${id.hashCode % 1000}';
+  String get name => _user.displayName ?? '';
 
   bool get isAnonymous => _user.isAnonymous;
 
@@ -16,5 +16,9 @@ class LoggedUser {
 
   void load(User user) => _user = user;
 
-  void updateName(String name) => _user.updateDisplayName(name);
+  Future updateName(String name) async {
+    _user.updateDisplayName(name);
+    await _user.reload();
+    load(FirebaseAuth.instance.currentUser!);
+  }
 }
