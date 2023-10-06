@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:get_it/get_it.dart';
 import 'package:undervoltage/environments/environment.dart';
 import 'package:undervoltage/services/logged_user.dart';
@@ -37,7 +38,7 @@ class Locator {
       await Firebase.initializeApp();
     }
 
-    EmptyUrlStrategy();
+    setUrlStrategy(EmptyUrlStrategy());
     locator.registerSingleton<Environment>(environment);
     locator.registerSingleton<Navigation>(Navigation());
     locator.registerSingleton<LoggedUser>(LoggedUser());

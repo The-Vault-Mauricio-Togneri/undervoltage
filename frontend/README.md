@@ -1,13 +1,10 @@
 # Undervoltage (unter spannung)
 
-Custom url strategy
 Edit user profile ans settings
 Fix unavoidable faults
 10 faults and lost
 Sound when a new card appears
-Nickname capitalize
 Show error messages in callables
-Remove card limit
 Add timer
 Text to speech numbers
 Unblock logic
