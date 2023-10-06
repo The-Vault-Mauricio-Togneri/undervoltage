@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:undervoltage/json/json_card.dart';
 import 'package:undervoltage/json/json_hand.dart';
 import 'package:undervoltage/json/json_match.dart';
@@ -272,7 +273,9 @@ class MatchState extends BaseState {
   late final String playerId;
   late final DatabaseReference matchRef;
   late final StreamSubscription subscription;
+  final FlutterTts tts = FlutterTts();
   JsonMatch match;
+  String lastCard = '';
 
   MatchState({required this.match});
 
@@ -379,6 +382,20 @@ class MatchState extends BaseState {
 
   void onMatchUpdated(JsonMatch match) {
     notify();
+
+    final bool shouldSpeak = lastCard.isNotEmpty;
+
+    if (match.round.discardPile.isNotEmpty) {
+      final String newCard = match.round.discardPile.last.value.toString();
+
+      if (lastCard != newCard) {
+        lastCard = newCard;
+
+        if (shouldSpeak) {
+          tts.speak(lastCard);
+        }
+      }
+    }
   }
 
   @override

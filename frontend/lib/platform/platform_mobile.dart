@@ -10,4 +10,8 @@ class PlatformMethods extends PlatformMethodsBase {
       // ignore
     }
   }
+
+  @override
+  void urlStrategy() {
+  }
 }
