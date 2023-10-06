@@ -155,10 +155,31 @@ class DiscardPile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FaceUpCard(
-      card: state.match.round.discardPile.last,
-      width: (MediaQuery.of(context).size.width - 104) / 4,
-      onPressed: null,
+    final double cardWidth = (MediaQuery.of(context).size.width - 104) / 4;
+    final double cardHeight = cardWidth * 1.56;
+
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        AnimatedOpacity(
+          opacity: state.animationOpacity,
+          duration: const Duration(milliseconds: 250),
+          onEnd: state.onAnimationEnded,
+          child: Container(
+            width: cardHeight * 1.5,
+            height: cardHeight * 1.5,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(1000)),
+              color: Colors.red,
+            ),
+          ),
+        ),
+        FaceUpCard(
+          card: state.match.round.discardPile.last,
+          width: cardWidth,
+          onPressed: null,
+        ),
+      ],
     );
   }
 }
@@ -288,6 +309,7 @@ class MatchState extends BaseState {
   final FlutterTts tts = FlutterTts();
   JsonMatch match;
   String lastCard = '';
+  double animationOpacity = 0;
 
   MatchState({required this.match});
 
@@ -408,6 +430,7 @@ class MatchState extends BaseState {
         lastCard = newCard;
 
         if (shouldSpeak) {
+          animationOpacity = 1;
           tts.speak(lastCard);
         }
       }
@@ -415,6 +438,11 @@ class MatchState extends BaseState {
   }
 
   void onCopyAndShare() => CopyAndShare.match(match.id);
+
+  void onAnimationEnded() {
+    animationOpacity = 0;
+    notify();
+  }
 
   @override
   void onDestroy() {

@@ -1,7 +1,5 @@
 # Undervoltage (unter spannung)
 
-Animation when a new card appears
-
 Unblock logic
 End round condition
 End match condition
