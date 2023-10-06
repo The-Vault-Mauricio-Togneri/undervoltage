@@ -4,6 +4,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:undervoltage/environments/environment.dart';
 import 'package:undervoltage/json/json_card.dart';
 import 'package:undervoltage/json/json_hand.dart';
 import 'package:undervoltage/json/json_match.dart';
@@ -11,6 +12,7 @@ import 'package:undervoltage/json/json_player.dart';
 import 'package:undervoltage/services/logged_user.dart';
 import 'package:undervoltage/services/palette.dart';
 import 'package:undervoltage/types/match_status.dart';
+import 'package:undervoltage/utils/copy_and_share.dart';
 import 'package:undervoltage/widgets/base_screen.dart';
 import 'package:undervoltage/widgets/face_down_pile.dart';
 import 'package:undervoltage/widgets/face_up_card.dart';
@@ -54,11 +56,21 @@ class WaitingForPlayers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Label(
-        text:
-            'Waiting for players: ${state.playersJoined}/${state.numberOfPlayers}',
-        color: Palette.grey,
-        size: 14,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Label(
+            text:
+                'Waiting for players: ${state.playersJoined}/${state.numberOfPlayers}',
+            color: Palette.grey,
+            size: 14,
+          ),
+          const VBox(40),
+          ElevatedButton(
+            onPressed: state.onCopyAndShare,
+            child: const Text('SHARE'),
+          ),
+        ],
       ),
     );
   }
@@ -307,6 +319,10 @@ class MatchState extends BaseState {
       match = JsonMatch.fromJson(jsonDecode(json));
       onMatchUpdated(match);
     });
+
+    if (isWaitingForPlayers && Environment.get.isRemote) {
+      onCopyAndShare();
+    }
   }
 
   Future playCard(JsonCard card) async {
@@ -397,6 +413,8 @@ class MatchState extends BaseState {
       }
     }
   }
+
+  void onCopyAndShare() => CopyAndShare.match(match.id);
 
   @override
   void onDestroy() {

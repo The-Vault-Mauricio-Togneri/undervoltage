@@ -2,19 +2,15 @@ import 'dart:async';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:undervoltage/app/constants.dart';
 import 'package:undervoltage/build/build_version.dart';
 import 'package:undervoltage/callables/create_match.dart';
 import 'package:undervoltage/callables/join_match.dart';
 import 'package:undervoltage/dialogs/info_dialog.dart';
 import 'package:undervoltage/dialogs/loading_dialog.dart';
-import 'package:undervoltage/environments/environment.dart';
 import 'package:undervoltage/json/json_match.dart';
-import 'package:undervoltage/services/clipboard_text.dart';
 import 'package:undervoltage/services/navigation.dart';
 import 'package:undervoltage/services/palette.dart';
-import 'package:undervoltage/services/platform.dart';
+import 'package:undervoltage/types/match_status.dart';
 import 'package:undervoltage/widgets/base_screen.dart';
 import 'package:undervoltage/widgets/custom_form_field.dart';
 import 'package:undervoltage/widgets/label.dart';
@@ -154,13 +150,9 @@ class LobbyState extends BaseState {
         maxPoints: int.parse(maxPointsController.text),
       );
       final String matchId = result.data['matchId'];
-      final JsonMatch match = JsonMatch.fromId(matchId);
+      final JsonMatch match =
+          JsonMatch.fromId(matchId, MatchStatus.waitingForPlayers);
       controller.close();
-
-      if (Environment.get.isRemote) {
-        onCopyAndShare(matchId);
-      }
-
       _clearFields();
       Navigation.matchScreen(match);
     } catch (e) {
@@ -181,7 +173,7 @@ class LobbyState extends BaseState {
         matchId: matchId,
       );
       controller.close();
-      final JsonMatch match = JsonMatch.fromId(matchId);
+      final JsonMatch match = JsonMatch.fromId(matchId, MatchStatus.loading);
 
       _clearFields();
       Navigation.matchScreen(match);
@@ -195,29 +187,6 @@ class LobbyState extends BaseState {
       }
 
       print(e);
-    }
-  }
-
-  void onCopyAndShare(String matchId) {
-    final String link = '${Constants.MATCH_URL}$matchId';
-
-    _copyToClipboard(link);
-
-    if (Platform.isMobile) {
-      _onShare(link);
-    }
-  }
-
-  void _copyToClipboard(String link) => ClipboardText().copy(link);
-
-  void _onShare(String link) {
-    try {
-      Share.share(
-        link,
-        subject: 'Share the link for people can join the match',
-      );
-    } catch (e) {
-      // ignore
     }
   }
 }

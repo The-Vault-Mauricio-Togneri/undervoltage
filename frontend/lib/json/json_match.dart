@@ -28,11 +28,11 @@ class JsonMatch {
 
   int get playersJoined => players.length;
 
-  factory JsonMatch.fromId(String id) => JsonMatch(
+  factory JsonMatch.fromId(String id, MatchStatus status) => JsonMatch(
         id: id,
         numberOfPlayers: 0,
         maxPoints: 0,
-        status: MatchStatus.loading,
+        status: status,
         players: {},
         roundCount: 0,
         round: const JsonRound(
