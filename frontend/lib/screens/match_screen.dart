@@ -342,6 +342,8 @@ class MatchState extends BaseState {
       onMatchUpdated(match);
     });
 
+    tts.awaitSpeakCompletion(false);
+
     if (isWaitingForPlayers && Environment.get.isRemote) {
       onCopyAndShare();
     }
@@ -418,7 +420,7 @@ class MatchState extends BaseState {
     }
   }
 
-  void onMatchUpdated(JsonMatch match) {
+  Future onMatchUpdated(JsonMatch match) async {
     notify();
 
     final bool shouldSpeak = lastCard.isNotEmpty;
@@ -431,6 +433,7 @@ class MatchState extends BaseState {
 
         if (shouldSpeak) {
           animationOpacity = 1;
+          await tts.stop();
           tts.speak(lastCard);
         }
       }
