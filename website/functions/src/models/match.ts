@@ -175,7 +175,7 @@ export class Match {
           break;
         }
       } else {
-        throw new Error('Card cannot be played');
+        throw new Error(`Card cannot be played: Card ID: ${cardId}. Card: ${card.json()}. Top Card: ${topCard.json()}`);
       }
     }
   }

@@ -12,5 +12,5 @@ mkdir ${OUTPUT}
 cp -r build/web/** ${OUTPUT}
 
 cd ../website
-firebase deploy --only hosting
+firebase deploy
 cd ../frontend

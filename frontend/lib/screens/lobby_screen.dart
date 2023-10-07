@@ -196,6 +196,8 @@ class LobbyState extends BaseState {
     numberOfPlayersController.text = '';
     maxPointsController.text = '';
     matchIdController.text = '';
+    createMatchButtonEnabled = false;
+    joinMatchButtonEnabled = false;
     notify();
   }
 
