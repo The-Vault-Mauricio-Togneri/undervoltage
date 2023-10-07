@@ -60,6 +60,18 @@ export class Hand {
     );
   }
 
+  public removeCard(cardId: string) {
+    const newRevealedPile = [];
+
+    for (const card of this.revealedPile) {
+      if (card.id !== cardId) {
+        newRevealedPile.push(card);
+      }
+    }
+
+    this.revealedPile = newRevealedPile;
+  }
+
   public json() {
     return {
       hiddenPile: this.hiddenPile.map((c) => c.json()),

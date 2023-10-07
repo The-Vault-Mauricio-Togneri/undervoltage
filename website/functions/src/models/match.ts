@@ -137,6 +137,11 @@ export class Match {
     return false;
   }
 
+  public removeCard(playerId: string, cardId: string) {
+    const hand = this.round.playersHand.of(playerId);
+    hand.removeCard(cardId);
+  }
+
   public async playCard(playerId: string, cardId: string) {
     const topCard = this.round.lastCard;
     const revealedPile = this.round.playersHand.of(playerId).revealedPile;
@@ -145,29 +150,26 @@ export class Match {
       if (card.id === cardId) {
         if (topCard.canAccept(card)) {
           const matchesRef = getDatabase().ref(`matches/${this.id}`);
-          await matchesRef.transaction(
-              async (data: any) => {
-                if (data) {
-                  console.log(`IN TRANSACTION: ${data}`);
+          await matchesRef.transaction((data: any) => {
+            if (data) {
+              const match = Match.parse(data);
+              match.round.discardPile.push(card);
+              match.removeCard(playerId, cardId);
 
-                  return data;
-                } else {
-                  console.log('Data is null. Aborting transaction');
-                  return;
-                }
-              },
-              (error, committed, snapshot) => {
-                if (error) {
-                  console.log('Transaction failed abnormally!', error);
-                } else if (!committed) {
-                  console.log('We aborted the transaction (because ada already exists).');
-                } else {
-                  console.log('User ada added!');
-                }
-                console.log('Ada\'s data: ', snapshot?.val());
-              },
-              true,
-          );
+              return match.json();
+            } else {
+              return this.json();
+            }
+          }, (error, committed) => {
+            if (error) {
+              console.log('Transaction failed abnormally!', error);
+            } else if (!committed) {
+              console.log('We aborted the transaction (because ada already exists).');
+            } else {
+              console.log('User ada added!');
+            }
+          },
+          true);
           break;
         }
       }
