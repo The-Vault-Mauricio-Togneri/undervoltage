@@ -342,8 +342,6 @@ class MatchState extends BaseState {
       onMatchUpdated(match);
     });
 
-    tts.awaitSpeakCompletion(false);
-
     if (isWaitingForPlayers && Environment.get.isRemote) {
       onCopyAndShare();
     }

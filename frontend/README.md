@@ -1,7 +1,5 @@
 # Undervoltage (unter spannung)
 
-Implement TTS rotation
-
 Unblock logic
 End round condition
 End match condition
