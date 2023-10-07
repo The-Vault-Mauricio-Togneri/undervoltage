@@ -94,7 +94,7 @@ export class Card {
     const value1 = this.normalize(this.value + this.diff);
     const value2 = this.normalize(this.value - this.diff);
 
-    return (card.value == value1) || (card.value == value2);
+    return (card.value === value1) || (card.value === value2);
   }
 
   private normalize(value: number) {

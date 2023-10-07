@@ -350,7 +350,7 @@ class MatchState extends BaseState {
 
   dynamic _encode(dynamic value) => jsonDecode(jsonEncode(value));
 
-  Future playCard(JsonCard card) async {
+  /*Future playCard(JsonCard card) async {
     final pileRef =
         FirebaseDatabase.instance.ref('matches/${match.id}/round/discardPile');
     final TransactionResult result = await pileRef.runTransaction(
@@ -374,7 +374,7 @@ class MatchState extends BaseState {
     );
 
     return result.committed;
-  }
+  }*/
 
   Future updateHand(JsonHand hand) async {
     final handRef = FirebaseDatabase.instance
@@ -411,10 +411,14 @@ class MatchState extends BaseState {
     final JsonCard topCard = match.round.discardPile.last;
 
     if (topCard.canAccept(card)) {
-      await playCardCallable(
-        matchId: match.id,
-        cardId: card.id,
-      );
+      try {
+        await playCardCallable(
+          matchId: match.id,
+          cardId: card.id,
+        );
+      } catch (e) {
+        updateHand(currentHand.withNewFault);
+      }
 
       /*final bool success = await playCard(card);
 

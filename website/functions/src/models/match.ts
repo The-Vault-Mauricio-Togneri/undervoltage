@@ -100,9 +100,12 @@ export class Match {
     }
   }
 
+  private get dbRef() {
+    return getDatabase().ref(`matches/${this.id}`);
+  }
+
   private async update() {
-    const matchesRef = getDatabase().ref(`matches/${this.id}`);
-    await matchesRef.update(this.json());
+    await this.dbRef.update(this.json());
   }
 
   public get isBlocked() {
@@ -144,13 +147,12 @@ export class Match {
 
   public async playCard(playerId: string, cardId: string) {
     const topCard = this.round.lastCard;
-    const revealedPile = this.round.playersHand.of(playerId).revealedPile;
+    const hand = this.round.playersHand.of(playerId);
 
-    for (const card of revealedPile) {
+    for (const card of hand.revealedPile) {
       if (card.id === cardId) {
         if (topCard.canAccept(card)) {
-          const matchesRef = getDatabase().ref(`matches/${this.id}`);
-          await matchesRef.transaction((data: any) => {
+          await this.dbRef.transaction((data: any) => {
             if (data) {
               const match = Match.parse(data);
               match.round.discardPile.push(card);
@@ -172,6 +174,8 @@ export class Match {
           true);
           break;
         }
+      } else {
+        throw new Error('Card cannot be played');
       }
     }
   }
