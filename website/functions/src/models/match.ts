@@ -3,6 +3,8 @@ import {MatchStatus} from '../types/match-status';
 import {getDatabase} from 'firebase-admin/database';
 import {Player, Players} from './player';
 import {Round} from './round';
+import {Card} from './card';
+import {Hand, Hands} from './hand';
 
 export class Match {
   constructor(
@@ -101,6 +103,38 @@ export class Match {
   private async update() {
     const matchesRef = getDatabase().ref(`matches/${this.id}`);
     await matchesRef.update(this.json());
+  }
+
+  public get isBlocked() {
+    return ((this.round.discardPile.length > 0) && this.allPlayersBlocked(this.round.playersHand, this.round.discardPile[this.round.discardPile.length - 1]));
+  }
+
+  private allPlayersBlocked(hands: Hands, topCard: Card): boolean {
+    for (const hand of hands.list) {
+      if (!this.playerBlocked(hand, topCard)) {
+        return false;
+      }
+    }
+
+    return hands.length > 0;
+  }
+
+  private playerBlocked(hand: Hand, topCard: Card): boolean {
+    if (hand.hiddenPile.length === 0) {
+      return !this.canPlayCards(hand.revealedPile, topCard);
+    } else {
+      return false;
+    }
+  }
+
+  private canPlayCards(cards: Card[], topCard: Card): boolean {
+    for (const card of cards) {
+      if (topCard.canAccept(card)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public json() {

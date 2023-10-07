@@ -39,4 +39,10 @@ class JsonCard {
       _$JsonCardFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonCardToJson(this);
+
+  Map<Object?, Object?> toMap() => {
+        'color': color,
+        'diff': diff,
+        'value': value,
+      };
 }

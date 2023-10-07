@@ -337,8 +337,7 @@ class MatchState extends BaseState {
 
     matchRef = FirebaseDatabase.instance.ref('matches/${match.id}');
     subscription = matchRef.onValue.listen((event) {
-      final json = jsonEncode(event.snapshot.value);
-      match = JsonMatch.fromJson(jsonDecode(json));
+      match = JsonMatch.fromJson(_encode(event.snapshot.value));
       onMatchUpdated(match);
     });
 
@@ -346,6 +345,8 @@ class MatchState extends BaseState {
       onCopyAndShare();
     }
   }
+
+  dynamic _encode(dynamic value) => jsonDecode(jsonEncode(value));
 
   Future playCard(JsonCard card) async {
     final pileRef =
@@ -356,7 +357,7 @@ class MatchState extends BaseState {
           return Transaction.abort();
         } else {
           final List<dynamic> newPile = List<dynamic>.from(old as List);
-          final JsonCard topCard = JsonCard.fromJson(newPile.last);
+          final JsonCard topCard = JsonCard.fromJson(_encode(newPile.last));
 
           if (topCard.canAccept(card)) {
             newPile.add(card.toJson());
@@ -381,10 +382,11 @@ class MatchState extends BaseState {
         if (old == null) {
           return Transaction.abort();
         } else {
-          final Map<String, dynamic> newHand =
-              Map<String, dynamic>.from(old as Map);
-          newHand['hiddenPile'] = hand.hiddenPile.map((e) => e.toJson());
-          newHand['revealedPile'] = hand.revealedPile.map((e) => e.toJson());
+          final Map<Object?, Object?> newHand = {};
+          newHand['hiddenPile'] =
+              hand.hiddenPile.map((e) => e.toMap()).toList();
+          newHand['revealedPile'] =
+              hand.revealedPile.map((e) => e.toMap()).toList();
           newHand['faults'] = hand.faults;
 
           return Transaction.success(newHand);

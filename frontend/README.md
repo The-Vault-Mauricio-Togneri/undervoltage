@@ -1,8 +1,8 @@
 # Undervoltage (unter spannung)
 
 Unblock logic
-End round condition
-End match condition
+End round logic
+End match logic
 
 Add timer
 10 faults and lost
