@@ -18,6 +18,10 @@ export class Hands {
     this.data[playerId] = hand;
   }
 
+  public of(playerId: string) {
+    return this.data[playerId];
+  }
+
   public json() {
     const result: any = {};
 

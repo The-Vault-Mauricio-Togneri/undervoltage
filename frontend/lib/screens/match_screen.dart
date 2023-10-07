@@ -4,6 +4,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:undervoltage/callables/play_card.dart';
 import 'package:undervoltage/environments/environment.dart';
 import 'package:undervoltage/json/json_card.dart';
 import 'package:undervoltage/json/json_hand.dart';
@@ -307,6 +308,7 @@ class MatchState extends BaseState {
   late final DatabaseReference matchRef;
   late final StreamSubscription subscription;
   final FlutterTts tts = FlutterTts();
+  final PlayCard playCardCallable = const PlayCard();
   JsonMatch match;
   String lastCard = '';
   double animationOpacity = 0;
@@ -384,9 +386,9 @@ class MatchState extends BaseState {
         } else {
           final Map<Object?, Object?> newHand = {};
           newHand['hiddenPile'] =
-              hand.hiddenPile.map((e) => e.toMap()).toList();
+              hand.hiddenPile.map((e) => e.toJson()).toList();
           newHand['revealedPile'] =
-              hand.revealedPile.map((e) => e.toMap()).toList();
+              hand.revealedPile.map((e) => e.toJson()).toList();
           newHand['faults'] = hand.faults;
 
           return Transaction.success(newHand);
@@ -409,12 +411,17 @@ class MatchState extends BaseState {
     final JsonCard topCard = match.round.discardPile.last;
 
     if (topCard.canAccept(card)) {
-      final bool success = await playCard(card);
+      await playCardCallable(
+        matchId: match.id,
+        cardId: card.id,
+      );
+
+      /*final bool success = await playCard(card);
 
       if (success) {
         currentHand.playCard(card);
         updateHand(currentHand);
-      }
+      }*/
     } else {
       updateHand(currentHand.withNewFault);
     }

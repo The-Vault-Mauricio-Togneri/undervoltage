@@ -106,7 +106,7 @@ export class Match {
   }
 
   public get isBlocked() {
-    return ((this.round.discardPile.length > 0) && this.allPlayersBlocked(this.round.playersHand, this.round.discardPile[this.round.discardPile.length - 1]));
+    return ((this.round.discardPile.length > 0) && this.allPlayersBlocked(this.round.playersHand, this.round.lastCard));
   }
 
   private allPlayersBlocked(hands: Hands, topCard: Card): boolean {
@@ -135,6 +135,43 @@ export class Match {
     }
 
     return false;
+  }
+
+  public async playCard(playerId: string, cardId: string) {
+    const topCard = this.round.lastCard;
+    const revealedPile = this.round.playersHand.of(playerId).revealedPile;
+
+    for (const card of revealedPile) {
+      if (card.id === cardId) {
+        if (topCard.canAccept(card)) {
+          const matchesRef = getDatabase().ref(`matches/${this.id}`);
+          await matchesRef.transaction(
+              async (data: any) => {
+                if (data) {
+                  console.log(`IN TRANSACTION: ${data}`);
+
+                  return data;
+                } else {
+                  console.log('Data is null. Aborting transaction');
+                  return;
+                }
+              },
+              (error, committed, snapshot) => {
+                if (error) {
+                  console.log('Transaction failed abnormally!', error);
+                } else if (!committed) {
+                  console.log('We aborted the transaction (because ada already exists).');
+                } else {
+                  console.log('User ada added!');
+                }
+                console.log('Ada\'s data: ', snapshot?.val());
+              },
+              true,
+          );
+          break;
+        }
+      }
+    }
   }
 
   public json() {

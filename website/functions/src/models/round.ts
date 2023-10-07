@@ -51,6 +51,10 @@ export class Round {
     }
   }
 
+  public get lastCard() {
+    return this.discardPile[this.discardPile.length - 1];
+  }
+
   public json() {
     return {
       discardPile: this.discardPile.map((c) => c.json()),

@@ -5,6 +5,7 @@ import {onValueUpdated} from 'firebase-functions/v2/database';
 import {onMatchUpdated} from './entry-points/on-match-updated';
 import {onJoinMatch} from './entry-points/on-join-match';
 import {UserRecord} from 'firebase-admin/auth';
+import {onPlayCard} from './entry-points/on-play-card';
 
 admin.initializeApp();
 
@@ -32,6 +33,8 @@ const handleCallable = (handler: CallableHandler) => {
 export const createMatch = handleCallable(onCreateMatch);
 
 export const joinMatch = handleCallable(onJoinMatch);
+
+export const playCard = handleCallable(onPlayCard);
 
 export const onMatchUpdatedTrigger = onValueUpdated({
   ref: '/matches/{matchId}',

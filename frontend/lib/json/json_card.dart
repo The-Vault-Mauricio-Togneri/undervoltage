@@ -5,11 +5,13 @@ part 'json_card.g.dart';
 
 @JsonSerializable()
 class JsonCard {
+  final String id;
   final String color;
   final int diff;
   final int value;
 
   const JsonCard({
+    required this.id,
     required this.color,
     required this.diff,
     required this.value,
@@ -39,10 +41,4 @@ class JsonCard {
       _$JsonCardFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonCardToJson(this);
-
-  Map<Object?, Object?> toMap() => {
-        'color': color,
-        'diff': diff,
-        'value': value,
-      };
 }
