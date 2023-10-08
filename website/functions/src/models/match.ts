@@ -173,9 +173,9 @@ export class Match {
           },
           true);
           break;
+        } else {
+          throw new Error(`Card cannot be played: Card ID: ${cardId}. Card: ${JSON.stringify(card.json())}. Top Card: ${JSON.stringify(topCard.json())}`);
         }
-      } else {
-        throw new Error(`Card cannot be played: Card ID: ${cardId}. Card: ${card.json()}. Top Card: ${topCard.json()}`);
       }
     }
   }

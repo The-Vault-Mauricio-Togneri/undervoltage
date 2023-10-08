@@ -417,6 +417,7 @@ class MatchState extends BaseState {
           cardId: card.id,
         );
       } catch (e) {
+        print(e);
         updateHand(currentHand.withNewFault);
       }
 
