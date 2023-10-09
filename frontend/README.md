@@ -1,7 +1,5 @@
 # Undervoltage (unter spannung)
 
-New card is generation
-Tts on complete
 Unblock logic
 
 End round logic

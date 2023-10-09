@@ -13,6 +13,7 @@ import 'package:undervoltage/json/json_player.dart';
 import 'package:undervoltage/services/logged_user.dart';
 import 'package:undervoltage/services/palette.dart';
 import 'package:undervoltage/types/match_status.dart';
+import 'package:undervoltage/types/text_to_speech.dart';
 import 'package:undervoltage/utils/copy_and_share.dart';
 import 'package:undervoltage/widgets/base_screen.dart';
 import 'package:undervoltage/widgets/face_down_pile.dart';
@@ -308,7 +309,9 @@ class MatchState extends BaseState {
   late final DatabaseReference matchRef;
   late final StreamSubscription subscription;
   final FlutterTts tts = FlutterTts();
+  final List<String> ttsPlayQueue = [];
   final PlayCard playCardCallable = const PlayCard();
+  TextToSpeechState ttsState = TextToSpeechState.idle;
   JsonMatch match;
   String lastCard = '';
   double animationOpacity = 0;
@@ -345,6 +348,26 @@ class MatchState extends BaseState {
 
     if (isWaitingForPlayers && Environment.get.isRemote) {
       onCopyAndShare();
+    }
+
+    tts.setStartHandler(() {
+      ttsState = TextToSpeechState.playing;
+    });
+
+    tts.setCompletionHandler(() {
+      ttsState = TextToSpeechState.idle;
+
+      if (ttsPlayQueue.isNotEmpty) {
+        _speak(ttsPlayQueue.removeAt(0));
+      }
+    });
+  }
+
+  void _speak(String value) {
+    if (ttsState == TextToSpeechState.idle) {
+      tts.speak(value);
+    } else {
+      ttsPlayQueue.add(value);
     }
   }
 
@@ -445,8 +468,7 @@ class MatchState extends BaseState {
 
         if (shouldSpeak) {
           animationOpacity = 1;
-          await tts.stop();
-          tts.speak(lastCard);
+          _speak(lastCard);
         }
       }
     }

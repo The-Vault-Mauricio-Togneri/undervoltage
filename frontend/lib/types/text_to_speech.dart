@@ -1,0 +1,4 @@
+enum TextToSpeechState {
+  playing,
+  idle;
+}
