@@ -6,7 +6,12 @@ export const onMatchUpdated = async (data: DataSnapshot, _: Record<string, strin
 
   if (match.status === 'playing') {
     if (match.isBlocked) {
-      console.log(JSON.stringify(match));
+      let limit = match.round.discardPile.length;
+
+      while (match.isBlocked && (limit > 1)) {
+        await match.unblock();
+        limit--;
+      }
     }
   }
 };

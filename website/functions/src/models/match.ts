@@ -112,6 +112,25 @@ export class Match {
     return ((this.round.discardPile.length > 0) && this.allPlayersBlocked(this.round.playersHand, this.round.lastCard));
   }
 
+  public async unblock() {
+    this.round.unblock();
+
+    if (!this.isBlocked) {
+      const newDiscardPile = this.round.discardPile;
+
+      await this.dbRef.transaction((data: any) => {
+        if (data) {
+          const match = Match.parse(data);
+          match.round.discardPile = newDiscardPile;
+
+          return match.json();
+        } else {
+          return this.json();
+        }
+      }, this.handleTransactionError, true);
+    }
+  }
+
   private allPlayersBlocked(hands: Hands, topCard: Card): boolean {
     for (const hand of hands.list) {
       if (!this.playerBlocked(hand, topCard)) {
@@ -162,21 +181,22 @@ export class Match {
             } else {
               return this.json();
             }
-          }, (error, committed) => {
-            if (error) {
-              console.log('Transaction failed abnormally!', error);
-            } else if (!committed) {
-              console.log('We aborted the transaction (because ada already exists).');
-            } else {
-              console.log('User ada added!');
-            }
-          },
-          true);
+          }, this.handleTransactionError, true);
           break;
         } else {
           throw new Error(`Card cannot be played: Card ID: ${cardId}. Card: ${JSON.stringify(card.json())}. Top Card: ${JSON.stringify(topCard.json())}`);
         }
       }
+    }
+  }
+
+  private handleTransactionError(error: Error | null, committed: boolean) {
+    if (error) {
+      console.log('Transaction failed abnormally!', error);
+    } else if (!committed) {
+      console.log('We aborted the transaction (because ada already exists).');
+    } else {
+      console.log('User ada added!');
     }
   }
 

@@ -55,6 +55,14 @@ export class Round {
     return this.discardPile[this.discardPile.length - 1];
   }
 
+  public unblock() {
+    const bottomCard = this.discardPile.shift();
+
+    if (bottomCard) {
+      this.discardPile.push(bottomCard);
+    }
+  }
+
   public json() {
     return {
       discardPile: this.discardPile.map((c) => c.json()),

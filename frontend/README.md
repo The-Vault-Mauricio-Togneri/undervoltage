@@ -1,7 +1,5 @@
 # Undervoltage (unter spannung)
 
-Unblock logic
-
 End round logic
 End match logic
 
