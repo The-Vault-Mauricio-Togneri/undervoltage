@@ -1,5 +1,7 @@
 # Undervoltage (unter spannung)
 
+Putting card late doesn't count as fault
+
 End round logic
 End match logic
 
