@@ -112,6 +112,22 @@ export class Match {
     return ((this.round.discardPile.length > 0) && this.allPlayersBlocked(this.round.playersHand, this.round.lastCard));
   }
 
+  public get playerFinished() {
+    for (const hand of this.round.playersHand.list) {
+      if (hand.hiddenPile.length === 0) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public async endTurn() {
+    this.status = 'summary';
+
+    await this.update();
+  }
+
   public async unblock() {
     this.round.unblock();
 

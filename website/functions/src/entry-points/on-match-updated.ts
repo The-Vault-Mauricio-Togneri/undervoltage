@@ -5,7 +5,9 @@ export const onMatchUpdated = async (data: DataSnapshot, _: Record<string, strin
   const match = Match.parse(data.toJSON());
 
   if (match.status === 'playing') {
-    if (match.isBlocked) {
+    if (match.playerFinished) {
+      await match.endTurn();
+    } else if (match.isBlocked) {
       let limit = match.round.discardPile.length;
 
       while (match.isBlocked && (limit > 1)) {
