@@ -64,6 +64,10 @@ export class Hand {
     );
   }
 
+  public get finished() {
+    return (this.hiddenPile.length === 0) && (this.revealedPile.length === 0);
+  }
+
   public removeCard(cardId: string) {
     const newRevealedPile = [];
 

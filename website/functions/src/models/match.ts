@@ -114,7 +114,7 @@ export class Match {
 
   public get playerFinished() {
     for (const hand of this.round.playersHand.list) {
-      if (hand.hiddenPile.length === 0) {
+      if (hand.finished) {
         return true;
       }
     }

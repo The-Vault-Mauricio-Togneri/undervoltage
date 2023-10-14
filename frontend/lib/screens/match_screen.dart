@@ -93,22 +93,26 @@ class Summary extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           for (final player in state.match.players.values)
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Label(
-                  text: player.name,
-                  color: Palette.grey,
-                  size: 14,
-                  weight: FontWeight.bold,
-                ),
-                const HBox(20),
-                Label(
-                  text: player.points.toString(),
-                  color: Palette.grey,
-                  size: 14,
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Label(
+                    text: player.name,
+                    color: Palette.grey,
+                    size: 16,
+                    weight: FontWeight.bold,
+                  ),
+                  const HBox(20),
+                  Label(
+                    text: player.points.toString(),
+                    color: Palette.grey,
+                    size: 16,
+                  ),
+                ],
+              ),
             ),
           const VBox(40),
           ElevatedButton(
