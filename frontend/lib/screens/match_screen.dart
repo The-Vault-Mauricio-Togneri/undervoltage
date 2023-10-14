@@ -373,32 +373,6 @@ class MatchState extends BaseState {
 
   dynamic _encode(dynamic value) => jsonDecode(jsonEncode(value));
 
-  /*Future playCard(JsonCard card) async {
-    final pileRef =
-        FirebaseDatabase.instance.ref('matches/${match.id}/round/discardPile');
-    final TransactionResult result = await pileRef.runTransaction(
-      (Object? old) {
-        if (old == null) {
-          return Transaction.abort();
-        } else {
-          final List<dynamic> newPile = List<dynamic>.from(old as List);
-          final JsonCard topCard = JsonCard.fromJson(_encode(newPile.last));
-
-          if (topCard.canAccept(card)) {
-            newPile.add(card.toJson());
-
-            return Transaction.success(newPile);
-          } else {
-            return Transaction.abort();
-          }
-        }
-      },
-      applyLocally: false,
-    );
-
-    return result.committed;
-  }*/
-
   Future updateHand(JsonHand hand) async {
     final handRef = FirebaseDatabase.instance
         .ref('matches/${match.id}/round/playersHand/$playerId');
@@ -441,15 +415,7 @@ class MatchState extends BaseState {
         );
       } catch (e) {
         print(e);
-        updateHand(currentHand.withNewFault);
       }
-
-      /*final bool success = await playCard(card);
-
-      if (success) {
-        currentHand.playCard(card);
-        updateHand(currentHand);
-      }*/
     } else {
       updateHand(currentHand.withNewFault);
     }
