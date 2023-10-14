@@ -181,9 +181,9 @@ class LobbyState extends BaseState {
   }
 
   void onCreateMatchInputChanged(String text) {
-    createMatchButtonEnabled =
-        numberOfPlayersController.text.trim().isNotEmpty &&
-            maxPointsController.text.trim().isNotEmpty;
+    createMatchButtonEnabled = numberOfPlayersController.text
+        .trim()
+        .isNotEmpty; // && maxPointsController.text.trim().isNotEmpty;
     notify();
   }
 
