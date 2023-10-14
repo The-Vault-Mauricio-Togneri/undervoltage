@@ -11,6 +11,7 @@ import 'package:undervoltage/json/json_hand.dart';
 import 'package:undervoltage/json/json_match.dart';
 import 'package:undervoltage/json/json_player.dart';
 import 'package:undervoltage/services/logged_user.dart';
+import 'package:undervoltage/services/navigation.dart';
 import 'package:undervoltage/services/palette.dart';
 import 'package:undervoltage/types/match_status.dart';
 import 'package:undervoltage/types/text_to_speech.dart';
@@ -44,6 +45,8 @@ class MatchScreen extends StatelessWidget {
       return WaitingForPlayers(state);
     } else if (state.isPlaying) {
       return Started(state);
+    } else if (state.isSummary) {
+      return Summary(state);
     } else {
       return const Empty();
     }
@@ -71,6 +74,46 @@ class WaitingForPlayers extends StatelessWidget {
           ElevatedButton(
             onPressed: state.onCopyAndShare,
             child: const Text('SHARE'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Summary extends StatelessWidget {
+  final MatchState state;
+
+  const Summary(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (final player in state.match.players.values)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Label(
+                  text: player.name,
+                  color: Palette.grey,
+                  size: 14,
+                  weight: FontWeight.bold,
+                ),
+                const HBox(20),
+                Label(
+                  text: player.points.toString(),
+                  color: Palette.grey,
+                  size: 14,
+                ),
+              ],
+            ),
+          const VBox(40),
+          ElevatedButton(
+            onPressed: state.finishTurn,
+            child: const Text('OK'),
           ),
         ],
       ),
@@ -322,6 +365,8 @@ class MatchState extends BaseState {
 
   bool get isPlaying => match.status == MatchStatus.playing;
 
+  bool get isSummary => match.status == MatchStatus.summary;
+
   int get numberOfPlayers => match.numberOfPlayers;
 
   int get playersJoined => match.playersJoined;
@@ -441,6 +486,8 @@ class MatchState extends BaseState {
   }
 
   void onCopyAndShare() => CopyAndShare.match(match.id);
+
+  void finishTurn() => Navigation.lobbyScreen(Uri());
 
   void onAnimationEnded() {
     animationOpacity = 0;

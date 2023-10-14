@@ -93,7 +93,7 @@ class CreateMatchSection extends StatelessWidget {
             onTextChanged: state.onCreateMatchInputChanged,
           ),
         ),
-        const VBox(20),
+        /*const VBox(20),
         SizedBox(
           width: 120,
           child: CustomFormField(
@@ -102,7 +102,7 @@ class CreateMatchSection extends StatelessWidget {
             inputType: TextInputType.number,
             onTextChanged: state.onCreateMatchInputChanged,
           ),
-        ),
+        ),*/
         const VBox(20),
         ElevatedButton(
           onPressed:
@@ -208,7 +208,7 @@ class LobbyState extends BaseState {
     try {
       final HttpsCallableResult result = await const CreateMatch()(
         numberOfPlayers: int.parse(numberOfPlayersController.text),
-        maxPoints: int.parse(maxPointsController.text),
+        maxPoints: 100, // int.parse(maxPointsController.text),
       );
       final String matchId = result.data['matchId'];
       final JsonMatch match =
