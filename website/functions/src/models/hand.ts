@@ -10,6 +10,10 @@ export class Hands {
     return Object.keys(this.data).length;
   }
 
+  public get keys() {
+    return Object.keys(this.data);
+  }
+
   public get list() {
     return Object.values(this.data);
   }

@@ -1,5 +1,6 @@
 import {UserRecord} from 'firebase-admin/auth';
 import {PlayerStatus} from '../types/player-status';
+import {Hand} from './hand';
 
 export class Players {
   constructor(
@@ -17,6 +18,10 @@ export class Players {
 
   public has(playerId: string) {
     return Object.keys(this.data).includes(playerId);
+  }
+
+  public of(playerId: string) {
+    return this.data[playerId];
   }
 
   public add(player: Player) {
@@ -74,6 +79,17 @@ export class Player {
 
   public setStatus(newStatus: PlayerStatus) {
     this.status = newStatus;
+  }
+
+  public updatePoints(hand: Hand) {
+    const hiddenPoints = hand.hiddenPile.length;
+    let revealedPoints = 0;
+
+    for (const card of hand.revealedPile) {
+      revealedPoints += card.value;
+    }
+
+    this.points += (hiddenPoints + revealedPoints + hand.faults);
   }
 
   public json() {

@@ -125,6 +125,12 @@ export class Match {
   public async endTurn() {
     this.status = 'summary';
 
+    for (const playerId of this.round.playersHand.keys) {
+      const hand = this.round.playersHand.of(playerId);
+      const player = this.players.of(playerId);
+      player.updatePoints(hand);
+    }
+
     await this.update();
   }
 
