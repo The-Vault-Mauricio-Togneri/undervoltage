@@ -1,7 +1,7 @@
 {
   "projects": {
-    "default": "tension-path",
-    "local": "tension-path",
-    "remote": "tension-path"
+    "default": "undervoltage",
+    "local": "undervoltage",
+    "remote": "undervoltage"
   }
 }
