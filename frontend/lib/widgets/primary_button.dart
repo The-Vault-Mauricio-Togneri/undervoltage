@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/utils/palette.dart';
+import 'package:undervoltage/utils/palette.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;

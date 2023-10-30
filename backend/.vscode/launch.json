@@ -3,7 +3,7 @@
     "configurations": [
         {
             "command": "cd functions && npm run build && npm run serve:only:inspect",
-            "name": "Backend",
+            "name": "Run",
             "request": "launch",
             "type": "node-terminal"
         }

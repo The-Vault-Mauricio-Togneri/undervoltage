@@ -1,6 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/utils/log.dart';
+import 'package:undervoltage/utils/log.dart';
 
 class ErrorHandler {
   static Future process(Object exception) {

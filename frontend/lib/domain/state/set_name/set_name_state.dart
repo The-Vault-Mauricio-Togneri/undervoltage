@@ -1,9 +1,9 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/model/user_logged.dart';
-import 'package:tensionpath/environments/environment.dart';
-import 'package:tensionpath/utils/navigation.dart';
-import 'package:tensionpath/utils/platform.dart';
+import 'package:undervoltage/domain/model/user_logged.dart';
+import 'package:undervoltage/environments/environment.dart';
+import 'package:undervoltage/utils/navigation.dart';
+import 'package:undervoltage/utils/platform.dart';
 
 class SetNameState extends BaseState {
   final bool isSetup;

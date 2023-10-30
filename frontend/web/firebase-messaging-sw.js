@@ -2,12 +2,12 @@ importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js');
 
 const firebaseConfig = {
-    authDomain: "tension-path.firebaseapp.com",
-    projectId: "tension-path",
-    storageBucket: "tension-path.appspot.com",
-    messagingSenderId: "183502893220",
-    appId: "1:183502893220:web:2b1cc8c9b1378b23ecb631",
-    measurementId: "G-XBSE04LEGT"
+    authDomain: "undervoltage.firebaseapp.com",
+    projectId: "undervoltage",
+    storageBucket: "undervoltage.appspot.com",
+    messagingSenderId: "963808568802",
+    appId: "1:963808568802:web:b9cb1b44dcc8ab50b045bb",
+    measurementId: "G-7RMJ54P739"
 }
 
 firebase.initializeApp(firebaseConfig);

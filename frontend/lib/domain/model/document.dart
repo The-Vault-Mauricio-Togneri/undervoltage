@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionpath/utils/error_handler.dart';
+import 'package:undervoltage/utils/error_handler.dart';
 
 typedef DocumentData = Map<dynamic, dynamic>;
 

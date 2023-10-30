@@ -1,11 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/build/build_version.dart';
-import 'package:tensionpath/domain/state/main/main_state.dart';
-import 'package:tensionpath/utils/palette.dart';
-import 'package:tensionpath/widgets/base_screen.dart';
-import 'package:tensionpath/widgets/label.dart';
-import 'package:tensionpath/widgets/primary_button.dart';
+import 'package:undervoltage/build/build_version.dart';
+import 'package:undervoltage/domain/state/main/main_state.dart';
+import 'package:undervoltage/utils/palette.dart';
+import 'package:undervoltage/widgets/base_screen.dart';
+import 'package:undervoltage/widgets/label.dart';
+import 'package:undervoltage/widgets/primary_button.dart';
 
 class MainScreen extends StatelessWidget {
   final MainState state;

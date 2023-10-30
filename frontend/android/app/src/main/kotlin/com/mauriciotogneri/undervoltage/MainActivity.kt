@@ -1,4 +1,4 @@
-package com.mauriciotogneri.tensionpath
+package com.mauriciotogneri.undervoltage
 
 import io.flutter.embedding.android.FlutterActivity
 

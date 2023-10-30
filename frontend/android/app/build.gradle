@@ -53,7 +53,7 @@ android
     {
         minSdkVersion 27
         targetSdkVersion 33
-        applicationId 'com.mauriciotogneri.tensionpath'
+        applicationId 'com.mauriciotogneri.undervoltage'
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true

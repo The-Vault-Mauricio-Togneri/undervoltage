@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionpath/domain/model/document.dart';
-import 'package:tensionpath/domain/model/room.dart';
-import 'package:tensionpath/domain/model/user_logged.dart';
-import 'package:tensionpath/domain/types/room_status.dart';
-import 'package:tensionpath/persistence/callables/start_matchmaking_callable.dart';
-import 'package:tensionpath/persistence/callables/stop_matchmaking_callable.dart';
-import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
-import 'package:tensionpath/utils/navigation.dart';
+import 'package:undervoltage/domain/model/document.dart';
+import 'package:undervoltage/domain/model/room.dart';
+import 'package:undervoltage/domain/model/user_logged.dart';
+import 'package:undervoltage/domain/types/room_status.dart';
+import 'package:undervoltage/persistence/callables/start_matchmaking_callable.dart';
+import 'package:undervoltage/persistence/callables/stop_matchmaking_callable.dart';
+import 'package:undervoltage/presentation/dialogs/info_dialog.dart';
+import 'package:undervoltage/utils/navigation.dart';
 
 class LobbyState extends BaseState {
   final String matchType;

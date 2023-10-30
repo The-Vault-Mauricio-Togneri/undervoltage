@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/state/splash/splash_state.dart';
-import 'package:tensionpath/widgets/base_screen.dart';
+import 'package:undervoltage/domain/state/splash/splash_state.dart';
+import 'package:undervoltage/widgets/base_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   final SplashState state;

@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Tension Path (LOCAL)",
+            "name": "Run (LOCAL)",
             "request": "launch",
             "type": "dart",
             "program": "lib/main/main_local.dart",
@@ -13,7 +13,7 @@
             ]
         },
         {
-            "name": "Tension Path (REMOTE)",
+            "name": "Run (REMOTE)",
             "request": "launch",
             "type": "dart",
             "program": "lib/main/main_remote.dart",

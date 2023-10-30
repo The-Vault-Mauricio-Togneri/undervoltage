@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:tensionpath/platform/platform_base.dart';
+import 'package:undervoltage/platform/platform_base.dart';
 
 class PlatformMethods extends PlatformMethodsBase {
   @override

@@ -1,6 +1,6 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tensionpath/environments/environment.dart';
+import 'package:undervoltage/environments/environment.dart';
 
 abstract class Callable {
   final String name;

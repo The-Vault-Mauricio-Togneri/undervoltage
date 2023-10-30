@@ -1,5 +1,5 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionpath/utils/navigation.dart';
+import 'package:undervoltage/utils/navigation.dart';
 
 class MainState extends BaseState {
   int numberOfPlayers = 2;

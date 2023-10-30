@@ -1,5 +1,5 @@
-import 'package:tensionpath/domain/model/document.dart';
-import 'package:tensionpath/domain/types/room_status.dart';
+import 'package:undervoltage/domain/model/document.dart';
+import 'package:undervoltage/domain/types/room_status.dart';
 
 class Room {
   final String id;

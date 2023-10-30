@@ -1,4 +1,4 @@
-import 'package:tensionpath/environments/environment.dart';
+import 'package:undervoltage/environments/environment.dart';
 
 class RemoteEnvironment extends Environment {
   @override

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tensionpath/domain/model/user_logged.dart';
-import 'package:tensionpath/utils/navigation.dart';
+import 'package:undervoltage/domain/model/user_logged.dart';
+import 'package:undervoltage/utils/navigation.dart';
 
 class SplashState extends BaseState {
   @override

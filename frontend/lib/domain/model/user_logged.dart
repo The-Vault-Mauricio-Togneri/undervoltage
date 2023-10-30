@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tensionpath/utils/locator.dart';
+import 'package:undervoltage/utils/locator.dart';
 
 class LoggedUser {
   late User _user;

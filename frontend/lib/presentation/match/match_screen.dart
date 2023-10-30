@@ -1,10 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/model/room.dart';
-import 'package:tensionpath/domain/state/match/match_state.dart';
-import 'package:tensionpath/utils/palette.dart';
-import 'package:tensionpath/widgets/base_screen.dart';
-import 'package:tensionpath/widgets/label.dart';
+import 'package:undervoltage/domain/model/room.dart';
+import 'package:undervoltage/domain/state/match/match_state.dart';
+import 'package:undervoltage/utils/palette.dart';
+import 'package:undervoltage/widgets/base_screen.dart';
+import 'package:undervoltage/widgets/label.dart';
 
 class MatchScreen extends StatelessWidget {
   final MatchState state;
