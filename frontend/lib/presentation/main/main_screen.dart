@@ -100,7 +100,7 @@ class Undervoltage extends StatelessWidget {
         ),
         const VBox(20),
         PrimaryButton(
-          text: 'Undervoltage',
+          text: 'Play',
           icon: Icons.bolt,
           onPressed: state.onMatchmaking,
         ),
