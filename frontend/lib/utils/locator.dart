@@ -22,7 +22,6 @@ class Locator {
     if (kIsWeb) {
       await Firebase.initializeApp(
         options: const FirebaseOptions(
-          apiKey: 'AIzaSyBpGR88tMBiVA1Tvk48qQXqs1es7FaS2ac',
           authDomain: 'tension-path.firebaseapp.com',
           projectId: 'tension-path',
           storageBucket: 'tension-path.appspot.com',
