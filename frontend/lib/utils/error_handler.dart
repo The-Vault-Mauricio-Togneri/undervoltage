@@ -1,41 +1,61 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:undervoltage/services/platform.dart';
-import 'package:undervoltage/utils/log.dart';
+import 'package:tensionpath/utils/log.dart';
 
 class ErrorHandler {
-  static Future process(Object exception) => _logError(
-        exception: exception,
-        fatal: false,
-      );
+  static Future process(Object exception) {
+    _logError(
+      exception.toString(),
+      exception,
+      null,
+    );
 
-  static Future onUncaughtError(Object exception, StackTrace stackTrace) =>
-      _logError(
-        exception: exception,
-        fatal: true,
-        stackTrace: stackTrace,
-      );
+    _logAnalytics(exception);
 
-  static Future _logError({
-    required dynamic exception,
-    required bool fatal,
+    return FirebaseCrashlytics.instance.recordError(
+      exception,
+      null,
+      reason: exception.toString(),
+      fatal: false,
+    );
+  }
+
+  static Future onUncaughtError(Object exception, StackTrace stackTrace) {
+    _logError(
+      'Uncaught Error',
+      exception,
+      stackTrace,
+    );
+
+    _logAnalytics(exception);
+
+    return FirebaseCrashlytics.instance.recordError(
+      exception,
+      stackTrace,
+      fatal: true,
+    );
+  }
+
+  static void _logError(
+    dynamic message,
+    dynamic error,
     StackTrace? stackTrace,
-  }) {
+  ) {
     try {
-      Log.error(exception, stackTrace);
+      Log.error(message, error, stackTrace);
     } catch (e) {
-      debugPrint(exception.toString());
+      debugPrint(error.toString());
       debugPrint('Cannot log error in console');
     }
+  }
 
-    if (Platform.isWeb) {
-      return Future.value();
-    } else {
-      return FirebaseCrashlytics.instance.recordError(
-        exception,
-        stackTrace,
-        fatal: fatal,
-      );
-    }
+  static void _logAnalytics(Object exception) {
+    // TODO(momo): implement
+    /*try {
+      Analytics.error(type, exception);
+    } catch (e) {
+      debugPrint(exception.toString());
+      debugPrint('Cannot log error in Firebase Analytics');
+    }*/
   }
 }

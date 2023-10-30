@@ -13,3 +13,4 @@ wget -O "${BASE_DIR}/../assets/i18n/es.json" "${URL}?locale=es&format=${FORMAT}&
 
 flutter pub upgrade
 flutter pub pub run dalocale:dalocale.dart ./assets/i18n/ ./lib/services/localizations.dart en ./lib
+flutter format lib --line-length=150

@@ -1,22 +1,21 @@
 {
     "project_info": {
-        "project_number": "963808568802",
-        "firebase_url": "https://undervoltage-default-rtdb.europe-west1.firebasedatabase.app",
-        "project_id": "undervoltage",
-        "storage_bucket": "undervoltage.appspot.com"
+        "project_number": "183502893220",
+        "project_id": "tension-path",
+        "storage_bucket": "tension-path.appspot.com"
     },
     "client": [
         {
             "client_info": {
-                "mobilesdk_app_id": "1:963808568802:android:2c1cb3a43a8b77c0b045bb",
+                "mobilesdk_app_id": "1:183502893220:android:fe58fd0295de9865ecb631",
                 "android_client_info": {
-                    "package_name": "com.mauriciotogneri.undervoltage"
+                    "package_name": "com.mauriciotogneri.tensionpath"
                 }
             },
             "oauth_client": [],
             "api_key": [
                 {
-                    "current_key": "AIzaSyDBVmygkVOiMpEzFXeWClm6RQwbuLu6Jlk"
+                    "current_key": "AIzaSyAiM4KSUiByzBLRp3X8sJh0AyUmby8xai4"
                 }
             ],
             "services": {

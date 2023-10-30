@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:undervoltage/services/palette.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class CustomFormField extends StatelessWidget {
   final String label;

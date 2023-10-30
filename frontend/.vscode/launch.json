@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Tension Path (LOCAL)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main/main_local.dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "local"
+            ]
+        },
+        {
+            "name": "Tension Path (REMOTE)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main/main_remote.dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "local"
+            ]
+        }
+    ]
+}

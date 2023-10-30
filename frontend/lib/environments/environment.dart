@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
-import 'package:undervoltage/services/locator.dart';
-import 'package:undervoltage/services/platform.dart';
+import 'package:tensionpath/utils/locator.dart';
+import 'package:tensionpath/utils/platform.dart';
 
 abstract class Environment {
   String get name;
+
+  String get matchServerUrl;
 
   bool get isDebugMode => kDebugMode;
 

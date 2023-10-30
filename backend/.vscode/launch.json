@@ -1,0 +1,11 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "command": "cd functions && npm run build && npm run serve:only:inspect",
+            "name": "Backend",
+            "request": "launch",
+            "type": "node-terminal"
+        }
+    ]
+}
