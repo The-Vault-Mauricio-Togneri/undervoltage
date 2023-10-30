@@ -65,46 +65,30 @@ class Content extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Undervoltage(state),
+            ToggleButtons(
+              direction: Axis.horizontal,
+              onPressed: state.onSelectPlayers,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              selectedBorderColor: Colors.blue[500],
+              selectedColor: Colors.white,
+              fillColor: Colors.blue[200],
+              color: Colors.blue[400],
+              isSelected: state.selectedPlayers,
+              children: const [
+                PlayerSelectorEntry('2 Players'),
+                PlayerSelectorEntry('3 Players'),
+                PlayerSelectorEntry('4 Players'),
+              ],
+            ),
+            const VBox(20),
+            PrimaryButton(
+              text: 'Play',
+              icon: Icons.bolt,
+              onPressed: state.onMatchmaking,
+            ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class Undervoltage extends StatelessWidget {
-  final MainState state;
-
-  const Undervoltage(this.state);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ToggleButtons(
-          direction: Axis.horizontal,
-          onPressed: state.onSelectPlayers,
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          selectedBorderColor: Colors.blue[500],
-          selectedColor: Colors.white,
-          fillColor: Colors.blue[200],
-          color: Colors.blue[400],
-          isSelected: state.selectedPlayers,
-          children: const [
-            PlayerSelectorEntry('2 Players'),
-            PlayerSelectorEntry('3 Players'),
-            PlayerSelectorEntry('4 Players'),
-          ],
-        ),
-        const VBox(20),
-        PrimaryButton(
-          text: 'Play',
-          icon: Icons.bolt,
-          onPressed: state.onMatchmaking,
-        ),
-      ],
     );
   }
 }
