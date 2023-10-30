@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:tensionpath/domain/json/json_create_room.dart';
-import 'package:tensionpath/domain/json/json_join_room.dart';
-import 'package:tensionpath/domain/json/json_message.dart';
-import 'package:tensionpath/extensions/web_socket_extension.dart';
-import 'package:tensionpath/rooms/room.dart';
-import 'package:tensionpath/utils/map_list.dart';
+import 'package:undervoltage/domain/json/json_create_room.dart';
+import 'package:undervoltage/domain/json/json_join_room.dart';
+import 'package:undervoltage/domain/json/json_message.dart';
+import 'package:undervoltage/extensions/web_socket_extension.dart';
+import 'package:undervoltage/rooms/room.dart';
+import 'package:undervoltage/utils/map_list.dart';
 
 class RoomsManager {
   final MapList<String, Room> rooms = MapList();

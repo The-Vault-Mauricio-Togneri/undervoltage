@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:tensionpath/utils/constants.dart';
+import 'package:undervoltage/utils/constants.dart';
 
 class Logger {
   static void log(WebSocket socket, String text) {

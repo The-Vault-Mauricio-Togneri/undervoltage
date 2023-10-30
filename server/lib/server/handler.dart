@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:tensionpath/domain/json/json_join_room.dart';
-import 'package:tensionpath/domain/json/json_message.dart';
-import 'package:tensionpath/extensions/web_socket_extension.dart';
-import 'package:tensionpath/rooms/rooms_manager.dart';
-import 'package:tensionpath/utils/logger.dart';
+import 'package:undervoltage/domain/json/json_join_room.dart';
+import 'package:undervoltage/domain/json/json_message.dart';
+import 'package:undervoltage/extensions/web_socket_extension.dart';
+import 'package:undervoltage/rooms/rooms_manager.dart';
+import 'package:undervoltage/utils/logger.dart';
 
 class Handler {
   final RoomsManager roomsManager;

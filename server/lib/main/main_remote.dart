@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:tensionpath/server/launcher.dart';
+import 'package:undervoltage/server/launcher.dart';
 
 Future main(List<String> args) async {
   final int port = int.parse(args[0]);
