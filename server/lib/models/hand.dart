@@ -10,4 +10,17 @@ class Hand {
     required this.revealedPile,
     required this.faults,
   });
+
+  bool get finished => (hiddenPile.isEmpty) && (revealedPile.isEmpty);
+
+  void removeCard(String cardId) {
+    for (int i = 0; i < revealedPile.length; i++) {
+      final Card card = revealedPile[i];
+
+      if (card.id != cardId) {
+        revealedPile.removeAt(i);
+        break;
+      }
+    }
+  }
 }

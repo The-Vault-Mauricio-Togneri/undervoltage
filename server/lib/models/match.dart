@@ -2,7 +2,6 @@ import 'package:undervoltage/models/player.dart';
 import 'package:undervoltage/models/round.dart';
 import 'package:undervoltage/rooms/room.dart';
 import 'package:undervoltage/types/match_status.dart';
-import 'package:undervoltage/types/player_status.dart';
 
 class Match {
   final String id;
@@ -25,12 +24,7 @@ class Match {
     final Map<String, Player> players = {};
 
     for (final String playerId in room.players.keys) {
-      players[playerId] = Player(
-        id: playerId,
-        name: room.players[playerId]!,
-        points: 0,
-        status: PlayerStatus.playing,
-      );
+      players[playerId] = Player.create(playerId, room.players[playerId]!);
     }
 
     return Match._(
@@ -39,7 +33,7 @@ class Match {
       status: MatchStatus.playing,
       players: players,
       roundCount: 1,
-      round: Round.create(),
+      round: Round.create(players.values.toList()),
     );
   }
 
