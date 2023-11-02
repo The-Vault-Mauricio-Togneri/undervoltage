@@ -1,11 +1,13 @@
 import {FirebaseDocument} from '../database/firebase-document'
 import {RoomStatus} from '../types/room-status'
+import {RoomVisibility} from '../types/room-visibility'
 import {merge} from '../utils/merge'
 
 export interface IRoom {
   id: string
   createdAt: Date,
   numberOfPlayers: number
+  visibility: RoomVisibility
   status: RoomStatus
   matchType: string
   playerIds: string[]
@@ -16,6 +18,7 @@ export class Room implements IRoom {
   readonly id: string
   readonly createdAt: Date
   readonly numberOfPlayers: number
+  readonly visibility: RoomVisibility
   readonly status: RoomStatus
   readonly matchType: string
   readonly playerIds: string[]
@@ -25,6 +28,7 @@ export class Room implements IRoom {
     this.id = data.id
     this.createdAt = data.createdAt
     this.numberOfPlayers = data.numberOfPlayers
+    this.visibility = data.visibility
     this.status = data.status
     this.matchType = data.matchType
     this.playerIds = data.playerIds
@@ -87,11 +91,13 @@ export class Room implements IRoom {
     playerName: string,
     matchType: string,
     numberOfPlayers: number,
+    visibility: RoomVisibility,
   }): Room {
     return new Room({
       id: '',
       createdAt: new Date(),
       numberOfPlayers: params.numberOfPlayers,
+      visibility: params.visibility,
       status: RoomStatus.open,
       matchType: params.matchType,
       playerIds: [params.playerId],

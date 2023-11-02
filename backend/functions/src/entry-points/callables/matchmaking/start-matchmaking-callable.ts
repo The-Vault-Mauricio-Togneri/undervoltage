@@ -7,12 +7,14 @@ import {registerCallable} from '../../index'
 import {RoomStatus} from '../../../types/room-status'
 import {createMatchServerRoom} from '../../../clients/match-server-client'
 import {CustomInternalError} from '../../../utils/custom-internal-error'
+import {RoomVisibility} from '../../../types/room-visibility'
 
 interface StartMatchmakingCallableParams {
   playerId: string
   playerName: string
   matchType: string
   numberOfPlayers: number
+  visibility: RoomVisibility
 }
 
 export const startMatchmakingCallable = registerCallable(async (params: StartMatchmakingCallableParams) => {
@@ -38,6 +40,7 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
         playerName: params.playerName,
         matchType: params.matchType,
         numberOfPlayers: params.numberOfPlayers,
+        visibility: params.visibility,
       })
     }
   })
@@ -83,12 +86,14 @@ const createNewRoom = async (params: {
   playerName: string,
   matchType: string,
   numberOfPlayers: number,
+  visibility: RoomVisibility,
 }) => {
   const newRoom = Room.create({
     playerId: params.playerId,
     playerName: params.playerName,
     matchType: params.matchType,
     numberOfPlayers: params.numberOfPlayers,
+    visibility: params.visibility,
   })
 
   const result = await createRoomDocument({

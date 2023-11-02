@@ -5,6 +5,7 @@ import 'package:undervoltage/domain/model/document.dart';
 import 'package:undervoltage/domain/model/room.dart';
 import 'package:undervoltage/domain/model/user_logged.dart';
 import 'package:undervoltage/domain/types/room_status.dart';
+import 'package:undervoltage/domain/types/room_visibility.dart';
 import 'package:undervoltage/persistence/callables/start_matchmaking_callable.dart';
 import 'package:undervoltage/persistence/callables/stop_matchmaking_callable.dart';
 import 'package:undervoltage/presentation/dialogs/info_dialog.dart';
@@ -25,6 +26,7 @@ class LobbyState extends BaseState {
         playerName: LoggedUser.get.name,
         matchType: matchType,
         numberOfPlayers: numberOfPlayers,
+        visibility: RoomVisibility.public,
       );
 
       roomId = room.id;
