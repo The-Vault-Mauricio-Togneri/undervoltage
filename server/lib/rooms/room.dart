@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:undervoltage/domain/json/json_create_room.dart';
 import 'package:undervoltage/domain/json/json_message.dart';
 import 'package:undervoltage/extensions/web_socket_extension.dart';
+import 'package:undervoltage/models/match.dart';
 import 'package:undervoltage/utils/logger.dart';
 
 class Room {
@@ -12,7 +13,7 @@ class Room {
   final Map<String, String> players;
   final Map<String, WebSocket> playerIdToWebSocket = {};
   final Map<WebSocket, String> webSocketToPlayerId = {};
-  double timeSpent = 0;
+  Match? match;
 
   Room._({
     required this.id,
@@ -34,14 +35,15 @@ class Room {
     required String playerId,
     required WebSocket socket,
   }) {
-    if (players.containsKey(playerId)) {
+    if ((match == null) && players.containsKey(playerId)) {
       playerIdToWebSocket[playerId] = socket;
       webSocketToPlayerId[socket] = playerId;
 
       Logger.log(socket, 'Player $playerId joined room $id');
 
       if (playerIdToWebSocket.length == numberOfPlayers) {
-        _broadcast(JsonMessage.start());
+        match = Match.create(this);
+        broadcast(JsonMessage.start());
       }
 
       return true;
@@ -65,19 +67,13 @@ class Room {
     }
   }
 
-  void _broadcast(JsonMessage json) {
+  void broadcast(JsonMessage json) {
     for (final WebSocket socket in webSocketToPlayerId.keys) {
       socket.send(json);
     }
   }
 
   void update(double dt) {
-    timeSpent += dt;
-
-    /*if (timeSpent.toInt() % 5 == 0) {
-      for (final WebSocket socket in playerIdToWebSocket.values) {
-        socket.send(JsonMessage(type: timeSpent.toString()));
-      }
-    }*/
+    match?.update(dt);
   }
 }

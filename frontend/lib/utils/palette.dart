@@ -8,4 +8,16 @@ class Palette {
   static const Color grey = Colors.grey;
   static const Color green = Colors.green;
   static const Color red = Colors.red;
+
+  static Color fromCard(JsonCard card) {
+    if (card.color == 'red') {
+      return Colors.red;
+    } else if (card.color == 'green') {
+      return Colors.green;
+    } else if (card.color == 'blue') {
+      return Colors.blue;
+    } else {
+      return Colors.black;
+    }
+  }
 }
