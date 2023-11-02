@@ -5,6 +5,8 @@ import {defineString} from 'firebase-functions/params'
 import {onRequest} from 'firebase-functions/v2/https'
 import {setGlobalOptions} from 'firebase-functions/v2/options'
 
+export const isEmulator = Boolean(process.env.FUNCTIONS_EMULATOR)
+
 initializeApp()
 firestore().settings({ignoreUndefinedProperties: true})
 
