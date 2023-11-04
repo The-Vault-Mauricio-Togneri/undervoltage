@@ -10,6 +10,7 @@ dependencies:
   get_it: ^7.6.4
   logger: ^2.0.2+1
   dafluta: ^5.1.1
+  flutter_tts: ^3.8.3
   url_strategy: ^0.2.0
   json_annotation: ^4.8.1
   web_socket_channel: ^2.4.0
