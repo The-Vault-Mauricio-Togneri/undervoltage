@@ -1,7 +1,7 @@
 import 'dart:math';
-import 'package:undervoltage/models/card.dart';
-import 'package:undervoltage/models/hand.dart';
-import 'package:undervoltage/models/player.dart';
+import 'package:undervoltage/domain/models/card.dart';
+import 'package:undervoltage/domain/models/hand.dart';
+import 'package:undervoltage/domain/models/player.dart';
 
 class Round {
   final List<Card> discardPile;

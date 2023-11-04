@@ -1,4 +1,4 @@
-import 'package:undervoltage/types/card_color.dart';
+import 'package:undervoltage/domain/types/card_color.dart';
 
 class Card {
   final String id;

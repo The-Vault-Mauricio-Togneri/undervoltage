@@ -1,6 +1,6 @@
-import 'package:undervoltage/models/card.dart';
-import 'package:undervoltage/models/hand.dart';
-import 'package:undervoltage/types/player_status.dart';
+import 'package:undervoltage/domain/models/card.dart';
+import 'package:undervoltage/domain/models/hand.dart';
+import 'package:undervoltage/domain/types/player_status.dart';
 
 class Player {
   final String id;

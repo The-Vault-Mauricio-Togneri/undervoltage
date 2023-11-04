@@ -1,4 +1,4 @@
-import 'package:undervoltage/models/card.dart';
+import 'package:undervoltage/domain/models/card.dart';
 
 class Hand {
   final List<Card> hiddenPile;

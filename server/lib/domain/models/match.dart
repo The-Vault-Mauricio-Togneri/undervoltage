@@ -1,9 +1,9 @@
-import 'package:undervoltage/models/card.dart';
-import 'package:undervoltage/models/hand.dart';
-import 'package:undervoltage/models/player.dart';
-import 'package:undervoltage/models/round.dart';
+import 'package:undervoltage/domain/models/card.dart';
+import 'package:undervoltage/domain/models/hand.dart';
+import 'package:undervoltage/domain/models/player.dart';
+import 'package:undervoltage/domain/models/round.dart';
+import 'package:undervoltage/domain/types/match_status.dart';
 import 'package:undervoltage/rooms/room.dart';
-import 'package:undervoltage/types/match_status.dart';
 
 class Match {
   final String id;
