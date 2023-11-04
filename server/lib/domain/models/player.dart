@@ -8,14 +8,14 @@ class Player {
   final PlayerStatus status;
   int points;
 
-  Player._({
+  Player({
     required this.id,
     required this.name,
     required this.status,
     required this.points,
   });
 
-  factory Player.create(String playerId, String playerName) => Player._(
+  factory Player.create(String playerId, String playerName) => Player(
         id: playerId,
         name: playerName,
         status: PlayerStatus.playing,
