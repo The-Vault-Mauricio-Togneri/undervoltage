@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:undervoltage/environments/environment.dart';
 
 class LocalEnvironment extends Environment {
@@ -21,8 +20,5 @@ class LocalEnvironment extends Environment {
     );
 
     FirebaseFirestore.instance.useFirestoreEmulator(Environment.get.host, 8080);
-
-    await FirebaseStorage.instance
-        .useStorageEmulator(Environment.get.host, 9199);
   }
 }
