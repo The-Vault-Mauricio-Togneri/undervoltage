@@ -31,6 +31,7 @@ android
 {
     compileSdkVersion 33
     ndkVersion flutter.ndkVersion
+    namespace 'com.mauriciotogneri.undervoltage'
 
     compileOptions
     {
