@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:undervoltage/domain/json/json_error.dart';
-import 'package:undervoltage/domain/json/json_join_room.dart';
-import 'package:undervoltage/domain/json/json_start.dart';
-import 'package:undervoltage/domain/json/json_welcome.dart';
+import 'package:undervoltage/domain/json/messages/json_error.dart';
+import 'package:undervoltage/domain/json/messages/json_join_room.dart';
+import 'package:undervoltage/domain/json/messages/json_start.dart';
+import 'package:undervoltage/domain/json/messages/json_welcome.dart';
 
 part 'json_message.g.dart';
 

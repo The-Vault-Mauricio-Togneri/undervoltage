@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:undervoltage/domain/json/json_create_room.dart';
-import 'package:undervoltage/domain/json/json_message.dart';
+import 'package:undervoltage/domain/json/api/json_create_room.dart';
+import 'package:undervoltage/domain/json/messages/json_message.dart';
 import 'package:undervoltage/domain/models/match.dart';
 import 'package:undervoltage/extensions/web_socket_extension.dart';
 import 'package:undervoltage/utils/logger.dart';

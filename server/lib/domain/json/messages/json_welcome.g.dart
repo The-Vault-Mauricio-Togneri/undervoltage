@@ -6,8 +6,7 @@ part of 'json_welcome.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonWelcome _$JsonWelcomeFromJson(Map<String, dynamic> json) =>
-    const JsonWelcome();
+JsonWelcome _$JsonWelcomeFromJson(Map<String, dynamic> json) => const JsonWelcome();
 
 Map<String, dynamic> _$JsonWelcomeToJson(JsonWelcome instance) =>
     <String, dynamic>{};

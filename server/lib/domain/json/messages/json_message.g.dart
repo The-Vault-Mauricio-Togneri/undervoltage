@@ -17,6 +17,9 @@ JsonMessage _$JsonMessageFromJson(Map<String, dynamic> json) => JsonMessage(
       joinRoom: json['joinRoom'] == null
           ? null
           : JsonJoinRoom.fromJson(json['joinRoom'] as Map<String, dynamic>),
+      error: json['error'] == null
+          ? null
+          : JsonError.fromJson(json['error'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) {
@@ -33,6 +36,7 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) {
   writeNotNull('welcome', instance.welcome);
   writeNotNull('start', instance.start);
   writeNotNull('joinRoom', instance.joinRoom);
+  writeNotNull('error', instance.error);
   return val;
 }
 
