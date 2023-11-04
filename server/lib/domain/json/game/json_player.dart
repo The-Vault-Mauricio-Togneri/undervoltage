@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:undervoltage/domain/models/player.dart';
 import 'package:undervoltage/domain/types/player_status.dart';
 
 part 'json_player.g.dart';
@@ -25,13 +24,6 @@ class JsonPlayer {
     required this.status,
     required this.points,
   });
-
-  Player get player => Player(
-        id: id,
-        name: name,
-        status: status,
-        points: points,
-      );
 
   factory JsonPlayer.fromString(String json) =>
       JsonPlayer.fromJson(jsonDecode(json));

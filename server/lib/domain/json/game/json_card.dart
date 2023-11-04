@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:undervoltage/domain/models/card.dart';
 import 'package:undervoltage/domain/types/card_color.dart';
 
 part 'json_card.g.dart';
@@ -25,13 +24,6 @@ class JsonCard {
     required this.diff,
     required this.value,
   });
-
-  Card get card => Card(
-        id: id,
-        color: color,
-        diff: diff,
-        value: value,
-      );
 
   factory JsonCard.fromString(String json) =>
       JsonCard.fromJson(jsonDecode(json));

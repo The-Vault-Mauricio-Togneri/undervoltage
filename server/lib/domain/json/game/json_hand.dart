@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:undervoltage/domain/json/game/json_card.dart';
-import 'package:undervoltage/domain/models/hand.dart';
 
 part 'json_hand.g.dart';
 
@@ -21,12 +20,6 @@ class JsonHand {
     required this.revealedPile,
     required this.faults,
   });
-
-  Hand get hand => Hand(
-        hiddenPile: hiddenPile.map((e) => e.card).toList(),
-        revealedPile: revealedPile.map((e) => e.card).toList(),
-        faults: faults,
-      );
 
   factory JsonHand.fromString(String json) =>
       JsonHand.fromJson(jsonDecode(json));
