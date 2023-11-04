@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:undervoltage/domain/json/json_message.dart';
-import 'package:undervoltage/domain/json/json_start.dart';
-import 'package:undervoltage/domain/json/json_welcome.dart';
+import 'package:undervoltage/domain/json/messages/json_message.dart';
+import 'package:undervoltage/domain/json/messages/json_start.dart';
+import 'package:undervoltage/domain/json/messages/json_welcome.dart';
 import 'package:undervoltage/domain/model/room.dart';
 import 'package:undervoltage/domain/model/user_logged.dart';
 import 'package:undervoltage/utils/connection.dart';

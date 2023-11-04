@@ -43,7 +43,7 @@ class Room {
 
       if (playerIdToWebSocket.length == numberOfPlayers) {
         match = Match.create(this);
-        broadcast(JsonMessage.start(match!));
+        broadcast(JsonMessage.start(match!.json));
       }
 
       return true;

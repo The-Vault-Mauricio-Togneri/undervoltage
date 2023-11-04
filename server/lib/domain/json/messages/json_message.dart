@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:undervoltage/domain/json/game/json_match.dart';
 import 'package:undervoltage/domain/json/messages/json_error.dart';
 import 'package:undervoltage/domain/json/messages/json_join_room.dart';
 import 'package:undervoltage/domain/json/messages/json_start.dart';
 import 'package:undervoltage/domain/json/messages/json_welcome.dart';
-import 'package:undervoltage/domain/models/match.dart';
 
 part 'json_message.g.dart';
 
@@ -57,9 +57,9 @@ class JsonMessage {
         welcome: JsonWelcome(),
       );
 
-  factory JsonMessage.start(Match match) => JsonMessage(
+  factory JsonMessage.start(JsonMatch match) => JsonMessage(
         type: MessageType.start,
-        start: JsonStart(match: match.json),
+        start: JsonStart(match: match),
       );
 
   factory JsonMessage.joinRoom({

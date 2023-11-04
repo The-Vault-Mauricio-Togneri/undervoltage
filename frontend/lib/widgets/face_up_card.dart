@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:undervoltage/domain/json/game/json_card.dart';
 import 'package:undervoltage/utils/palette.dart';
 import 'package:undervoltage/widgets/label.dart';
 

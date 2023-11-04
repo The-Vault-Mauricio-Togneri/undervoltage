@@ -1,4 +1,4 @@
-import 'package:undervoltage/domain/json/json_message.dart';
+import 'package:undervoltage/domain/json/messages/json_message.dart';
 import 'package:undervoltage/environments/environment.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
