@@ -6,7 +6,10 @@ part of 'json_start.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonStart _$JsonStartFromJson(Map<String, dynamic> json) => const JsonStart();
+JsonStart _$JsonStartFromJson(Map<String, dynamic> json) => JsonStart(
+      match: JsonMatch.fromJson(json['match'] as Map<String, dynamic>),
+    );
 
-Map<String, dynamic> _$JsonStartToJson(JsonStart instance) =>
-    <String, dynamic>{};
+Map<String, dynamic> _$JsonStartToJson(JsonStart instance) => <String, dynamic>{
+      'match': instance.match,
+    };

@@ -1,3 +1,4 @@
+import 'package:undervoltage/domain/json/game/json_player.dart';
 import 'package:undervoltage/domain/models/card.dart';
 import 'package:undervoltage/domain/models/hand.dart';
 import 'package:undervoltage/domain/types/player_status.dart';
@@ -20,6 +21,13 @@ class Player {
         name: playerName,
         status: PlayerStatus.playing,
         points: 0,
+      );
+
+  JsonPlayer get json => JsonPlayer(
+        id: id,
+        name: name,
+        status: status,
+        points: points,
       );
 
   void updatePoints(Hand hand) {

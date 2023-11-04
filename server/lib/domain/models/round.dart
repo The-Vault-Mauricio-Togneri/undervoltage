@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:undervoltage/domain/json/game/json_round.dart';
 import 'package:undervoltage/domain/models/card.dart';
 import 'package:undervoltage/domain/models/hand.dart';
 import 'package:undervoltage/domain/models/player.dart';
@@ -46,6 +47,11 @@ class Round {
       playersHand: hands,
     );
   }
+
+  JsonRound get json => JsonRound(
+        discardPile: discardPile.map((e) => e.json).toList(),
+        playersHand: playersHand.map((key, value) => MapEntry(key, value.json)),
+      );
 
   Card get lastCard => discardPile[discardPile.length - 1];
 

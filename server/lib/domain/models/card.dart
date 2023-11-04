@@ -1,3 +1,4 @@
+import 'package:undervoltage/domain/json/game/json_card.dart';
 import 'package:undervoltage/domain/types/card_color.dart';
 
 class Card {
@@ -31,6 +32,13 @@ class Card {
         id: id.toString(),
         color: CardColor.blue,
         diff: 1,
+        value: value,
+      );
+
+  JsonCard get json => JsonCard(
+        id: id,
+        color: color,
+        diff: diff,
         value: value,
       );
 

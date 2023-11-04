@@ -1,3 +1,4 @@
+import 'package:undervoltage/domain/json/game/json_match.dart';
 import 'package:undervoltage/domain/models/card.dart';
 import 'package:undervoltage/domain/models/hand.dart';
 import 'package:undervoltage/domain/models/player.dart';
@@ -38,6 +39,14 @@ class Match {
       round: Round.create(players.values.toList()),
     );
   }
+
+  JsonMatch get json => JsonMatch(
+        id: id,
+        players: players.map((key, value) => MapEntry(key, value.json)),
+        roundCount: roundCount,
+        round: round.json,
+        status: status,
+      );
 
   bool get playerFinished {
     for (final Hand hand in round.playersHand.values) {
