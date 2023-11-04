@@ -22,9 +22,12 @@ class Round {
     final Map<String, Hand> hands = {};
 
     for (final Player player in players) {
-      hands[player.id] = const Hand(
-        hiddenPile: [],
-        revealedPile: [],
+      final List<Card> hiddenPile = [];
+      final List<Card> revealedPile = [];
+
+      hands[player.id] = Hand(
+        hiddenPile: hiddenPile,
+        revealedPile: revealedPile,
         faults: 0,
       );
     }
