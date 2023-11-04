@@ -31,7 +31,7 @@ class Player {
       );
 
   void updatePoints(Hand hand) {
-    final hiddenPoints = hand.hiddenPile.length;
+    final int hiddenPoints = hand.hiddenPile.length;
     int revealedPoints = 0;
 
     for (final Card card in hand.revealedPile) {

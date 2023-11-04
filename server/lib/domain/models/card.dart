@@ -43,8 +43,8 @@ class Card {
       );
 
   bool canAccept(Card card) {
-    final value1 = _normalize(value + diff);
-    final value2 = _normalize(value - diff);
+    final int value1 = _normalize(value + diff);
+    final int value2 = _normalize(value - diff);
 
     return (card.value == value1) || (card.value == value2);
   }
@@ -60,7 +60,7 @@ class Card {
   }
 
   static List<Card> generate(int amount, Card card) {
-    const List<Card> result = [];
+    final List<Card> result = [];
 
     for (int i = 0; i < amount; i++) {
       result.add(card);
@@ -72,7 +72,7 @@ class Card {
   static List<Card> all() {
     int cardId = 1;
 
-    final blue = [
+    final List<Card> blue = [
       ...generate(3, Card.blue(cardId++, 1)), // 1
       ...generate(3, Card.blue(cardId++, 2)), // 2
       ...generate(3, Card.blue(cardId++, 3)), // 3
@@ -85,7 +85,7 @@ class Card {
       ...generate(2, Card.blue(cardId++, 10)), // 10
     ];
 
-    final green = [
+    final List<Card> green = [
       ...generate(2, Card.green(cardId++, 1)), // 1
       ...generate(2, Card.green(cardId++, 2)), // 2
       ...generate(2, Card.green(cardId++, 3)), // 3
@@ -98,7 +98,7 @@ class Card {
       ...generate(2, Card.green(cardId++, 10)), // 10
     ];
 
-    final red = [
+    final List<Card> red = [
       ...generate(3, Card.red(cardId++, 1)), // 1
       ...generate(3, Card.red(cardId++, 2)), // 2
       ...generate(3, Card.red(cardId++, 3)), // 3
