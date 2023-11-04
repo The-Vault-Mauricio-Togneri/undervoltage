@@ -10,7 +10,9 @@ import 'package:undervoltage/domain/models/room.dart';
 import 'package:undervoltage/domain/models/user_logged.dart';
 import 'package:undervoltage/domain/types/match_status.dart';
 import 'package:undervoltage/domain/types/tts_state.dart';
+import 'package:undervoltage/presentation/dialogs/info_dialog.dart';
 import 'package:undervoltage/utils/connection.dart';
+import 'package:undervoltage/utils/navigation.dart';
 
 class MatchState extends BaseState {
   final Room room;
@@ -99,12 +101,13 @@ class MatchState extends BaseState {
     }
   }
 
-  void _onDisconnected() {
-    // TODO(momo): implement
-  }
+  void _onDisconnected() => InfoDialog.error(
+        text: 'Server disconnection',
+        onAccept: Navigation.pop,
+      );
 
   void _onError(dynamic error) {
-    // TODO(momo): implement
+    print(error);
   }
 
   void onPlayCard(Card card) {
