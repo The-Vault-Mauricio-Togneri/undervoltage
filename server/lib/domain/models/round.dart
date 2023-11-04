@@ -7,7 +7,7 @@ class Round {
   final List<Card> discardPile;
   final Map<String, Hand> playersHand;
 
-  const Round._({
+  const Round({
     required this.discardPile,
     required this.playersHand,
   });
@@ -41,7 +41,7 @@ class Round {
       }
     }
 
-    return Round._(
+    return Round(
       discardPile: [firstCard],
       playersHand: hands,
     );
