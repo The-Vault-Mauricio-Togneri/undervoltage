@@ -1,13 +1,13 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:undervoltage/domain/json/game/json_card.dart';
-import 'package:undervoltage/domain/json/game/json_hand.dart';
-import 'package:undervoltage/domain/json/game/json_match.dart';
 import 'package:undervoltage/domain/json/messages/json_message.dart';
 import 'package:undervoltage/domain/json/messages/json_start.dart';
 import 'package:undervoltage/domain/json/messages/json_welcome.dart';
-import 'package:undervoltage/domain/model/room.dart';
-import 'package:undervoltage/domain/model/user_logged.dart';
+import 'package:undervoltage/domain/models/game/card.dart';
+import 'package:undervoltage/domain/models/game/hand.dart';
+import 'package:undervoltage/domain/models/game/match.dart';
+import 'package:undervoltage/domain/models/room.dart';
+import 'package:undervoltage/domain/models/user_logged.dart';
 import 'package:undervoltage/domain/types/match_status.dart';
 import 'package:undervoltage/domain/types/tts_state.dart';
 import 'package:undervoltage/utils/connection.dart';
@@ -18,7 +18,7 @@ class MatchState extends BaseState {
   final FlutterTts tts = FlutterTts();
   final List<String> ttsPlayQueue = [];
 
-  JsonMatch? _match;
+  Match? _match;
   String lastCard = '';
   TextToSpeechState ttsState = TextToSpeechState.idle;
 
@@ -38,21 +38,35 @@ class MatchState extends BaseState {
 
   bool get isFinished => _match?.status == MatchStatus.finished;
 
-  JsonMatch get match => _match!;
-
   String get playerId => LoggedUser.get.id;
 
-  JsonHand get hand =>
-      match.round.playersHand[playerId] ??
-      const JsonHand(
-        hiddenPile: [],
-        revealedPile: [],
-        faults: 0,
-      );
+  Match get match => _match!;
+
+  Hand get hand => _match!.hand(playerId);
 
   @override
   void onLoad() {
     connection.connect();
+
+    tts.setStartHandler(() {
+      ttsState = TextToSpeechState.playing;
+    });
+
+    tts.setCompletionHandler(() {
+      ttsState = TextToSpeechState.idle;
+
+      if (ttsPlayQueue.isNotEmpty) {
+        _speak(ttsPlayQueue.removeAt(0));
+      }
+    });
+  }
+
+  void _speak(String value) {
+    if (ttsState == TextToSpeechState.idle) {
+      tts.speak(value);
+    } else {
+      ttsPlayQueue.add(value);
+    }
   }
 
   void _onMessage(dynamic json) {
@@ -62,10 +76,27 @@ class MatchState extends BaseState {
         playerId: LoggedUser.get.id,
       ));
     } else if (json is JsonStart) {
-      _match = json.match;
+      _match = Match.fromJson(json.match);
+      onMatchUpdate(_match!);
     }
 
     notify();
+  }
+
+  void onMatchUpdate(Match match) {
+    final bool shouldSpeak = lastCard.isNotEmpty;
+
+    if (match.round.discardPile.isNotEmpty) {
+      final String newCard = match.round.discardPile.last.value.toString();
+
+      if (lastCard != newCard) {
+        lastCard = newCard;
+
+        if (shouldSpeak) {
+          _speak(lastCard);
+        }
+      }
+    }
   }
 
   void _onDisconnected() {
@@ -76,8 +107,14 @@ class MatchState extends BaseState {
     // TODO(momo): implement
   }
 
-  void onPlayCard(JsonCard card) {
-    // TODO(momo): implement
+  void onPlayCard(Card card) {
+    final Card topCard = match.round.discardPile.last;
+
+    if (topCard.canAccept(card)) {
+      // TODO(momo): call server
+    } else {
+      // TODO(momo): call server
+    }
   }
 
   void onDiscardCard() {

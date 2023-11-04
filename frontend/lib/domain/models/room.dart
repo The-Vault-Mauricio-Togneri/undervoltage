@@ -1,4 +1,4 @@
-import 'package:undervoltage/domain/model/document.dart';
+import 'package:undervoltage/domain/models/document.dart';
 import 'package:undervoltage/domain/types/room_status.dart';
 import 'package:undervoltage/domain/types/room_visibility.dart';
 

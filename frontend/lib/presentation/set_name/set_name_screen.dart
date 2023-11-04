@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:undervoltage/domain/model/user_logged.dart';
+import 'package:undervoltage/domain/models/user_logged.dart';
 import 'package:undervoltage/domain/state/set_name/set_name_state.dart';
 import 'package:undervoltage/utils/navigation.dart';
 import 'package:undervoltage/utils/palette.dart';

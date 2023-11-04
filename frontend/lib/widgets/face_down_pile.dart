@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:undervoltage/domain/json/game/json_card.dart';
 import 'package:undervoltage/utils/palette.dart';
 
 class FaceDownPile extends StatelessWidget {
-  final List<JsonCard> cards;
   final double width;
   final VoidCallback? onPressed;
 
   const FaceDownPile({
-    required this.cards,
     required this.width,
     required this.onPressed,
   });

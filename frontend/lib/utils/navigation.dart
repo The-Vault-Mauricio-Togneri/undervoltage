@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
-import 'package:undervoltage/domain/model/room.dart';
+import 'package:undervoltage/domain/models/room.dart';
 import 'package:undervoltage/presentation/lobby/lobby_screen.dart';
 import 'package:undervoltage/presentation/main/main_screen.dart';
 import 'package:undervoltage/presentation/match/match_screen.dart';

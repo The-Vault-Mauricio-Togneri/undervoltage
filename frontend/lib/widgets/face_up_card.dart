@@ -1,13 +1,13 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:flutter/material.dart';
-import 'package:undervoltage/domain/json/game/json_card.dart';
+import 'package:flutter/material.dart' hide Card;
+import 'package:undervoltage/domain/models/game/card.dart';
 import 'package:undervoltage/utils/palette.dart';
 import 'package:undervoltage/widgets/label.dart';
 
 class FaceUpCard extends StatelessWidget {
-  final JsonCard card;
+  final Card card;
   final double width;
-  final Function(JsonCard)? onPressed;
+  final Function(Card)? onPressed;
 
   const FaceUpCard({
     required this.card,

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dafluta/dafluta.dart';
-import 'package:undervoltage/domain/model/document.dart';
-import 'package:undervoltage/domain/model/room.dart';
-import 'package:undervoltage/domain/model/user_logged.dart';
+import 'package:undervoltage/domain/models/document.dart';
+import 'package:undervoltage/domain/models/room.dart';
+import 'package:undervoltage/domain/models/user_logged.dart';
 import 'package:undervoltage/domain/types/room_status.dart';
 import 'package:undervoltage/domain/types/room_visibility.dart';
 import 'package:undervoltage/persistence/callables/start_matchmaking_callable.dart';

@@ -1,7 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dafluta/dafluta.dart';
-import 'package:undervoltage/domain/model/document.dart';
-import 'package:undervoltage/domain/model/room.dart';
+import 'package:undervoltage/domain/models/document.dart';
+import 'package:undervoltage/domain/models/room.dart';
 import 'package:undervoltage/domain/types/room_visibility.dart';
 import 'package:undervoltage/persistence/callables/callable.dart';
 

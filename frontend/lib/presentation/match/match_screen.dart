@@ -1,9 +1,9 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:flutter/material.dart';
-import 'package:undervoltage/domain/json/game/json_card.dart';
-import 'package:undervoltage/domain/json/game/json_hand.dart';
-import 'package:undervoltage/domain/json/game/json_player.dart';
-import 'package:undervoltage/domain/model/room.dart';
+import 'package:flutter/material.dart' hide Card;
+import 'package:undervoltage/domain/models/game/card.dart';
+import 'package:undervoltage/domain/models/game/hand.dart';
+import 'package:undervoltage/domain/models/game/player.dart';
+import 'package:undervoltage/domain/models/room.dart';
 import 'package:undervoltage/domain/state/match/match_state.dart';
 import 'package:undervoltage/utils/palette.dart';
 import 'package:undervoltage/widgets/base_screen.dart';
@@ -149,10 +149,12 @@ class OtherPlayers extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          for (final JsonPlayer player in state.match.players.values)
+          for (final Player player in state.match.players.values)
             if (player.id != state.playerId)
               OtherPlayerPile(
-                  player, state.match.round.playersHand[player.id]!),
+                player,
+                state.match.round.playersHand[player.id]!,
+              ),
         ],
       ),
     );
@@ -160,8 +162,8 @@ class OtherPlayers extends StatelessWidget {
 }
 
 class OtherPlayerPile extends StatelessWidget {
-  final JsonPlayer player;
-  final JsonHand hand;
+  final Player player;
+  final Hand hand;
 
   const OtherPlayerPile(this.player, this.hand);
 
@@ -252,7 +254,6 @@ class PlayerHand extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: FaceDownPile(
-                      cards: state.hand.hiddenPile,
                       width: cardWidth,
                       onPressed: state.onDiscardCard,
                     ),
@@ -286,9 +287,9 @@ class FaultBullet extends StatelessWidget {
 }
 
 class PlayerHandRevealed extends StatelessWidget {
-  final List<JsonCard> cards;
+  final List<Card> cards;
   final double cardWidth;
-  final Function(JsonCard) onPressed;
+  final Function(Card) onPressed;
 
   const PlayerHandRevealed({
     required this.cards,
@@ -302,7 +303,7 @@ class PlayerHandRevealed extends StatelessWidget {
       child: Wrap(
         alignment: WrapAlignment.center,
         children: [
-          for (final JsonCard card in cards)
+          for (final Card card in cards)
             Padding(
               padding: const EdgeInsets.only(
                 right: 20,

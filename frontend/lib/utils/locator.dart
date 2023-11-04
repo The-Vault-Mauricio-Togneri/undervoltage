@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:undervoltage/domain/model/user_logged.dart';
+import 'package:undervoltage/domain/models/user_logged.dart';
 import 'package:undervoltage/environments/environment.dart';
 import 'package:undervoltage/utils/navigation.dart';
 import 'package:undervoltage/utils/set_url_strategy.dart';

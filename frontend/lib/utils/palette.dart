@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:undervoltage/domain/json/game/json_card.dart';
+import 'package:flutter/material.dart' hide Card;
+import 'package:undervoltage/domain/models/game/card.dart';
 import 'package:undervoltage/domain/types/card_color.dart';
 
 class Palette {
@@ -11,7 +11,7 @@ class Palette {
   static const Color green = Colors.green;
   static const Color red = Colors.red;
 
-  static Color fromCard(JsonCard card) {
+  static Color fromCard(Card card) {
     if (card.color == CardColor.red) {
       return Colors.red;
     } else if (card.color == CardColor.green) {
