@@ -49,16 +49,6 @@ class Match {
         status: status,
       );
 
-  /*bool get playerFinished {
-    for (final Hand hand in round.playersHand.values) {
-      if (hand.finished) {
-        return true;
-      }
-    }
-
-    return false;
-  }*/
-
   void playCard({
     required String cardId,
     required String playerId,
@@ -66,9 +56,21 @@ class Match {
     final Hand hand = round.playerHand(playerId);
     final Card selectedCard = hand.cardById(cardId);
 
-    if (round.topCard.canAccept(selectedCard)) {
+    if (round.topCard.canAccept(selectedCard) || hand.isLastCard) {
       round.addCard(selectedCard);
       hand.removeCard(selectedCard);
+
+      if (hand.finished) {
+        status = MatchStatus.summary;
+
+        for (final Player player in players.values) {
+          final Hand hand = round.playerHand(playerId);
+          player.updatePoints(hand);
+        }
+      } else {
+        // TODO(momo): check if blocked
+      }
+
       _sendUpdate();
     }
   }
@@ -120,16 +122,6 @@ class Match {
     }
 
     return false;
-  }*/
-
-  /*void endTurn() {
-    status = MatchStatus.summary;
-
-    for (final String playerId in round.playersHand.keys) {
-      final Hand hand = round.playersHand[playerId]!;
-      final Player player = players[playerId]!;
-      player.updatePoints(hand);
-    }
   }*/
 
   //void unblock() => round.unblock();

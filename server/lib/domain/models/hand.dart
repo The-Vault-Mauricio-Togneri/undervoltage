@@ -19,7 +19,9 @@ class Hand {
         faults: faults,
       );
 
-  // bool get finished => (hiddenPile.isEmpty) && (revealedPile.isEmpty);
+  bool get isLastCard => (hiddenPile.isEmpty) && (revealedPile.length == 1);
+
+  bool get finished => (hiddenPile.isEmpty) && (revealedPile.isEmpty);
 
   int get revealedSize => revealedPile.length;
 
