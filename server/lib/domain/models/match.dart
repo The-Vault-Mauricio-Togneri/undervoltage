@@ -1,4 +1,5 @@
 import 'package:undervoltage/domain/json/game/json_match.dart';
+import 'package:undervoltage/domain/json/messages/json_message.dart';
 import 'package:undervoltage/domain/models/card.dart';
 import 'package:undervoltage/domain/models/hand.dart';
 import 'package:undervoltage/domain/models/player.dart';
@@ -62,17 +63,21 @@ class Match {
     required String cardId,
     required String playerId,
   }) {
-    final Hand hand = round.playersHand[playerId]!;
+    final Hand hand = round.playerHand(playerId);
     final Card selectedCard = hand.cardById(cardId);
 
     if (round.topCard.canAccept(selectedCard)) {
-      round.discardPile.add(selectedCard);
+      round.addCard(selectedCard);
       hand.removeCard(selectedCard);
+
+      room.broadcast(JsonMessage.update(json));
     }
   }
 
   void discardCard(String playerId) {
-    // TODO(momo): implement
+    final Hand hand = round.playerHand(playerId);
+    hand.discardCard();
+    room.broadcast(JsonMessage.update(json));
   }
 
   void increaseFault(String playerId) {

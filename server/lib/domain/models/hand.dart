@@ -19,11 +19,19 @@ class Hand {
         faults: faults,
       );
 
-  bool get finished => (hiddenPile.isEmpty) && (revealedPile.isEmpty);
+  // bool get finished => (hiddenPile.isEmpty) && (revealedPile.isEmpty);
 
-  void removeCard(Card card) {
-    revealedPile.remove(card);
+  int get revealedSize => revealedPile.length;
+
+  void discardCard() {
+    // TODO(momo): implement
   }
+
+  void addHidden(Card card) => hiddenPile.add(card);
+
+  void addRevealed(Card card) => revealedPile.add(card);
+
+  void removeCard(Card card) => revealedPile.remove(card);
 
   Card cardById(String cardId) {
     for (final Card card in revealedPile) {

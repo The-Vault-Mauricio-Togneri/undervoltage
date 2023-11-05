@@ -37,10 +37,10 @@ class Round {
         final Hand hand = hands[player.id]!;
         final Card card = cards.removeAt(0);
 
-        if (hand.revealedPile.length < 3) {
-          hand.revealedPile.add(card);
+        if (hand.revealedSize < 3) {
+          hand.addRevealed(card);
         } else {
-          hand.hiddenPile.add(card);
+          hand.addHidden(card);
         }
       }
     }
@@ -58,10 +58,14 @@ class Round {
 
   Card get topCard => discardPile.last;
 
-  void unblock() {
+  void addCard(Card card) => discardPile.add(card);
+
+  Hand playerHand(String playerId) => playersHand[playerId]!;
+
+  /*void unblock() {
     if (discardPile.isNotEmpty) {
       final Card first = discardPile.removeAt(0);
       discardPile.add(first);
     }
-  }
+  }*/
 }

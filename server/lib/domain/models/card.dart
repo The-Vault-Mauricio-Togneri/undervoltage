@@ -72,6 +72,7 @@ class Card {
   static List<Card> all() {
     int cardId = 1;
 
+    // TODO: fix duplicated ids
     final List<Card> blue = [
       ...generate(3, Card.blue(cardId++, 1)), // 1
       ...generate(3, Card.blue(cardId++, 2)), // 2
