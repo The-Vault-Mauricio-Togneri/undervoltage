@@ -52,7 +52,7 @@ class Body extends StatelessWidget {
       return const Loading();
     } else if (state.isPlaying) {
       return Playing(state);
-    } else if (state.isSummary) {
+    } else if (state.isSummary || state.isFinished) {
       return Summary(state);
     } else {
       return const Loading();
