@@ -82,6 +82,21 @@ class Summary extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (state.isFinished)
+            const Label(
+              text: 'MATCH FINISHED',
+              color: Palette.black,
+              size: 25,
+              weight: FontWeight.bold,
+            )
+          else
+            Label(
+              text: 'ROUND ${state.match.roundCount} FINISHED',
+              color: Palette.black,
+              size: 25,
+              weight: FontWeight.bold,
+            ),
+          const VBox(60),
           for (final player in state.match.players.values)
             SizedBox(
               width: 200,
@@ -94,7 +109,7 @@ class Summary extends StatelessWidget {
                     Expanded(
                       child: Label(
                         text: player.name,
-                        color: Palette.grey,
+                        color: player.points < 100 ? Palette.grey : Palette.red,
                         size: 16,
                         weight: FontWeight.bold,
                         maxLines: 1,
@@ -104,7 +119,7 @@ class Summary extends StatelessWidget {
                     const HBox(10),
                     Label(
                       text: player.points.toString(),
-                      color: Palette.grey,
+                      color: player.points < 100 ? Palette.grey : Palette.red,
                       size: 16,
                     ),
                   ],

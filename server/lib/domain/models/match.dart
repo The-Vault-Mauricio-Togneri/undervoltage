@@ -58,7 +58,7 @@ class Match {
 
   bool get playerLost {
     for (final Player player in players.values) {
-      if (player.points > 100) {
+      if (player.points >= 100) {
         return true;
       }
     }
