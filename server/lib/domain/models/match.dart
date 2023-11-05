@@ -85,9 +85,7 @@ class Match {
     _sendUpdate();
   }
 
-  void summaryAccepted(String playerId) {
-    // TODO(momo): implement
-  }
+  void summaryAccepted(String playerId) => players[playerId]?.summaryAccepted();
 
   /*bool get isBlocked =>
       (round.discardPile.isNotEmpty) &&

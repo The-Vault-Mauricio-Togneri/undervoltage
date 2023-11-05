@@ -4,7 +4,7 @@ import 'package:undervoltage/domain/types/player_status.dart';
 class Player {
   final String id;
   final String name;
-  final PlayerStatus status;
+  PlayerStatus status;
   int points;
 
   Player({
@@ -27,6 +27,10 @@ class Player {
         status: status,
         points: points,
       );
+
+  void summaryAccepted() {
+    status = PlayerStatus.playing;
+  }
 
   /*void updatePoints(Hand hand) {
     final int hiddenPoints = hand.hiddenPile.length;
