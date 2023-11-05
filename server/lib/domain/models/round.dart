@@ -77,12 +77,9 @@ class Round {
   void unblock() {
     int limit = discardPile.length;
 
-    while (isBlocked && (limit > 1)) {
-      if (discardPile.isNotEmpty) {
-        final Card bottom = discardPile.removeAt(0);
-        discardPile.add(bottom);
-      }
-
+    while (isBlocked && (limit > 0)) {
+      final Card bottom = discardPile.removeAt(0);
+      discardPile.add(bottom);
       limit--;
     }
   }
