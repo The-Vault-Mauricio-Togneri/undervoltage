@@ -86,18 +86,22 @@ class MatchState extends BaseState {
   }
 
   void onMatchUpdate(Match match) {
-    final bool shouldSpeak = lastCard.isNotEmpty;
+    if (isPlaying) {
+      final bool shouldSpeak = lastCard.isNotEmpty;
 
-    if (match.round.discardPile.isNotEmpty) {
-      final String newCard = match.round.discardPile.last.value.toString();
+      if (match.round.discardPile.isNotEmpty) {
+        final String newCard = match.round.discardPile.last.value.toString();
 
-      if (lastCard != newCard) {
-        lastCard = newCard;
+        if (lastCard != newCard) {
+          lastCard = newCard;
 
-        if (shouldSpeak) {
-          _speak(lastCard);
+          if (shouldSpeak) {
+            _speak(lastCard);
+          }
         }
       }
+    } else {
+      lastCard = '';
     }
   }
 

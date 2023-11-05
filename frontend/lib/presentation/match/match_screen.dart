@@ -83,25 +83,32 @@ class Summary extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           for (final player in state.match.players.values)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Label(
-                    text: player.name,
-                    color: Palette.grey,
-                    size: 16,
-                    weight: FontWeight.bold,
-                  ),
-                  const HBox(20),
-                  Label(
-                    text: player.points.toString(),
-                    color: Palette.grey,
-                    size: 16,
-                  ),
-                ],
+            SizedBox(
+              width: 200,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                      child: Label(
+                        text: player.name,
+                        color: Palette.grey,
+                        size: 16,
+                        weight: FontWeight.bold,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    const HBox(10),
+                    Label(
+                      text: player.points.toString(),
+                      color: Palette.grey,
+                      size: 16,
+                    ),
+                  ],
+                ),
               ),
             ),
           const VBox(40),

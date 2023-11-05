@@ -32,6 +32,7 @@ class Label extends StatelessWidget {
         fontSize: size,
         fontWeight: weight,
         decoration: decoration,
+        overflow: overflow,
       ),
     );
   }
