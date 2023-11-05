@@ -5,6 +5,7 @@ import 'package:undervoltage/domain/models/game/hand.dart';
 import 'package:undervoltage/domain/models/game/player.dart';
 import 'package:undervoltage/domain/models/room.dart';
 import 'package:undervoltage/domain/state/match/match_state.dart';
+import 'package:undervoltage/domain/types/player_status.dart';
 import 'package:undervoltage/utils/navigation.dart';
 import 'package:undervoltage/utils/palette.dart';
 import 'package:undervoltage/widgets/base_screen.dart';
@@ -109,7 +110,7 @@ class Summary extends StatelessWidget {
               onPressed: Navigation.pop,
               child: Text('Finish'),
             )
-          else if (state.isSummary)
+          else if (state.match.self.status == PlayerStatus.readingSummary)
             ElevatedButton(
               onPressed: state.onSummaryAccepted,
               child: const Text('Continue'),
