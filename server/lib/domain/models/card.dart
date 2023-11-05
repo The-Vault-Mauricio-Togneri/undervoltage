@@ -14,27 +14,6 @@ class Card {
     required this.value,
   });
 
-  factory Card.red(int id, int value) => Card(
-        id: id.toString(),
-        color: CardColor.red,
-        diff: 3,
-        value: value,
-      );
-
-  factory Card.green(int id, int value) => Card(
-        id: id.toString(),
-        color: CardColor.green,
-        diff: 2,
-        value: value,
-      );
-
-  factory Card.blue(int id, int value) => Card(
-        id: id.toString(),
-        color: CardColor.blue,
-        diff: 1,
-        value: value,
-      );
-
   JsonCard get json => JsonCard(
         id: id,
         color: color,
@@ -59,57 +38,66 @@ class Card {
     }
   }
 
-  static List<Card> generate(int amount, Card card) {
+  static List<Card> generate(
+    int amount,
+    CardId cardId,
+    CardColor color,
+    int value,
+  ) {
     final List<Card> result = [];
 
     for (int i = 0; i < amount; i++) {
-      result.add(card);
+      result.add(Card(
+        id: cardId.next.toString(),
+        color: color,
+        diff: color.diff,
+        value: value,
+      ));
     }
 
     return result;
   }
 
   static List<Card> all() {
-    int cardId = 1;
+    final CardId cardId = CardId(1);
 
-    // TODO: fix duplicated ids
     final List<Card> blue = [
-      ...generate(3, Card.blue(cardId++, 1)), // 1
-      ...generate(3, Card.blue(cardId++, 2)), // 2
-      ...generate(3, Card.blue(cardId++, 3)), // 3
-      ...generate(3, Card.blue(cardId++, 4)), // 4
-      ...generate(2, Card.blue(cardId++, 5)), // 5
-      ...generate(2, Card.blue(cardId++, 6)), // 6
-      ...generate(2, Card.blue(cardId++, 7)), // 7
-      ...generate(2, Card.blue(cardId++, 8)), // 8
-      ...generate(2, Card.blue(cardId++, 9)), // 9
-      ...generate(2, Card.blue(cardId++, 10)), // 10
+      ...generate(3, cardId, CardColor.blue, 1), // 1
+      ...generate(3, cardId, CardColor.blue, 2), // 2
+      ...generate(3, cardId, CardColor.blue, 3), // 3
+      ...generate(3, cardId, CardColor.blue, 4), // 4
+      ...generate(2, cardId, CardColor.blue, 5), // 5
+      ...generate(2, cardId, CardColor.blue, 6), // 6
+      ...generate(2, cardId, CardColor.blue, 7), // 7
+      ...generate(2, cardId, CardColor.blue, 8), // 8
+      ...generate(2, cardId, CardColor.blue, 9), // 9
+      ...generate(2, cardId, CardColor.blue, 10), // 10
     ];
 
     final List<Card> green = [
-      ...generate(2, Card.green(cardId++, 1)), // 1
-      ...generate(2, Card.green(cardId++, 2)), // 2
-      ...generate(2, Card.green(cardId++, 3)), // 3
-      ...generate(2, Card.green(cardId++, 4)), // 4
-      ...generate(3, Card.green(cardId++, 5)), // 5
-      ...generate(3, Card.green(cardId++, 6)), // 6
-      ...generate(3, Card.green(cardId++, 7)), // 7
-      ...generate(3, Card.green(cardId++, 8)), // 8
-      ...generate(2, Card.green(cardId++, 9)), // 9
-      ...generate(2, Card.green(cardId++, 10)), // 10
+      ...generate(2, cardId, CardColor.green, 1), // 1
+      ...generate(2, cardId, CardColor.green, 2), // 2
+      ...generate(2, cardId, CardColor.green, 3), // 3
+      ...generate(2, cardId, CardColor.green, 4), // 4
+      ...generate(3, cardId, CardColor.green, 5), // 5
+      ...generate(3, cardId, CardColor.green, 6), // 6
+      ...generate(3, cardId, CardColor.green, 7), // 7
+      ...generate(3, cardId, CardColor.green, 8), // 8
+      ...generate(2, cardId, CardColor.green, 9), // 9
+      ...generate(2, cardId, CardColor.green, 10), // 10
     ];
 
     final List<Card> red = [
-      ...generate(3, Card.red(cardId++, 1)), // 1
-      ...generate(3, Card.red(cardId++, 2)), // 2
-      ...generate(3, Card.red(cardId++, 3)), // 3
-      ...generate(2, Card.red(cardId++, 4)), // 4
-      ...generate(2, Card.red(cardId++, 5)), // 5
-      ...generate(2, Card.red(cardId++, 6)), // 6
-      ...generate(2, Card.red(cardId++, 7)), // 7
-      ...generate(2, Card.red(cardId++, 8)), // 8
-      ...generate(3, Card.red(cardId++, 9)), // 9
-      ...generate(3, Card.red(cardId++, 10)), // 10
+      ...generate(3, cardId, CardColor.red, 1), // 1
+      ...generate(3, cardId, CardColor.red, 2), // 2
+      ...generate(3, cardId, CardColor.red, 3), // 3
+      ...generate(2, cardId, CardColor.red, 4), // 4
+      ...generate(2, cardId, CardColor.red, 5), // 5
+      ...generate(2, cardId, CardColor.red, 6), // 6
+      ...generate(2, cardId, CardColor.red, 7), // 7
+      ...generate(2, cardId, CardColor.red, 8), // 8
+      ...generate(3, cardId, CardColor.red, 9), // 9
+      ...generate(3, cardId, CardColor.red, 10), // 10
     ];
 
     return [
@@ -118,4 +106,12 @@ class Card {
       ...red,
     ];
   }
+}
+
+class CardId {
+  int _current;
+
+  CardId(this._current);
+
+  int get next => _current++;
 }
