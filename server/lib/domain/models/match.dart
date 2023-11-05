@@ -11,8 +11,8 @@ class Match {
   final String id;
   final Room room;
   final Map<String, Player> players;
-  final int roundCount;
-  final Round round;
+  int roundCount;
+  Round round;
   MatchStatus status;
 
   Match._({
@@ -87,7 +87,13 @@ class Match {
     _sendUpdate();
   }
 
-  void summaryAccepted(String playerId) => players[playerId]?.summaryAccepted();
+  void summaryAccepted(String playerId) {
+    players[playerId]?.summaryAccepted();
+
+    // TODO(momo): if all accepted
+    roundCount++;
+    round = Round.create(players.values.toList());
+  }
 
   void _sendUpdate() => room.broadcast(JsonMessage.update(json));
 
