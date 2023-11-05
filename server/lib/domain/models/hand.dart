@@ -25,6 +25,19 @@ class Hand {
 
   int get revealedSize => revealedPile.length;
 
+  bool isBlocked(Card topCard) =>
+      hiddenPile.isEmpty && !_canPlayCards(revealedPile, topCard);
+
+  bool _canPlayCards(List<Card> cards, Card topCard) {
+    for (final Card card in cards) {
+      if (topCard.canAccept(card)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   void discardCard() {
     if (hiddenPile.isNotEmpty) {
       final Card card = hiddenPile.removeAt(hiddenPile.length - 1);

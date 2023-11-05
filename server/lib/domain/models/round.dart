@@ -62,10 +62,10 @@ class Round {
 
   Hand playerHand(String playerId) => playersHand[playerId]!;
 
-  /*void unblock() {
+  void unblock() {
     if (discardPile.isNotEmpty) {
       final Card first = discardPile.removeAt(0);
       discardPile.add(first);
     }
-  }*/
+  }
 }

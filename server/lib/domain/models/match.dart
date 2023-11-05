@@ -67,8 +67,13 @@ class Match {
           final Hand hand = round.playerHand(playerId);
           player.updatePoints(hand);
         }
-      } else {
-        // TODO(momo): check if blocked
+      } else if (isBlocked) {
+        int limit = round.discardPile.length;
+
+        while (isBlocked && (limit > 1)) {
+          round.unblock();
+          limit--;
+        }
       }
 
       _sendUpdate();
@@ -89,57 +94,22 @@ class Match {
 
   void summaryAccepted(String playerId) => players[playerId]?.summaryAccepted();
 
-  /*bool get isBlocked =>
+  bool get isBlocked =>
       (round.discardPile.isNotEmpty) &&
       allPlayersBlocked(
         round.playersHand.values.toList(),
-        round.lastCard,
-      );*/
+        round.topCard,
+      );
 
-  /*bool allPlayersBlocked(List<Hand> hands, Card topCard) {
+  bool allPlayersBlocked(List<Hand> hands, Card topCard) {
     for (final Hand hand in hands) {
-      if (!playerBlocked(hand, topCard)) {
+      if (!hand.isBlocked(topCard)) {
         return false;
       }
     }
 
     return hands.isNotEmpty;
-  }*/
-
-  /*bool playerBlocked(Hand hand, Card topCard) {
-    if (hand.hiddenPile.isEmpty) {
-      return !canPlayCards(hand.revealedPile, topCard);
-    } else {
-      return false;
-    }
-  }*/
-
-  /*bool canPlayCards(List<Card> cards, Card topCard) {
-    for (final Card card in cards) {
-      if (topCard.canAccept(card)) {
-        return true;
-      }
-    }
-
-    return false;
-  }*/
-
-  //void unblock() => round.unblock();
-
-  /*void checkStatus() {
-    if (status == MatchStatus.playing) {
-      if (playerFinished) {
-        endTurn();
-      } else if (isBlocked) {
-        int limit = round.discardPile.length;
-
-        while (isBlocked && (limit > 1)) {
-          unblock();
-          limit--;
-        }
-      }
-    }
-  }*/
+  }
 
   void _sendUpdate() => room.broadcast(JsonMessage.update(json));
 
