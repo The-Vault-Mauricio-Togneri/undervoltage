@@ -56,7 +56,7 @@ class Round {
         playersHand: playersHand.map((key, value) => MapEntry(key, value.json)),
       );
 
-  Card get lastCard => discardPile[discardPile.length - 1];
+  Card get topCard => discardPile.last;
 
   void unblock() {
     if (discardPile.isNotEmpty) {

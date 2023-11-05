@@ -48,7 +48,7 @@ class Match {
         status: status,
       );
 
-  bool get playerFinished {
+  /*bool get playerFinished {
     for (final Hand hand in round.playersHand.values) {
       if (hand.finished) {
         return true;
@@ -56,24 +56,18 @@ class Match {
     }
 
     return false;
-  }
+  }*/
 
   void playCard({
     required String cardId,
     required String playerId,
   }) {
-    // TODO(momo): implement
-
-    final Card topCard = round.lastCard;
     final Hand hand = round.playersHand[playerId]!;
+    final Card selectedCard = hand.cardById(cardId);
 
-    for (final Card card in hand.revealedPile) {
-      if (card.id == cardId) {
-        if (topCard.canAccept(card)) {
-          round.discardPile.add(card);
-          removeCard(playerId, cardId);
-        }
-      }
+    if (round.topCard.canAccept(selectedCard)) {
+      round.discardPile.add(selectedCard);
+      hand.removeCard(selectedCard);
     }
   }
 
@@ -89,14 +83,14 @@ class Match {
     // TODO(momo): implement
   }
 
-  bool get isBlocked =>
+  /*bool get isBlocked =>
       (round.discardPile.isNotEmpty) &&
       allPlayersBlocked(
         round.playersHand.values.toList(),
         round.lastCard,
-      );
+      );*/
 
-  bool allPlayersBlocked(List<Hand> hands, Card topCard) {
+  /*bool allPlayersBlocked(List<Hand> hands, Card topCard) {
     for (final Hand hand in hands) {
       if (!playerBlocked(hand, topCard)) {
         return false;
@@ -104,17 +98,17 @@ class Match {
     }
 
     return hands.isNotEmpty;
-  }
+  }*/
 
-  bool playerBlocked(Hand hand, Card topCard) {
+  /*bool playerBlocked(Hand hand, Card topCard) {
     if (hand.hiddenPile.isEmpty) {
       return !canPlayCards(hand.revealedPile, topCard);
     } else {
       return false;
     }
-  }
+  }*/
 
-  bool canPlayCards(List<Card> cards, Card topCard) {
+  /*bool canPlayCards(List<Card> cards, Card topCard) {
     for (final Card card in cards) {
       if (topCard.canAccept(card)) {
         return true;
@@ -122,9 +116,9 @@ class Match {
     }
 
     return false;
-  }
+  }*/
 
-  void endTurn() {
+  /*void endTurn() {
     status = MatchStatus.summary;
 
     for (final String playerId in round.playersHand.keys) {
@@ -132,16 +126,11 @@ class Match {
       final Player player = players[playerId]!;
       player.updatePoints(hand);
     }
-  }
+  }*/
 
-  void unblock() => round.unblock();
+  //void unblock() => round.unblock();
 
-  void removeCard(String playerId, String cardId) {
-    final Hand hand = round.playersHand[playerId]!;
-    hand.removeCard(cardId);
-  }
-
-  void checkStatus() {
+  /*void checkStatus() {
     if (status == MatchStatus.playing) {
       if (playerFinished) {
         endTurn();
@@ -154,13 +143,7 @@ class Match {
         }
       }
     }
-  }
+  }*/
 
-  void update(double dt) {
-    /*if (timeSpent.toInt() % 5 == 0) {
-      for (final WebSocket socket in playerIdToWebSocket.values) {
-        socket.send(JsonMessage(type: timeSpent.toString()));
-      }
-    }*/
-  }
+  void update(double dt) {}
 }
