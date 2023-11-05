@@ -35,11 +35,10 @@ class Hand {
     return hiddenPile.length + revealedPoints;
   }
 
-  bool isBlocked(Card topCard) =>
-      hiddenPile.isEmpty && !_canPlayCards(revealedPile, topCard);
+  bool isBlocked(Card topCard) => hiddenPile.isEmpty && !_canPlayCard(topCard);
 
-  bool _canPlayCards(List<Card> cards, Card topCard) {
-    for (final Card card in cards) {
+  bool _canPlayCard(Card topCard) {
+    for (final Card card in revealedPile) {
       if (topCard.canAccept(card)) {
         return true;
       }
