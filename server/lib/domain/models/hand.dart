@@ -5,9 +5,9 @@ import 'package:undervoltage/domain/models/card.dart';
 class Hand {
   final List<Card> hiddenPile;
   final List<Card> revealedPile;
-  final int faults;
+  int faults;
 
-  const Hand({
+  Hand({
     required this.hiddenPile,
     required this.revealedPile,
     required this.faults,
@@ -24,7 +24,14 @@ class Hand {
   int get revealedSize => revealedPile.length;
 
   void discardCard() {
-    // TODO(momo): implement
+    if (hiddenPile.isNotEmpty) {
+      final Card card = hiddenPile.removeAt(hiddenPile.length - 1);
+      revealedPile.add(card);
+    }
+  }
+
+  void increaseFaults() {
+    faults++;
   }
 
   void addHidden(Card card) => hiddenPile.add(card);

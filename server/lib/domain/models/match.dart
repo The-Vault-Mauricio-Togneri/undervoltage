@@ -69,19 +69,20 @@ class Match {
     if (round.topCard.canAccept(selectedCard)) {
       round.addCard(selectedCard);
       hand.removeCard(selectedCard);
-
-      room.broadcast(JsonMessage.update(json));
+      _sendUpdate();
     }
   }
 
   void discardCard(String playerId) {
     final Hand hand = round.playerHand(playerId);
     hand.discardCard();
-    room.broadcast(JsonMessage.update(json));
+    _sendUpdate();
   }
 
   void increaseFault(String playerId) {
-    // TODO(momo): implement
+    final Hand hand = round.playerHand(playerId);
+    hand.increaseFaults();
+    _sendUpdate();
   }
 
   void summaryAccepted(String playerId) {
@@ -149,6 +150,8 @@ class Match {
       }
     }
   }*/
+
+  void _sendUpdate() => room.broadcast(JsonMessage.update(json));
 
   void update(double dt) {}
 }
