@@ -31,7 +31,7 @@ class Room {
         players: json.players,
       );
 
-  bool join({
+  void join({
     required String playerId,
     required WebSocket socket,
   }) {
@@ -45,10 +45,20 @@ class Room {
         match = Match.create(this);
         broadcast(JsonMessage.update(match!.json));
       }
-
-      return true;
     } else {
-      return false;
+      throw JsonMessage.error('Player $playerId cannot join room $id');
+    }
+  }
+
+  void leave(WebSocket socket) {
+    if (webSocketToPlayerId.containsKey(socket)) {
+      final String playerId = webSocketToPlayerId[socket]!;
+      playerIdToWebSocket.remove(playerId);
+      webSocketToPlayerId.remove(socket);
+
+      Logger.log(socket, 'Player $playerId left room $id');
+    } else {
+      throw JsonMessage.error('Cannot find player for socket ${socket.id}');
     }
   }
 
@@ -56,33 +66,34 @@ class Room {
     required String cardId,
     required String playerId,
   }) {
-    // TODO(momo): implement
+    if (match != null) {
+      match?.playCard(cardId: cardId, playerId: playerId);
+    } else {
+      throw JsonMessage.error('Match not started');
+    }
   }
 
   void discardCard(String playerId) {
-    // TODO(momo): implement
+    if (match != null) {
+      match?.discardCard(playerId);
+    } else {
+      throw JsonMessage.error('Match not started');
+    }
   }
 
   void increaseFault(String playerId) {
-    // TODO(momo): implement
+    if (match != null) {
+      match?.increaseFault(playerId);
+    } else {
+      throw JsonMessage.error('Match not started');
+    }
   }
 
   void summaryAccepted(String playerId) {
-    // TODO(momo): implement
-  }
-
-  bool leave(WebSocket socket) {
-    final String? playerId = webSocketToPlayerId[socket];
-
-    if (playerId != null) {
-      playerIdToWebSocket.remove(playerId);
-      webSocketToPlayerId.remove(socket);
-
-      Logger.log(socket, 'Player $playerId left room $id');
-
-      return true;
+    if (match != null) {
+      match?.summaryAccepted(playerId);
     } else {
-      return false;
+      throw JsonMessage.error('Match not started');
     }
   }
 

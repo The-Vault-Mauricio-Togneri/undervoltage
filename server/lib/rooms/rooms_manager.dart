@@ -6,7 +6,6 @@ import 'package:undervoltage/domain/json/messages/client_server/json_join_room.d
 import 'package:undervoltage/domain/json/messages/client_server/json_play_card.dart';
 import 'package:undervoltage/domain/json/messages/client_server/json_summary_accept.dart';
 import 'package:undervoltage/domain/json/messages/json_message.dart';
-import 'package:undervoltage/extensions/web_socket_extension.dart';
 import 'package:undervoltage/rooms/room.dart';
 import 'package:undervoltage/utils/map_list.dart';
 
@@ -27,18 +26,20 @@ class RoomsManager {
       roomId: json.roomId,
       socket: socket,
     );
-
-    final bool joined = room.join(
+    room.join(
       playerId: json.playerId,
       socket: socket,
     );
+    websocketToRoom[socket] = room;
+  }
 
-    if (joined) {
-      websocketToRoom[socket] = room;
+  void leave(WebSocket socket) {
+    if (websocketToRoom.containsKey(socket)) {
+      final Room room = websocketToRoom[socket]!;
+      room.leave(socket);
+      websocketToRoom.remove(socket);
     } else {
-      throw JsonMessage.error(
-        'Player ${json.playerId} cannot join room ${json.roomId}',
-      );
+      throw JsonMessage.error('Connection not linked with any room');
     }
   }
 
@@ -97,16 +98,6 @@ class RoomsManager {
       return rooms.get(roomId);
     } else {
       throw JsonMessage.error('Room with ID $roomId does not exist');
-    }
-  }
-
-  void leave(WebSocket socket) {
-    if (websocketToRoom.containsKey(socket)) {
-      final Room room = websocketToRoom[socket]!;
-      room.leave(socket);
-      websocketToRoom.remove(socket);
-    } else {
-      socket.send(JsonMessage.error('Connection not linked with any room'));
     }
   }
 

@@ -58,6 +58,37 @@ class Match {
     return false;
   }
 
+  void playCard({
+    required String cardId,
+    required String playerId,
+  }) {
+    // TODO(momo): implement
+
+    final Card topCard = round.lastCard;
+    final Hand hand = round.playersHand[playerId]!;
+
+    for (final Card card in hand.revealedPile) {
+      if (card.id == cardId) {
+        if (topCard.canAccept(card)) {
+          round.discardPile.add(card);
+          removeCard(playerId, cardId);
+        }
+      }
+    }
+  }
+
+  void discardCard(String playerId) {
+    // TODO(momo): implement
+  }
+
+  void increaseFault(String playerId) {
+    // TODO(momo): implement
+  }
+
+  void summaryAccepted(String playerId) {
+    // TODO(momo): implement
+  }
+
   bool get isBlocked =>
       (round.discardPile.isNotEmpty) &&
       allPlayersBlocked(
@@ -108,20 +139,6 @@ class Match {
   void removeCard(String playerId, String cardId) {
     final Hand hand = round.playersHand[playerId]!;
     hand.removeCard(cardId);
-  }
-
-  void playCard(String playerId, String cardId) {
-    final Card topCard = round.lastCard;
-    final Hand hand = round.playersHand[playerId]!;
-
-    for (final Card card in hand.revealedPile) {
-      if (card.id == cardId) {
-        if (topCard.canAccept(card)) {
-          round.discardPile.add(card);
-          removeCard(playerId, cardId);
-        }
-      }
-    }
   }
 
   void checkStatus() {
