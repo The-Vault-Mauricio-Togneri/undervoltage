@@ -233,14 +233,7 @@ class PlayerHand extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Center(
-              child: Wrap(
-                children: [
-                  for (int i = 0; i < state.hand.faults; i++)
-                    const FaultBullet(),
-                ],
-              ),
-            ),
+            if (state.hand.faults > 0) FaultIndicator(state.hand.faults),
             const VBox(20),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -267,20 +260,37 @@ class PlayerHand extends StatelessWidget {
   }
 }
 
-class FaultBullet extends StatelessWidget {
-  const FaultBullet();
+class FaultIndicator extends StatelessWidget {
+  final int amount;
+
+  const FaultIndicator(this.amount);
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(
-        left: 5,
-        right: 5,
-      ),
-      child: Icon(
-        Icons.close,
-        color: Palette.red,
-        size: 20,
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 5,
+          right: 5,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Label(
+              text: amount.toString(),
+              color: Palette.red,
+              size: 20,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 2),
+              child: Icon(
+                Icons.close,
+                color: Palette.red,
+                size: 25,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

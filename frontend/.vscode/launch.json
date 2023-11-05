@@ -23,14 +23,5 @@
                 "local"
             ]
         }
-    ],
-    "compounds": [
-        {
-            "name": "Run 2",
-            "configurations": [
-                "Run (LOCAL)",
-                "Run (LOCAL)"
-            ],
-        }
     ]
 }
