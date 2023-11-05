@@ -132,7 +132,7 @@ class MatchState extends BaseState {
         playerId: playerId,
       ));
 
-  void onFinishTurn() => connection.send(JsonMessage.summaryAccepted(
+  void onSummaryAccepted() => connection.send(JsonMessage.summaryAccepted(
         roomId: match.id,
         playerId: playerId,
       ));

@@ -20,7 +20,7 @@
             "flutterMode": "debug",
             "args": [
                 "--flavor",
-                "local"
+                "remote"
             ]
         }
     ]

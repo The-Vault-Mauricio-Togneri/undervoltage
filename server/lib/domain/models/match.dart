@@ -75,7 +75,7 @@ class Match {
         status = MatchStatus.summary;
 
         for (final Player player in players.values) {
-          final Hand hand = round.playerHand(playerId);
+          final Hand hand = round.playerHand(player.id);
           player.updatePoints(hand);
           player.updateStatus(PlayerStatus.readingSummary);
         }
@@ -103,9 +103,12 @@ class Match {
     players[playerId]?.updateStatus(PlayerStatus.playing);
 
     if (allPlayersReady) {
+      status = MatchStatus.playing;
       roundCount++;
       round = Round.create(players.values.toList());
     }
+
+    _sendUpdate();
   }
 
   void _sendUpdate() => room.broadcast(JsonMessage.update(json));

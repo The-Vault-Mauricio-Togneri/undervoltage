@@ -5,6 +5,7 @@ import 'package:undervoltage/domain/models/game/hand.dart';
 import 'package:undervoltage/domain/models/game/player.dart';
 import 'package:undervoltage/domain/models/room.dart';
 import 'package:undervoltage/domain/state/match/match_state.dart';
+import 'package:undervoltage/domain/types/player_status.dart';
 import 'package:undervoltage/utils/palette.dart';
 import 'package:undervoltage/widgets/base_screen.dart';
 import 'package:undervoltage/widgets/face_down_pile.dart';
@@ -103,10 +104,17 @@ class Summary extends StatelessWidget {
               ),
             ),
           const VBox(40),
-          ElevatedButton(
-            onPressed: state.onFinishTurn,
-            child: const Text('OK'),
-          ),
+          if (state.match.self.status == PlayerStatus.readingSummary)
+            ElevatedButton(
+              onPressed: state.onSummaryAccepted,
+              child: const Text('Continue'),
+            )
+          else
+            const Label(
+              text: 'Waiting for players…',
+              color: Palette.black,
+              size: 14,
+            )
         ],
       ),
     );
