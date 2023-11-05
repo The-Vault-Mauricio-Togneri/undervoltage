@@ -75,7 +75,7 @@ class MatchState extends BaseState {
     if (json is JsonWelcome) {
       connection.send(JsonMessage.joinRoom(
         roomId: room.id,
-        playerId: LoggedUser.get.id,
+        playerId: playerId,
       ));
     } else if (json is JsonUpdate) {
       _match = Match.fromJson(json.match);
@@ -114,23 +114,16 @@ class MatchState extends BaseState {
     final Card topCard = match.round.discardPile.last;
 
     if (topCard.canAccept(card)) {
-      // TODO(momo): call server
-      print('yes');
+      connection.send(JsonMessage.playCard(
+        cardId: card.id,
+        playerId: playerId,
+      ));
     } else {
-      // TODO(momo): call server
-      print('no');
+      connection.send(JsonMessage.increaseFault(playerId));
     }
   }
 
-  void onDiscardCard() {
-    // TODO(momo): implement
-  }
+  void onDiscardCard() => connection.send(JsonMessage.discardCard(playerId));
 
-  void onIncreaseFault() {
-    // TODO(momo): implement
-  }
-
-  void onFinishTurn() {
-    // TODO(momo): implement
-  }
+  void onFinishTurn() => connection.send(JsonMessage.summaryAccepted(playerId));
 }

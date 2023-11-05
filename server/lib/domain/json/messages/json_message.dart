@@ -1,8 +1,11 @@
 import 'dart:convert';
-
 import 'package:json_annotation/json_annotation.dart';
 import 'package:undervoltage/domain/json/game/json_match.dart';
+import 'package:undervoltage/domain/json/messages/client_server/json_discard_card.dart';
+import 'package:undervoltage/domain/json/messages/client_server/json_increase_fault.dart';
 import 'package:undervoltage/domain/json/messages/client_server/json_join_room.dart';
+import 'package:undervoltage/domain/json/messages/client_server/json_play_card.dart';
+import 'package:undervoltage/domain/json/messages/client_server/json_summary_accept.dart';
 import 'package:undervoltage/domain/json/messages/server_client/json_error.dart';
 import 'package:undervoltage/domain/json/messages/server_client/json_update.dart';
 import 'package:undervoltage/domain/json/messages/server_client/json_welcome.dart';
@@ -14,6 +17,9 @@ class JsonMessage {
   @JsonKey(name: 'type')
   final MessageType type;
 
+  @JsonKey(name: 'error')
+  final JsonError? error;
+
   @JsonKey(name: 'welcome')
   final JsonWelcome? welcome;
 
@@ -23,27 +29,49 @@ class JsonMessage {
   @JsonKey(name: 'joinRoom')
   final JsonJoinRoom? joinRoom;
 
-  @JsonKey(name: 'error')
-  final JsonError? error;
+  @JsonKey(name: 'playCard')
+  final JsonPlayCard? playCard;
+
+  @JsonKey(name: 'discardCard')
+  final JsonDiscardCard? discardCard;
+
+  @JsonKey(name: 'increaseFault')
+  final JsonIncreaseFault? increaseFault;
+
+  @JsonKey(name: 'summaryAccepted')
+  final JsonSummaryAccept? summaryAccepted;
 
   const JsonMessage({
     required this.type,
+    this.error,
     this.welcome,
     this.update,
     this.joinRoom,
-    this.error,
+    this.playCard,
+    this.discardCard,
+    this.increaseFault,
+    this.summaryAccepted,
   });
 
   dynamic get message {
     switch (type) {
+      case MessageType.error:
+        return error;
       case MessageType.welcome:
         return welcome;
       case MessageType.update:
         return update;
+
       case MessageType.joinRoom:
         return joinRoom;
-      case MessageType.error:
-        return error;
+      case MessageType.playCard:
+        return playCard;
+      case MessageType.discardCard:
+        return discardCard;
+      case MessageType.increaseFault:
+        return increaseFault;
+      case MessageType.summaryAccepted:
+        return summaryAccepted;
     }
   }
 
@@ -52,6 +80,11 @@ class JsonMessage {
 
   factory JsonMessage.fromJson(Map<String, dynamic> json) =>
       _$JsonMessageFromJson(json);
+
+  factory JsonMessage.error(String message) => JsonMessage(
+        type: MessageType.error,
+        error: JsonError(message: message),
+      );
 
   factory JsonMessage.welcome() => const JsonMessage(
         type: MessageType.welcome,
@@ -75,9 +108,37 @@ class JsonMessage {
         ),
       );
 
-  factory JsonMessage.error(String message) => JsonMessage(
-        type: MessageType.error,
-        error: JsonError(message: message),
+  factory JsonMessage.playCard({
+    required String cardId,
+    required String playerId,
+  }) =>
+      JsonMessage(
+        type: MessageType.playCard,
+        playCard: JsonPlayCard(
+          cardId: cardId,
+          playerId: playerId,
+        ),
+      );
+
+  factory JsonMessage.discardCard(String playerId) => JsonMessage(
+        type: MessageType.discardCard,
+        discardCard: JsonDiscardCard(
+          playerId: playerId,
+        ),
+      );
+
+  factory JsonMessage.increaseFault(String playerId) => JsonMessage(
+        type: MessageType.increaseFault,
+        increaseFault: JsonIncreaseFault(
+          playerId: playerId,
+        ),
+      );
+
+  factory JsonMessage.summaryAccepted(String playerId) => JsonMessage(
+        type: MessageType.summaryAccepted,
+        summaryAccepted: JsonSummaryAccept(
+          playerId: playerId,
+        ),
       );
 
   Map<String, dynamic> toJson() => _$JsonMessageToJson(this);
@@ -87,8 +148,15 @@ class JsonMessage {
 }
 
 enum MessageType {
+  // server -> client
+  error,
   welcome,
   update,
+
+  // client -> server
   joinRoom,
-  error,
+  playCard,
+  discardCard,
+  increaseFault,
+  summaryAccepted,
 }

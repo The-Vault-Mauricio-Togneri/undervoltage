@@ -2,9 +2,9 @@
 
 set -e
 
-#flutter pub upgrade
-#flutter pub run build_runner build --delete-conflicting-outputs
-#dart format lib
+flutter pub upgrade
+flutter pub run build_runner build --delete-conflicting-outputs
+dart format lib
 
 rm -r ../frontend/lib/domain/json/game/*
 rm -r ../frontend/lib/domain/json/messages/*

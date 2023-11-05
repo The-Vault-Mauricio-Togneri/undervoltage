@@ -8,6 +8,9 @@ part of 'json_message.dart';
 
 JsonMessage _$JsonMessageFromJson(Map<String, dynamic> json) => JsonMessage(
       type: $enumDecode(_$MessageTypeEnumMap, json['type']),
+      error: json['error'] == null
+          ? null
+          : JsonError.fromJson(json['error'] as Map<String, dynamic>),
       welcome: json['welcome'] == null
           ? null
           : JsonWelcome.fromJson(json['welcome'] as Map<String, dynamic>),
@@ -17,9 +20,21 @@ JsonMessage _$JsonMessageFromJson(Map<String, dynamic> json) => JsonMessage(
       joinRoom: json['joinRoom'] == null
           ? null
           : JsonJoinRoom.fromJson(json['joinRoom'] as Map<String, dynamic>),
-      error: json['error'] == null
+      playCard: json['playCard'] == null
           ? null
-          : JsonError.fromJson(json['error'] as Map<String, dynamic>),
+          : JsonPlayCard.fromJson(json['playCard'] as Map<String, dynamic>),
+      discardCard: json['discardCard'] == null
+          ? null
+          : JsonDiscardCard.fromJson(
+              json['discardCard'] as Map<String, dynamic>),
+      increaseFault: json['increaseFault'] == null
+          ? null
+          : JsonIncreaseFault.fromJson(
+              json['increaseFault'] as Map<String, dynamic>),
+      summaryAccepted: json['summaryAccepted'] == null
+          ? null
+          : JsonSummaryAccept.fromJson(
+              json['summaryAccepted'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) {
@@ -33,16 +48,24 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) {
     }
   }
 
+  writeNotNull('error', instance.error);
   writeNotNull('welcome', instance.welcome);
   writeNotNull('update', instance.update);
   writeNotNull('joinRoom', instance.joinRoom);
-  writeNotNull('error', instance.error);
+  writeNotNull('playCard', instance.playCard);
+  writeNotNull('discardCard', instance.discardCard);
+  writeNotNull('increaseFault', instance.increaseFault);
+  writeNotNull('summaryAccepted', instance.summaryAccepted);
   return val;
 }
 
 const _$MessageTypeEnumMap = {
+  MessageType.error: 'error',
   MessageType.welcome: 'welcome',
   MessageType.update: 'update',
   MessageType.joinRoom: 'joinRoom',
-  MessageType.error: 'error',
+  MessageType.playCard: 'playCard',
+  MessageType.discardCard: 'discardCard',
+  MessageType.increaseFault: 'increaseFault',
+  MessageType.summaryAccepted: 'summaryAccepted',
 };
