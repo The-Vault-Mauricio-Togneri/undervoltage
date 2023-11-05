@@ -67,13 +67,8 @@ class Match {
           final Hand hand = round.playerHand(playerId);
           player.updatePoints(hand);
         }
-      } else if (isBlocked) {
-        int limit = round.discardPile.length;
-
-        while (isBlocked && (limit > 1)) {
-          round.unblock();
-          limit--;
-        }
+      } else if (round.isBlocked) {
+        round.unblock();
       }
 
       _sendUpdate();
@@ -93,23 +88,6 @@ class Match {
   }
 
   void summaryAccepted(String playerId) => players[playerId]?.summaryAccepted();
-
-  bool get isBlocked =>
-      (round.discardPile.isNotEmpty) &&
-      allPlayersBlocked(
-        round.playersHand.values.toList(),
-        round.topCard,
-      );
-
-  bool allPlayersBlocked(List<Hand> hands, Card topCard) {
-    for (final Hand hand in hands) {
-      if (!hand.isBlocked(topCard)) {
-        return false;
-      }
-    }
-
-    return hands.isNotEmpty;
-  }
 
   void _sendUpdate() => room.broadcast(JsonMessage.update(json));
 

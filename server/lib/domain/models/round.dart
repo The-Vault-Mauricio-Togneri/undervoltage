@@ -62,10 +62,30 @@ class Round {
 
   Hand playerHand(String playerId) => playersHand[playerId]!;
 
+  bool get isBlocked =>
+      (discardPile.isNotEmpty) &&
+      allPlayersBlocked(playersHand.values.toList(), topCard);
+
+  bool allPlayersBlocked(List<Hand> hands, Card topCard) {
+    for (final Hand hand in hands) {
+      if (!hand.isBlocked(topCard)) {
+        return false;
+      }
+    }
+
+    return hands.isNotEmpty;
+  }
+
   void unblock() {
-    if (discardPile.isNotEmpty) {
-      final Card first = discardPile.removeAt(0);
-      discardPile.add(first);
+    int limit = discardPile.length;
+
+    while (isBlocked && (limit > 1)) {
+      if (discardPile.isNotEmpty) {
+        final Card bottom = discardPile.removeAt(0);
+        discardPile.add(bottom);
+      }
+
+      limit--;
     }
   }
 }
