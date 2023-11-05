@@ -113,7 +113,7 @@ class MatchState extends BaseState {
   void onPlayCard(Card card) {
     final Card topCard = match.round.discardPile.last;
 
-    if (topCard.canAccept(card)) {
+    if (topCard.canAccept(card) || hand.isLastCard) {
       connection.send(JsonMessage.playCard(
         roomId: match.id,
         cardId: card.id,

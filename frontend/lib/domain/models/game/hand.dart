@@ -17,4 +17,6 @@ class Hand {
         revealedPile: json.revealedPile.map(Card.fromJson).toList(),
         faults: json.faults,
       );
+
+  bool get isLastCard => (hiddenPile.isEmpty) && (revealedPile.length == 1);
 }
