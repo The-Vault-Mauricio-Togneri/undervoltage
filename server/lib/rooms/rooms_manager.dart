@@ -38,6 +38,10 @@ class RoomsManager {
       final Room room = websocketToRoom[socket]!;
       room.leave(socket);
       websocketToRoom.remove(socket);
+
+      if (room.isEmpty) {
+        rooms.remove(room.id, room);
+      }
     } else {
       throw JsonMessage.error('Connection not linked with any room');
     }

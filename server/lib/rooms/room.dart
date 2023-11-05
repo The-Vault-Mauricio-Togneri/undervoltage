@@ -31,6 +31,11 @@ class Room {
         players: json.players,
       );
 
+  bool get isEmpty =>
+      (match != null) &&
+      playerIdToWebSocket.isEmpty &&
+      webSocketToPlayerId.isEmpty;
+
   void join({
     required String playerId,
     required WebSocket socket,

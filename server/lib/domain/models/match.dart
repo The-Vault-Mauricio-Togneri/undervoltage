@@ -60,6 +60,16 @@ class Match {
     return true;
   }
 
+  bool get playerLost {
+    for (final Player player in players.values) {
+      if (player.points > 100) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   void playCard({
     required String cardId,
     required String playerId,
@@ -72,12 +82,16 @@ class Match {
       hand.removeCard(selectedCard);
 
       if (hand.finished) {
-        status = MatchStatus.summary;
-
         for (final Player player in players.values) {
           final Hand hand = round.playerHand(player.id);
           player.updatePoints(hand);
           player.updateStatus(PlayerStatus.readingSummary);
+        }
+
+        if (playerLost) {
+          status = MatchStatus.finished;
+        } else {
+          status = MatchStatus.summary;
         }
       } else if (round.isBlocked) {
         round.unblock();

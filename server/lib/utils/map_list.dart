@@ -10,4 +10,9 @@ class MapList<K, V> {
   V get(K key) => _map[key]!;
 
   bool has(K key) => _map.containsKey(key);
+
+  void remove(K key, V value) {
+    _map.remove(key);
+    list.remove(value);
+  }
 }
