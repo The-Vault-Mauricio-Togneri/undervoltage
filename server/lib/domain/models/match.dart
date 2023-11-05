@@ -5,6 +5,7 @@ import 'package:undervoltage/domain/models/hand.dart';
 import 'package:undervoltage/domain/models/player.dart';
 import 'package:undervoltage/domain/models/round.dart';
 import 'package:undervoltage/domain/types/match_status.dart';
+import 'package:undervoltage/domain/types/player_status.dart';
 import 'package:undervoltage/rooms/room.dart';
 
 class Match {
@@ -49,6 +50,16 @@ class Match {
         status: status,
       );
 
+  bool get allPlayersReady {
+    for (final Player player in players.values) {
+      if (player.status != PlayerStatus.playing) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   void playCard({
     required String cardId,
     required String playerId,
@@ -66,6 +77,7 @@ class Match {
         for (final Player player in players.values) {
           final Hand hand = round.playerHand(playerId);
           player.updatePoints(hand);
+          player.updateStatus(PlayerStatus.readingSummary);
         }
       } else if (round.isBlocked) {
         round.unblock();
@@ -88,11 +100,12 @@ class Match {
   }
 
   void summaryAccepted(String playerId) {
-    players[playerId]?.summaryAccepted();
+    players[playerId]?.updateStatus(PlayerStatus.playing);
 
-    // TODO(momo): if all accepted
-    roundCount++;
-    round = Round.create(players.values.toList());
+    if (allPlayersReady) {
+      roundCount++;
+      round = Round.create(players.values.toList());
+    }
   }
 
   void _sendUpdate() => room.broadcast(JsonMessage.update(json));

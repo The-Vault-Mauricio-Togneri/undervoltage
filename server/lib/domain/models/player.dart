@@ -29,8 +29,8 @@ class Player {
         points: points,
       );
 
-  void summaryAccepted() {
-    status = PlayerStatus.playing;
+  void updateStatus(PlayerStatus newStatus) {
+    status = newStatus;
   }
 
   void updatePoints(Hand hand) {
