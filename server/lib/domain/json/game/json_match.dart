@@ -8,9 +8,6 @@ part 'json_match.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonMatch {
-  @JsonKey(name: 'id')
-  final String id;
-
   @JsonKey(name: 'players')
   final Map<String, JsonPlayer> players;
 
@@ -24,7 +21,6 @@ class JsonMatch {
   final MatchStatus status;
 
   const JsonMatch({
-    required this.id,
     required this.players,
     required this.roundCount,
     required this.round,

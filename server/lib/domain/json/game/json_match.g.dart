@@ -7,7 +7,6 @@ part of 'json_match.dart';
 // **************************************************************************
 
 JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
-      id: json['id'] as String,
       players: (json['players'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(k, JsonPlayer.fromJson(e as Map<String, dynamic>)),
       ),
@@ -17,7 +16,6 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
     );
 
 Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
-      'id': instance.id,
       'players': instance.players,
       'roundCount': instance.roundCount,
       'round': instance.round,

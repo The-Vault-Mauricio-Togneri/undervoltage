@@ -6,14 +6,12 @@ import 'package:undervoltage/domain/models/user_logged.dart';
 import 'package:undervoltage/domain/types/match_status.dart';
 
 class Match {
-  final String id;
   final Map<String, Player> players;
   final int roundCount;
   final Round round;
   MatchStatus status;
 
   Match._({
-    required this.id,
     required this.players,
     required this.roundCount,
     required this.round,
@@ -21,7 +19,6 @@ class Match {
   });
 
   factory Match.fromJson(JsonMatch json) => Match._(
-        id: json.id,
         players: json.players
             .map((key, value) => MapEntry(key, Player.fromJson(value))),
         roundCount: json.roundCount,

@@ -115,25 +115,25 @@ class MatchState extends BaseState {
 
     if (topCard.canAccept(card) || hand.isLastCard) {
       connection.send(JsonMessage.playCard(
-        roomId: match.id,
+        roomId: room.id,
         cardId: card.id,
         playerId: playerId,
       ));
     } else {
       connection.send(JsonMessage.increaseFault(
-        roomId: match.id,
+        roomId: room.id,
         playerId: playerId,
       ));
     }
   }
 
   void onDiscardCard() => connection.send(JsonMessage.discardCard(
-        roomId: match.id,
+        roomId: room.id,
         playerId: playerId,
       ));
 
   void onSummaryAccepted() => connection.send(JsonMessage.summaryAccepted(
-        roomId: match.id,
+        roomId: room.id,
         playerId: playerId,
       ));
 }

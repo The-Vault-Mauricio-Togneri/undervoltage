@@ -9,7 +9,6 @@ import 'package:undervoltage/domain/types/player_status.dart';
 import 'package:undervoltage/rooms/room.dart';
 
 class Match {
-  final String id;
   final Room room;
   final Map<String, Player> players;
   int roundCount;
@@ -17,7 +16,6 @@ class Match {
   MatchStatus status;
 
   Match._({
-    required this.id,
     required this.room,
     required this.players,
     required this.roundCount,
@@ -33,7 +31,6 @@ class Match {
     }
 
     return Match._(
-      id: room.id,
       room: room,
       status: MatchStatus.playing,
       players: players,
@@ -43,7 +40,6 @@ class Match {
   }
 
   JsonMatch get json => JsonMatch(
-        id: id,
         players: players.map((key, value) => MapEntry(key, value.json)),
         roundCount: roundCount,
         round: round.json,
