@@ -25,6 +25,16 @@ class Hand {
 
   int get revealedSize => revealedPile.length;
 
+  int get points {
+    int revealedPoints = 0;
+
+    for (final Card card in revealedPile) {
+      revealedPoints += card.value;
+    }
+
+    return hiddenPile.length + revealedPoints;
+  }
+
   bool isBlocked(Card topCard) =>
       hiddenPile.isEmpty && !_canPlayCards(revealedPile, topCard);
 

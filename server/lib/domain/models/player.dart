@@ -1,5 +1,4 @@
 import 'package:undervoltage/domain/json/game/json_player.dart';
-import 'package:undervoltage/domain/models/card.dart';
 import 'package:undervoltage/domain/models/hand.dart';
 import 'package:undervoltage/domain/types/player_status.dart';
 
@@ -35,13 +34,6 @@ class Player {
   }
 
   void updatePoints(Hand hand) {
-    final int hiddenPoints = hand.hiddenPile.length;
-    int revealedPoints = 0;
-
-    for (final Card card in hand.revealedPile) {
-      revealedPoints += card.value;
-    }
-
-    points += hiddenPoints + revealedPoints + hand.faults;
+    points += hand.points + hand.faults;
   }
 }
