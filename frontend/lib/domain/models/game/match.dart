@@ -26,6 +26,13 @@ class Match {
         status: json.status,
       );
 
+  List<Player> get summaryPlayers {
+    final List<Player> result = players.values.toList();
+    result.sort((a, b) => a.points - b.points);
+
+    return result;
+  }
+
   Player get self {
     for (final Player player in players.values) {
       if (player.id == LoggedUser.get.id) {

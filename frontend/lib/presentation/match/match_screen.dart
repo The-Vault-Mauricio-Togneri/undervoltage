@@ -86,18 +86,18 @@ class Summary extends StatelessWidget {
             const Label(
               text: 'MATCH FINISHED',
               color: Palette.black,
-              size: 25,
+              size: 22,
               weight: FontWeight.bold,
             )
           else
             Label(
               text: 'ROUND ${state.match.roundCount} FINISHED',
               color: Palette.black,
-              size: 25,
+              size: 22,
               weight: FontWeight.bold,
             ),
           const VBox(60),
-          for (final player in state.match.players.values)
+          for (final player in state.match.summaryPlayers)
             SizedBox(
               width: 200,
               child: Padding(
@@ -126,7 +126,7 @@ class Summary extends StatelessWidget {
                 ),
               ),
             ),
-          const VBox(40),
+          const VBox(60),
           if (state.isFinished)
             const ElevatedButton(
               onPressed: Navigation.pop,
