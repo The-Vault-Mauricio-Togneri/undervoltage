@@ -5,10 +5,14 @@ part 'json_discard_card.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonDiscardCard {
+  @JsonKey(name: 'roomId')
+  final String roomId;
+
   @JsonKey(name: 'playerId')
   final String playerId;
 
   const JsonDiscardCard({
+    required this.roomId,
     required this.playerId,
   });
 

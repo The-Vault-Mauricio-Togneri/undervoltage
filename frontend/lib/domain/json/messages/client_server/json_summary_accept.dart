@@ -5,10 +5,14 @@ part 'json_summary_accept.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonSummaryAccept {
+  @JsonKey(name: 'roomId')
+  final String roomId;
+
   @JsonKey(name: 'playerId')
   final String playerId;
 
   const JsonSummaryAccept({
+    required this.roomId,
     required this.playerId,
   });
 

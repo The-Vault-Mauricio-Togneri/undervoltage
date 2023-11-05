@@ -115,15 +115,25 @@ class MatchState extends BaseState {
 
     if (topCard.canAccept(card)) {
       connection.send(JsonMessage.playCard(
+        roomId: match.id,
         cardId: card.id,
         playerId: playerId,
       ));
     } else {
-      connection.send(JsonMessage.increaseFault(playerId));
+      connection.send(JsonMessage.increaseFault(
+        roomId: match.id,
+        playerId: playerId,
+      ));
     }
   }
 
-  void onDiscardCard() => connection.send(JsonMessage.discardCard(playerId));
+  void onDiscardCard() => connection.send(JsonMessage.discardCard(
+        roomId: match.id,
+        playerId: playerId,
+      ));
 
-  void onFinishTurn() => connection.send(JsonMessage.summaryAccepted(playerId));
+  void onFinishTurn() => connection.send(JsonMessage.summaryAccepted(
+        roomId: match.id,
+        playerId: playerId,
+      ));
 }

@@ -5,6 +5,9 @@ part 'json_play_card.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonPlayCard {
+  @JsonKey(name: 'roomId')
+  final String roomId;
+
   @JsonKey(name: 'cardId')
   final String cardId;
 
@@ -12,6 +15,7 @@ class JsonPlayCard {
   final String playerId;
 
   const JsonPlayCard({
+    required this.roomId,
     required this.cardId,
     required this.playerId,
   });

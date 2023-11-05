@@ -8,10 +8,12 @@ part of 'json_discard_card.dart';
 
 JsonDiscardCard _$JsonDiscardCardFromJson(Map<String, dynamic> json) =>
     JsonDiscardCard(
+      roomId: json['roomId'] as String,
       playerId: json['playerId'] as String,
     );
 
 Map<String, dynamic> _$JsonDiscardCardToJson(JsonDiscardCard instance) =>
     <String, dynamic>{
+      'roomId': instance.roomId,
       'playerId': instance.playerId,
     };

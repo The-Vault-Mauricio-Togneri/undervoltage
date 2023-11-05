@@ -5,10 +5,14 @@ part 'json_increase_fault.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonIncreaseFault {
+  @JsonKey(name: 'roomId')
+  final String roomId;
+
   @JsonKey(name: 'playerId')
   final String playerId;
 
   const JsonIncreaseFault({
+    required this.roomId,
     required this.playerId,
   });
 

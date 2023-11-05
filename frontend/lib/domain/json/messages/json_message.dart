@@ -109,34 +109,51 @@ class JsonMessage {
       );
 
   factory JsonMessage.playCard({
+    required String roomId,
     required String cardId,
     required String playerId,
   }) =>
       JsonMessage(
         type: MessageType.playCard,
         playCard: JsonPlayCard(
+          roomId: roomId,
           cardId: cardId,
           playerId: playerId,
         ),
       );
 
-  factory JsonMessage.discardCard(String playerId) => JsonMessage(
+  factory JsonMessage.discardCard({
+    required String roomId,
+    required String playerId,
+  }) =>
+      JsonMessage(
         type: MessageType.discardCard,
         discardCard: JsonDiscardCard(
+          roomId: roomId,
           playerId: playerId,
         ),
       );
 
-  factory JsonMessage.increaseFault(String playerId) => JsonMessage(
+  factory JsonMessage.increaseFault({
+    required String roomId,
+    required String playerId,
+  }) =>
+      JsonMessage(
         type: MessageType.increaseFault,
         increaseFault: JsonIncreaseFault(
+          roomId: roomId,
           playerId: playerId,
         ),
       );
 
-  factory JsonMessage.summaryAccepted(String playerId) => JsonMessage(
+  factory JsonMessage.summaryAccepted({
+    required String roomId,
+    required String playerId,
+  }) =>
+      JsonMessage(
         type: MessageType.summaryAccepted,
         summaryAccepted: JsonSummaryAccept(
+          roomId: roomId,
           playerId: playerId,
         ),
       );

@@ -52,6 +52,25 @@ class Room {
     }
   }
 
+  void playCard({
+    required String cardId,
+    required String playerId,
+  }) {
+    // TODO(momo): implement
+  }
+
+  void discardCard(String playerId) {
+    // TODO(momo): implement
+  }
+
+  void increaseFault(String playerId) {
+    // TODO(momo): implement
+  }
+
+  void summaryAccepted(String playerId) {
+    // TODO(momo): implement
+  }
+
   bool leave(WebSocket socket) {
     final String? playerId = webSocketToPlayerId[socket];
 
