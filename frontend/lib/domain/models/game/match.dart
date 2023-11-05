@@ -9,7 +9,7 @@ class Match {
   final Map<String, Player> players;
   final int roundCount;
   final Round round;
-  MatchStatus status;
+  final MatchStatus status;
 
   Match._({
     required this.players,
