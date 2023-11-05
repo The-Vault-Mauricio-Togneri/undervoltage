@@ -11,9 +11,9 @@ JsonMessage _$JsonMessageFromJson(Map<String, dynamic> json) => JsonMessage(
       welcome: json['welcome'] == null
           ? null
           : JsonWelcome.fromJson(json['welcome'] as Map<String, dynamic>),
-      start: json['start'] == null
+      update: json['update'] == null
           ? null
-          : JsonStart.fromJson(json['start'] as Map<String, dynamic>),
+          : JsonUpdate.fromJson(json['update'] as Map<String, dynamic>),
       joinRoom: json['joinRoom'] == null
           ? null
           : JsonJoinRoom.fromJson(json['joinRoom'] as Map<String, dynamic>),
@@ -34,7 +34,7 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) {
   }
 
   writeNotNull('welcome', instance.welcome);
-  writeNotNull('start', instance.start);
+  writeNotNull('update', instance.update);
   writeNotNull('joinRoom', instance.joinRoom);
   writeNotNull('error', instance.error);
   return val;
@@ -42,7 +42,7 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) {
 
 const _$MessageTypeEnumMap = {
   MessageType.welcome: 'welcome',
-  MessageType.start: 'start',
+  MessageType.update: 'update',
   MessageType.joinRoom: 'joinRoom',
   MessageType.error: 'error',
 };

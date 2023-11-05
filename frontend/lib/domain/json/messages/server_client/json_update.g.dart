@@ -1,15 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'json_start.dart';
+part of 'json_update.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonStart _$JsonStartFromJson(Map<String, dynamic> json) => JsonStart(
+JsonUpdate _$JsonUpdateFromJson(Map<String, dynamic> json) => JsonUpdate(
       match: JsonMatch.fromJson(json['match'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$JsonStartToJson(JsonStart instance) => <String, dynamic>{
+Map<String, dynamic> _$JsonUpdateToJson(JsonUpdate instance) =>
+    <String, dynamic>{
       'match': instance.match,
     };

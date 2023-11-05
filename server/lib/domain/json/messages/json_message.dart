@@ -1,10 +1,11 @@
 import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:undervoltage/domain/json/game/json_match.dart';
-import 'package:undervoltage/domain/json/messages/json_error.dart';
-import 'package:undervoltage/domain/json/messages/json_join_room.dart';
-import 'package:undervoltage/domain/json/messages/json_start.dart';
-import 'package:undervoltage/domain/json/messages/json_welcome.dart';
+import 'package:undervoltage/domain/json/messages/client_server/json_join_room.dart';
+import 'package:undervoltage/domain/json/messages/server_client/json_error.dart';
+import 'package:undervoltage/domain/json/messages/server_client/json_update.dart';
+import 'package:undervoltage/domain/json/messages/server_client/json_welcome.dart';
 
 part 'json_message.g.dart';
 
@@ -16,8 +17,8 @@ class JsonMessage {
   @JsonKey(name: 'welcome')
   final JsonWelcome? welcome;
 
-  @JsonKey(name: 'start')
-  final JsonStart? start;
+  @JsonKey(name: 'update')
+  final JsonUpdate? update;
 
   @JsonKey(name: 'joinRoom')
   final JsonJoinRoom? joinRoom;
@@ -28,7 +29,7 @@ class JsonMessage {
   const JsonMessage({
     required this.type,
     this.welcome,
-    this.start,
+    this.update,
     this.joinRoom,
     this.error,
   });
@@ -37,8 +38,8 @@ class JsonMessage {
     switch (type) {
       case MessageType.welcome:
         return welcome;
-      case MessageType.start:
-        return start;
+      case MessageType.update:
+        return update;
       case MessageType.joinRoom:
         return joinRoom;
       case MessageType.error:
@@ -57,9 +58,9 @@ class JsonMessage {
         welcome: JsonWelcome(),
       );
 
-  factory JsonMessage.start(JsonMatch match) => JsonMessage(
-        type: MessageType.start,
-        start: JsonStart(match: match),
+  factory JsonMessage.update(JsonMatch match) => JsonMessage(
+        type: MessageType.update,
+        update: JsonUpdate(match: match),
       );
 
   factory JsonMessage.joinRoom({
@@ -87,7 +88,7 @@ class JsonMessage {
 
 enum MessageType {
   welcome,
-  start,
+  update,
   joinRoom,
   error,
 }

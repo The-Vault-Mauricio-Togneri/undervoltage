@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:undervoltage/domain/json/messages/json_message.dart';
-import 'package:undervoltage/domain/json/messages/json_start.dart';
-import 'package:undervoltage/domain/json/messages/json_welcome.dart';
+import 'package:undervoltage/domain/json/messages/server_client/json_update.dart';
+import 'package:undervoltage/domain/json/messages/server_client/json_welcome.dart';
 import 'package:undervoltage/domain/models/game/card.dart';
 import 'package:undervoltage/domain/models/game/hand.dart';
 import 'package:undervoltage/domain/models/game/match.dart';
@@ -77,7 +77,7 @@ class MatchState extends BaseState {
         roomId: room.id,
         playerId: LoggedUser.get.id,
       ));
-    } else if (json is JsonStart) {
+    } else if (json is JsonUpdate) {
       _match = Match.fromJson(json.match);
       onMatchUpdate(_match!);
     }
@@ -115,8 +115,10 @@ class MatchState extends BaseState {
 
     if (topCard.canAccept(card)) {
       // TODO(momo): call server
+      print('yes');
     } else {
       // TODO(momo): call server
+      print('no');
     }
   }
 
