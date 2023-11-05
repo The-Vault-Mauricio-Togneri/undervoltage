@@ -19,30 +19,38 @@ class Handler {
 
     final dynamic message = json.message;
 
-    if (message is JsonJoinRoom) {
-      roomsManager.join(
-        json: message,
-        socket: socket,
-      );
-    } else if (message is JsonPlayCard) {
-      roomsManager.playCard(
-        json: message,
-        socket: socket,
-      );
-    } else if (message is JsonDiscardCard) {
-      roomsManager.discardCard(
-        json: message,
-        socket: socket,
-      );
-    } else if (message is JsonIncreaseFault) {
-      roomsManager.increaseFault(
-        json: message,
-        socket: socket,
-      );
-    } else if (message is JsonSummaryAccept) {
-      roomsManager.summaryAccepted(
-        json: message,
-        socket: socket,
+    try {
+      if (message is JsonJoinRoom) {
+        roomsManager.join(
+          json: message,
+          socket: socket,
+        );
+      } else if (message is JsonPlayCard) {
+        roomsManager.playCard(
+          json: message,
+          socket: socket,
+        );
+      } else if (message is JsonDiscardCard) {
+        roomsManager.discardCard(
+          json: message,
+          socket: socket,
+        );
+      } else if (message is JsonIncreaseFault) {
+        roomsManager.increaseFault(
+          json: message,
+          socket: socket,
+        );
+      } else if (message is JsonSummaryAccept) {
+        roomsManager.summaryAccepted(
+          json: message,
+          socket: socket,
+        );
+      }
+    } on JsonMessage catch (e) {
+      socket.send(e);
+    } catch (e) {
+      socket.send(
+        JsonMessage.error('Unknown error $e'),
       );
     }
   }

@@ -23,26 +23,22 @@ class RoomsManager {
     required JsonJoinRoom json,
     required WebSocket socket,
   }) {
-    final Room? room = _getRoom(
+    final Room room = _getRoom(
       roomId: json.roomId,
       socket: socket,
     );
 
-    if (room != null) {
-      final bool joined = room.join(
-        playerId: json.playerId,
-        socket: socket,
-      );
+    final bool joined = room.join(
+      playerId: json.playerId,
+      socket: socket,
+    );
 
-      if (joined) {
-        websocketToRoom[socket] = room;
-      } else {
-        socket.send(
-          JsonMessage.error(
-            'Player ${json.playerId} cannot join room with ID ${json.roomId}',
-          ),
-        );
-      }
+    if (joined) {
+      websocketToRoom[socket] = room;
+    } else {
+      throw JsonMessage.error(
+        'Player ${json.playerId} cannot join room ${json.roomId}',
+      );
     }
   }
 
@@ -50,11 +46,11 @@ class RoomsManager {
     required JsonPlayCard json,
     required WebSocket socket,
   }) {
-    final Room? room = _getRoom(
+    final Room room = _getRoom(
       roomId: json.roomId,
       socket: socket,
     );
-    room?.playCard(
+    room.playCard(
       cardId: json.cardId,
       playerId: json.playerId,
     );
@@ -64,47 +60,43 @@ class RoomsManager {
     required JsonDiscardCard json,
     required WebSocket socket,
   }) {
-    final Room? room = _getRoom(
+    final Room room = _getRoom(
       roomId: json.roomId,
       socket: socket,
     );
-    room?.discardCard(json.playerId);
+    room.discardCard(json.playerId);
   }
 
   void increaseFault({
     required JsonIncreaseFault json,
     required WebSocket socket,
   }) {
-    final Room? room = _getRoom(
+    final Room room = _getRoom(
       roomId: json.roomId,
       socket: socket,
     );
-    room?.increaseFault(json.playerId);
+    room.increaseFault(json.playerId);
   }
 
   void summaryAccepted({
     required JsonSummaryAccept json,
     required WebSocket socket,
   }) {
-    final Room? room = _getRoom(
+    final Room room = _getRoom(
       roomId: json.roomId,
       socket: socket,
     );
-    room?.summaryAccepted(json.playerId);
+    room.summaryAccepted(json.playerId);
   }
 
-  Room? _getRoom({
+  Room _getRoom({
     required String roomId,
     required WebSocket socket,
   }) {
     if (rooms.has(roomId)) {
       return rooms.get(roomId);
     } else {
-      socket.send(
-        JsonMessage.error('Room with ID $roomId does not exist'),
-      );
-
-      return null;
+      throw JsonMessage.error('Room with ID $roomId does not exist');
     }
   }
 
