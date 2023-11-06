@@ -33,6 +33,8 @@ class Match {
     return result;
   }
 
+  int get maxPoints => players.length * 50;
+
   Player get self {
     for (final Player player in players.values) {
       if (player.id == LoggedUser.get.id) {

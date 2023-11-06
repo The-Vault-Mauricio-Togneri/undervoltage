@@ -46,6 +46,8 @@ class Match {
         status: status,
       );
 
+  int get maxPoints => players.length * 50;
+
   bool get allPlayersReady {
     for (final Player player in players.values) {
       if (player.status != PlayerStatus.playing) {
@@ -58,7 +60,7 @@ class Match {
 
   bool get playerLost {
     for (final Player player in players.values) {
-      if (player.points >= 100) {
+      if (player.points >= maxPoints) {
         return true;
       }
     }

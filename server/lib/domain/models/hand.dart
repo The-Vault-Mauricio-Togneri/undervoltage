@@ -44,7 +44,7 @@ class Hand {
       }
     }
 
-    return false;
+    return isLastCard;
   }
 
   void discardCard() {
