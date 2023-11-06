@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:undervoltage/domain/models/user_logged.dart';
 import 'package:undervoltage/environments/environment.dart';
+import 'package:undervoltage/utils/audio.dart';
 import 'package:undervoltage/utils/navigation.dart';
 import 'package:undervoltage/utils/platform.dart';
 
@@ -31,6 +32,11 @@ class SetNameState extends BaseState {
     } else {
       Navigation.pop();
     }
+  }
+
+  void onAudioToggle() {
+    Audio.get.toggle();
+    notify();
   }
 
   void onTextChanged(String text) {

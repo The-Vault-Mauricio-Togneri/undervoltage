@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:undervoltage/domain/models/user_logged.dart';
 import 'package:undervoltage/environments/environment.dart';
+import 'package:undervoltage/utils/audio.dart';
 import 'package:undervoltage/utils/navigation.dart';
 import 'package:undervoltage/utils/set_url_strategy.dart';
 
@@ -40,6 +41,7 @@ class Locator {
     locator.registerSingleton<Environment>(environment);
     locator.registerSingleton<Navigation>(Navigation());
     locator.registerSingleton<LoggedUser>(LoggedUser());
+    locator.registerSingleton<Audio>(Audio());
 
     await environment.configure();
   }

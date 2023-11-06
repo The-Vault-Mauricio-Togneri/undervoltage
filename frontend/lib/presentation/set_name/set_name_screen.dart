@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:undervoltage/domain/models/user_logged.dart';
 import 'package:undervoltage/domain/state/set_name/set_name_state.dart';
+import 'package:undervoltage/utils/audio.dart';
 import 'package:undervoltage/utils/navigation.dart';
 import 'package:undervoltage/utils/palette.dart';
 import 'package:undervoltage/widgets/base_screen.dart';
@@ -41,6 +42,25 @@ class SetNameScreen extends StatelessWidget {
                   ),
                 ),
               const Spacer(),
+              if (!state.isSetup)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 50),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Label(
+                        text: 'Audio',
+                        color: Palette.black,
+                        size: 14,
+                      ),
+                      const HBox(30),
+                      Switch(
+                        value: Audio.get.enabled,
+                        onChanged: (v) => state.onAudioToggle(),
+                      ),
+                    ],
+                  ),
+                ),
               SizedBox(
                 width: 300,
                 child: CustomFormField(

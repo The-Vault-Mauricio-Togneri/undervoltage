@@ -11,6 +11,7 @@ import 'package:undervoltage/domain/models/user_logged.dart';
 import 'package:undervoltage/domain/types/match_status.dart';
 import 'package:undervoltage/domain/types/tts_state.dart';
 import 'package:undervoltage/presentation/dialogs/info_dialog.dart';
+import 'package:undervoltage/utils/audio.dart';
 import 'package:undervoltage/utils/connection.dart';
 import 'package:undervoltage/utils/navigation.dart';
 
@@ -64,10 +65,12 @@ class MatchState extends BaseState {
   }
 
   void _speak(String value) {
-    if (ttsState == TextToSpeechState.idle) {
-      tts.speak(value);
-    } else {
-      ttsPlayQueue.add(value);
+    if (Audio.get.enabled) {
+      if (ttsState == TextToSpeechState.idle) {
+        tts.speak(value);
+      } else {
+        ttsPlayQueue.add(value);
+      }
     }
   }
 
@@ -124,6 +127,7 @@ class MatchState extends BaseState {
         playerId: playerId,
       ));
     } else {
+      Audio.get.playSound(Audio.ERROR);
       connection.send(JsonMessage.increaseFault(
         roomId: room.id,
         playerId: playerId,
