@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"main.dart.js": "db2a1a6f62a7770e879376230138ee9a",
+const RESOURCES = {"main.dart.js": "e577a1ba21f0121b0d938d8724ccb5a3",
 "cheat.png": "a99c34fe005de25e176dc8a02b61862a",
 "assets/NOTICES": "25ff7bbb404cde6815a3ba98912048a8",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
@@ -25,8 +25,8 @@ const RESOURCES = {"main.dart.js": "db2a1a6f62a7770e879376230138ee9a",
 "firebase-messaging-sw.js": "db1b2c9b616167dea0e9d8d7321cf6c4",
 "favicon.ico": "6f0b2e9bbab965ebcea729f2e1cbcfbd",
 "version.json": "a42ff977b6fe9b0ebadc494a71dfe086",
-"index.html": "6e02eb8a8a42750855424717ecaebb45",
-"/": "6e02eb8a8a42750855424717ecaebb45"};
+"index.html": "f7d072745ba50eb29e01d9f968519474",
+"/": "f7d072745ba50eb29e01d9f968519474"};
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",
