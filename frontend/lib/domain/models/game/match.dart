@@ -2,17 +2,20 @@ import 'package:undervoltage/domain/json/game/json_match.dart';
 import 'package:undervoltage/domain/models/game/hand.dart';
 import 'package:undervoltage/domain/models/game/player.dart';
 import 'package:undervoltage/domain/models/game/round.dart';
+import 'package:undervoltage/domain/models/game/summary.dart';
 import 'package:undervoltage/domain/models/user_logged.dart';
 import 'package:undervoltage/domain/types/match_status.dart';
 
 class Match {
   final Map<String, Player> players;
+  final List<Summary> summary;
   final int roundCount;
   final Round round;
   final MatchStatus status;
 
   Match._({
     required this.players,
+    required this.summary,
     required this.roundCount,
     required this.round,
     required this.status,
@@ -21,17 +24,11 @@ class Match {
   factory Match.fromJson(JsonMatch json) => Match._(
         players: json.players
             .map((key, value) => MapEntry(key, Player.fromJson(value))),
+        summary: json.summary.map(Summary.fromJson).toList(),
         roundCount: json.roundCount,
         round: Round.fromJson(json.round),
         status: json.status,
       );
-
-  List<Player> get summaryPlayers {
-    final List<Player> result = players.values.toList();
-    result.sort((a, b) => a.points - b.points);
-
-    return result;
-  }
 
   int get maxPoints => players.length * 50;
 

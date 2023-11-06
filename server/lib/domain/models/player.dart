@@ -33,7 +33,11 @@ class Player {
     status = newStatus;
   }
 
-  void updatePoints(Hand hand) {
-    points += hand.points + hand.faults;
+  int updatePoints(Hand hand) {
+    final int newPoints = hand.points + hand.faults;
+
+    points += newPoints;
+
+    return newPoints;
   }
 }

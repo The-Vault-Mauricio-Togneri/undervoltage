@@ -13,6 +13,9 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       roundCount: json['roundCount'] as int,
       round: JsonRound.fromJson(json['round'] as Map<String, dynamic>),
       status: $enumDecode(_$MatchStatusEnumMap, json['status']),
+      summary: (json['summary'] as List<dynamic>)
+          .map((e) => JsonSummary.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
@@ -20,6 +23,7 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'roundCount': instance.roundCount,
       'round': instance.round,
       'status': _$MatchStatusEnumMap[instance.status]!,
+      'summary': instance.summary,
     };
 
 const _$MatchStatusEnumMap = {

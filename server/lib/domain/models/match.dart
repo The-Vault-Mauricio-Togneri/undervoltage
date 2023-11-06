@@ -4,6 +4,7 @@ import 'package:undervoltage/domain/models/card.dart';
 import 'package:undervoltage/domain/models/hand.dart';
 import 'package:undervoltage/domain/models/player.dart';
 import 'package:undervoltage/domain/models/round.dart';
+import 'package:undervoltage/domain/models/summary.dart';
 import 'package:undervoltage/domain/types/match_status.dart';
 import 'package:undervoltage/domain/types/player_status.dart';
 import 'package:undervoltage/rooms/room.dart';
@@ -11,6 +12,7 @@ import 'package:undervoltage/rooms/room.dart';
 class Match {
   final Room room;
   final Map<String, Player> players;
+  final List<Summary> summary;
   int roundCount;
   Round round;
   MatchStatus status;
@@ -18,6 +20,7 @@ class Match {
   Match._({
     required this.room,
     required this.players,
+    required this.summary,
     required this.roundCount,
     required this.round,
     required this.status,
@@ -32,10 +35,11 @@ class Match {
 
     return Match._(
       room: room,
-      status: MatchStatus.playing,
       players: players,
+      summary: [],
       roundCount: 1,
       round: Round.create(players.values.toList()),
+      status: MatchStatus.playing,
     );
   }
 
@@ -44,6 +48,7 @@ class Match {
         roundCount: roundCount,
         round: round.json,
         status: status,
+        summary: summary.map((e) => e.json).toList(),
       );
 
   int get maxPoints => players.length * 50;
@@ -80,11 +85,16 @@ class Match {
       hand.removeCard(selectedCard);
 
       if (hand.finished) {
+        final Summary summaryLine = Summary();
+
         for (final Player player in players.values) {
           final Hand hand = round.playerHand(player.id);
-          player.updatePoints(hand);
+          final int newPoints = player.updatePoints(hand);
           player.updateStatus(PlayerStatus.readingSummary);
+          summaryLine.add(player.id, newPoints);
         }
+
+        summary.add(summaryLine);
 
         if (playerLost) {
           status = MatchStatus.finished;

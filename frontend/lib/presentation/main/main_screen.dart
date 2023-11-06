@@ -1,7 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:undervoltage/build/build_version.dart';
+import 'package:undervoltage/domain/models/game/player.dart';
+import 'package:undervoltage/domain/models/game/summary.dart';
 import 'package:undervoltage/domain/state/main/main_state.dart';
+import 'package:undervoltage/domain/types/player_status.dart';
+import 'package:undervoltage/presentation/match/match_screen.dart';
 import 'package:undervoltage/utils/palette.dart';
 import 'package:undervoltage/widgets/base_screen.dart';
 import 'package:undervoltage/widgets/label.dart';
@@ -22,6 +26,42 @@ class MainScreen extends StatelessWidget {
         children: [
           Header(state),
           const Spacer(),
+          SummaryTable([
+            Summary(points: {
+              'p1': 12,
+              'p2': 34,
+              'p3': 56,
+            }),
+            Summary(points: {
+              'p1': 11,
+              'p2': 22,
+              'p3': 33,
+            }),
+            Summary(points: {
+              'p1': 44,
+              'p2': 55,
+              'p3': 66,
+            })
+          ], {
+            'p1': Player(
+              id: 'p1',
+              name: 'Player 1',
+              status: PlayerStatus.playing,
+              points: 67,
+            ),
+            'p2': Player(
+              id: 'p2',
+              name: 'Player 2',
+              status: PlayerStatus.playing,
+              points: 111,
+            ),
+            'p3': Player(
+              id: 'p3',
+              name: 'Player 3',
+              status: PlayerStatus.playing,
+              points: 155,
+            ),
+          }, 140),
           Content(state),
           const Spacer(),
           const Footer(),

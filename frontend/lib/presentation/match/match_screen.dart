@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide Card;
 import 'package:undervoltage/domain/models/game/card.dart';
 import 'package:undervoltage/domain/models/game/hand.dart';
 import 'package:undervoltage/domain/models/game/player.dart';
+import 'package:undervoltage/domain/models/game/summary.dart';
 import 'package:undervoltage/domain/models/room.dart';
 import 'package:undervoltage/domain/state/match/match_state.dart';
 import 'package:undervoltage/domain/types/player_status.dart';
@@ -53,7 +54,7 @@ class Body extends StatelessWidget {
     } else if (state.isPlaying) {
       return Playing(state);
     } else if (state.isSummary || state.isFinished) {
-      return Summary(state);
+      return SummarySection(state);
     } else {
       return const Loading();
     }
@@ -71,10 +72,10 @@ class Loading extends StatelessWidget {
   }
 }
 
-class Summary extends StatelessWidget {
+class SummarySection extends StatelessWidget {
   final MatchState state;
 
-  const Summary(this.state);
+  const SummarySection(this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -82,73 +83,185 @@ class Summary extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (state.isFinished)
-            const Label(
-              text: 'MATCH FINISHED',
-              color: Palette.black,
-              size: 22,
-              weight: FontWeight.bold,
-            )
-          else
-            Label(
-              text: 'ROUND ${state.match.roundCount} FINISHED',
-              color: Palette.black,
-              size: 22,
-              weight: FontWeight.bold,
-            ),
+          SummaryTitle(state),
           const VBox(60),
-          for (final player in state.match.summaryPlayers)
-            SizedBox(
-              width: 200,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      child: Label(
-                        text: player.name,
-                        color: player.points < state.match.maxPoints
-                            ? Palette.grey
-                            : Palette.red,
-                        size: 16,
-                        weight: FontWeight.bold,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+          SummaryTable(
+            state.match.summary,
+            state.match.players,
+            state.match.maxPoints,
+          ),
+          const VBox(60),
+          SummaryButton(state),
+        ],
+      ),
+    );
+  }
+}
+
+class SummaryTitle extends StatelessWidget {
+  final MatchState state;
+
+  const SummaryTitle(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    if (state.isFinished) {
+      return const Label(
+        text: 'MATCH FINISHED',
+        color: Palette.black,
+        size: 22,
+        weight: FontWeight.bold,
+      );
+    } else {
+      return const Label(
+        text: 'ROUND FINISHED',
+        color: Palette.black,
+        size: 22,
+        weight: FontWeight.bold,
+      );
+    }
+  }
+}
+
+class SummaryButton extends StatelessWidget {
+  final MatchState state;
+
+  const SummaryButton(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    if (state.isFinished) {
+      return const ElevatedButton(
+        onPressed: Navigation.pop,
+        child: Text('Finish'),
+      );
+    } else if (state.match.self.status == PlayerStatus.readingSummary) {
+      return ElevatedButton(
+        onPressed: state.onSummaryAccepted,
+        child: const Text('Continue'),
+      );
+    } else {
+      return const Label(
+        text: 'Waiting for players…',
+        color: Palette.black,
+        size: 14,
+      );
+    }
+  }
+}
+
+class SummaryTable extends StatelessWidget {
+  final List<Summary> summary;
+  final Map<String, Player> players;
+  final int maxPoints;
+
+  const SummaryTable(this.summary, this.players, this.maxPoints);
+
+  @override
+  Widget build(BuildContext context) {
+    final List<String> playerIds = players.keys.toList();
+
+    return Table(
+      border: TableBorder.all(),
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      defaultColumnWidth: const IntrinsicColumnWidth(),
+      children: [
+        TableRow(
+          children: [
+            const TableCell(
+              child: Empty(),
+            ),
+            for (final String playerId in playerIds)
+              TableCell(
+                child: Container(
+                  color: Palette.lightGrey,
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width /
+                        (players.length + 1),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Label(
+                      text: players[playerId]!.name,
+                      color: Palette.black,
+                      weight: FontWeight.bold,
+                      align: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      size: 12,
                     ),
-                    const HBox(10),
-                    Label(
-                      text: player.points.toString(),
-                      color: player.points < state.match.maxPoints
-                          ? Palette.grey
-                          : Palette.red,
-                      size: 16,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        for (int i = 0; i < summary.length; i++)
+          TableRow(
+            children: [
+              TableCell(
+                child: Container(
+                  color: Palette.lightGrey,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Label(
+                      text: 'Round ${i + 1}',
+                      color: Palette.black,
+                      weight: FontWeight.bold,
+                      align: TextAlign.start,
+                      size: 12,
                     ),
-                  ],
+                  ),
+                ),
+              ),
+              for (final String playerId in playerIds)
+                TableCell(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Label(
+                      text: summary[i].points[playerId].toString(),
+                      color: Palette.black,
+                      align: TextAlign.center,
+                      size: 12,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        TableRow(
+          children: [
+            TableCell(
+              child: Container(
+                color: Palette.lightGrey,
+                child: const Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Label(
+                    text: 'Total',
+                    color: Palette.black,
+                    weight: FontWeight.bold,
+                    align: TextAlign.start,
+                    size: 12,
+                  ),
                 ),
               ),
             ),
-          const VBox(60),
-          if (state.isFinished)
-            const ElevatedButton(
-              onPressed: Navigation.pop,
-              child: Text('Finish'),
-            )
-          else if (state.match.self.status == PlayerStatus.readingSummary)
-            ElevatedButton(
-              onPressed: state.onSummaryAccepted,
-              child: const Text('Continue'),
-            )
-          else
-            const Label(
-              text: 'Waiting for players…',
-              color: Palette.black,
-              size: 14,
-            )
-        ],
-      ),
+            for (final String playerId in playerIds)
+              TableCell(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Label(
+                    text: players[playerId]!.points.toString(),
+                    color: players[playerId]!.points < maxPoints
+                        ? Palette.grey
+                        : Palette.red,
+                    weight: FontWeight.bold,
+                    align: TextAlign.center,
+                    size: 12,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ],
     );
   }
 }
