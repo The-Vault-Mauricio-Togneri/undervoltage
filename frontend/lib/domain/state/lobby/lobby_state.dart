@@ -12,18 +12,20 @@ import 'package:undervoltage/presentation/dialogs/info_dialog.dart';
 import 'package:undervoltage/utils/navigation.dart';
 
 class LobbyState extends BaseState {
+  final int version;
   final String matchType;
   final int numberOfPlayers;
   StreamSubscription? subscription;
   String roomId = '';
 
-  LobbyState(this.matchType, this.numberOfPlayers);
+  LobbyState(this.version, this.matchType, this.numberOfPlayers);
 
   @override
   Future onLoad() async {
     try {
       final Room room = await const StartMatchmakingCallable()(
         playerName: LoggedUser.get.name,
+        version: version,
         matchType: matchType,
         numberOfPlayers: numberOfPlayers,
         visibility: RoomVisibility.public,

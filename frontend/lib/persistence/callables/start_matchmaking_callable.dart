@@ -10,12 +10,14 @@ class StartMatchmakingCallable extends Callable {
 
   Future<Room> call<T>({
     required String playerName,
+    required int version,
     required String matchType,
     required int numberOfPlayers,
     required RoomVisibility visibility,
   }) async {
     final Map<String, Object?> parameters = {
       'playerName': playerName,
+      'version': version,
       'matchType': matchType,
       'numberOfPlayers': numberOfPlayers,
       'visibility': visibility.name,

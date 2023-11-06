@@ -6,6 +6,7 @@ import {merge} from '../utils/merge'
 export interface IRoom {
   id: string
   createdAt: Date,
+  version: number
   numberOfPlayers: number
   visibility: RoomVisibility
   status: RoomStatus
@@ -17,6 +18,7 @@ export interface IRoom {
 export class Room implements IRoom {
   readonly id: string
   readonly createdAt: Date
+  readonly version: number
   readonly numberOfPlayers: number
   readonly visibility: RoomVisibility
   readonly status: RoomStatus
@@ -27,6 +29,7 @@ export class Room implements IRoom {
   constructor(data: IRoom) {
     this.id = data.id
     this.createdAt = data.createdAt
+    this.version = data.version
     this.numberOfPlayers = data.numberOfPlayers
     this.visibility = data.visibility
     this.status = data.status
@@ -89,6 +92,7 @@ export class Room implements IRoom {
   public static create(params: {
     playerId: string,
     playerName: string,
+    version: number,
     matchType: string,
     numberOfPlayers: number,
     visibility: RoomVisibility,
@@ -96,6 +100,7 @@ export class Room implements IRoom {
     return new Room({
       id: '',
       createdAt: new Date(),
+      version: params.version,
       numberOfPlayers: params.numberOfPlayers,
       visibility: params.visibility,
       status: RoomStatus.open,

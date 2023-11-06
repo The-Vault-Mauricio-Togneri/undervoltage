@@ -21,6 +21,7 @@ class MainState extends BaseState {
   void onSettings() => Navigation.setNameScreen(false);
 
   void onMatchmaking() => Navigation.lobbyScreen(
+        version: 1,
         matchType: 'undervoltage',
         numberOfPlayers: numberOfPlayers,
       );

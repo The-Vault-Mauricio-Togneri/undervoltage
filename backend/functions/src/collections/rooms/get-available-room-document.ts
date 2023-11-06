@@ -6,12 +6,14 @@ import {Room} from '../../models/room'
 export const getAvailableRoomDocument = async (params: {
   database: Database,
   playerId: string,
+  version: number,
   matchType: string,
   numberOfPlayers: number,
 }) => {
   const queryJoinedRoom = params.database
       .collection(COLLECTIONS.ROOMS)
       .where('status', '==', 'open')
+      .where('version', '==', params.version)
       .where('matchType', '==', params.matchType)
       .where('playerIds', 'array-contains', params.playerId)
       .where('numberOfPlayers', '==', params.numberOfPlayers)
@@ -28,6 +30,7 @@ export const getAvailableRoomDocument = async (params: {
     const queryNewRoom = params.database
         .collection(COLLECTIONS.ROOMS)
         .where('status', '==', 'open')
+        .where('version', '==', params.version)
         .where('matchType', '==', params.matchType)
         .where('numberOfPlayers', '==', params.numberOfPlayers)
         .limit(1)
