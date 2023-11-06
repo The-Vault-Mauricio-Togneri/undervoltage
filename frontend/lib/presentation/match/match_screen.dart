@@ -109,7 +109,9 @@ class Summary extends StatelessWidget {
                     Expanded(
                       child: Label(
                         text: player.name,
-                        color: player.points < state.match.maxPoints ? Palette.grey : Palette.red,
+                        color: player.points < state.match.maxPoints
+                            ? Palette.grey
+                            : Palette.red,
                         size: 16,
                         weight: FontWeight.bold,
                         maxLines: 1,
@@ -119,7 +121,9 @@ class Summary extends StatelessWidget {
                     const HBox(10),
                     Label(
                       text: player.points.toString(),
-                      color: player.points < state.match.maxPoints ? Palette.grey : Palette.red,
+                      color: player.points < state.match.maxPoints
+                          ? Palette.grey
+                          : Palette.red,
                       size: 16,
                     ),
                   ],
@@ -217,6 +221,9 @@ class OtherPlayerPile extends StatelessWidget {
           text: player.name,
           color: Palette.grey,
           size: 16,
+          align: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
         ),
       ],
     );
