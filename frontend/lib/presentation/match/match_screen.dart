@@ -168,8 +168,11 @@ class SummaryTable extends StatelessWidget {
       children: [
         TableRow(
           children: [
-            const TableCell(
-              child: Empty(),
+            TableCell(
+              verticalAlignment: TableCellVerticalAlignment.fill,
+              child: Container(
+                color: Palette.lightGrey,
+              ),
             ),
             for (final String playerId in playerIds)
               TableCell(
