@@ -6,12 +6,12 @@ import 'package:undervoltage/utils/audio.dart';
 import 'package:undervoltage/utils/navigation.dart';
 import 'package:undervoltage/utils/platform.dart';
 
-class SetNameState extends BaseState {
+class SettingsState extends BaseState {
   final bool isSetup;
   final TextEditingController nameController = TextEditingController();
   bool buttonEnabled = false;
 
-  SetNameState(this.isSetup) {
+  SettingsState(this.isSetup) {
     nameController.text = LoggedUser.get.name;
 
     if (Environment.get.isLocal && nameController.text.isEmpty) {
@@ -21,7 +21,7 @@ class SetNameState extends BaseState {
     buttonEnabled = nameController.text.isNotEmpty;
   }
 
-  Future setName() async {
+  Future onSave() async {
     buttonEnabled = false;
     notify();
 

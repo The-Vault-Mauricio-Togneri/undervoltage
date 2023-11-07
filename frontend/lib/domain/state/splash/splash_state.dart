@@ -23,7 +23,7 @@ class SplashState extends BaseState {
     if (LoggedUser.get.hasName) {
       Navigation.mainScreen();
     } else {
-      Navigation.setNameScreen(true);
+      Navigation.settingsScreen(true);
     }
   }
 

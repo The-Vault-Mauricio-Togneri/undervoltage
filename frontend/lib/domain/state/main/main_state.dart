@@ -18,7 +18,7 @@ class MainState extends BaseState {
     notify();
   }
 
-  void onSettings() => Navigation.setNameScreen(false);
+  void onSettings() => Navigation.settingsScreen(false);
 
   void onMatchmaking() => Navigation.lobbyScreen(
         version: 1,

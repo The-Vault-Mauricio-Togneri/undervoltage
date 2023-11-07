@@ -4,7 +4,7 @@ import 'package:undervoltage/domain/models/room.dart';
 import 'package:undervoltage/presentation/lobby/lobby_screen.dart';
 import 'package:undervoltage/presentation/main/main_screen.dart';
 import 'package:undervoltage/presentation/match/match_screen.dart';
-import 'package:undervoltage/presentation/set_name/set_name_screen.dart';
+import 'package:undervoltage/presentation/settings/settings_screen.dart';
 import 'package:undervoltage/utils/locator.dart';
 
 class Navigation {
@@ -23,10 +23,10 @@ class Navigation {
         ),
       );
 
-  static void setNameScreen(bool pushAlone) {
+  static void settingsScreen(bool pushAlone) {
     final FadeRoute route = FadeRoute(
-      SetNameScreen.instance(pushAlone),
-      name: 'set_name',
+      SettingsScreen.instance(pushAlone),
+      name: 'settings',
     );
 
     if (pushAlone) {

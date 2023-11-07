@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:undervoltage/domain/models/user_logged.dart';
-import 'package:undervoltage/domain/state/set_name/set_name_state.dart';
+import 'package:undervoltage/domain/state/settings/settings_state.dart';
 import 'package:undervoltage/utils/audio.dart';
 import 'package:undervoltage/utils/navigation.dart';
 import 'package:undervoltage/utils/palette.dart';
@@ -10,20 +10,20 @@ import 'package:undervoltage/widgets/custom_form_field.dart';
 import 'package:undervoltage/widgets/label.dart';
 import 'package:undervoltage/widgets/primary_button.dart';
 
-class SetNameScreen extends StatelessWidget {
-  final SetNameState state;
+class SettingsScreen extends StatelessWidget {
+  final SettingsState state;
 
-  const SetNameScreen._(this.state);
+  const SettingsScreen._(this.state);
 
-  factory SetNameScreen.instance(bool isSetup) =>
-      SetNameScreen._(SetNameState(isSetup));
+  factory SettingsScreen.instance(bool isSetup) =>
+      SettingsScreen._(SettingsState(isSetup));
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => Future.value(!state.isSetup),
       child: BaseScreen(
-        child: StateProvider<SetNameState>(
+        child: StateProvider<SettingsState>(
           state: state,
           builder: (context, state) => Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +74,7 @@ class SetNameScreen extends StatelessWidget {
               const VBox(20),
               PrimaryButton(
                 text: 'SAVE',
-                onPressed: state.buttonEnabled ? state.setName : null,
+                onPressed: state.buttonEnabled ? state.onSave : null,
               ),
               const Spacer(),
               Label(
