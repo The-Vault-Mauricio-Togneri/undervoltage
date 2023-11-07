@@ -51,10 +51,12 @@ class Body extends StatelessWidget {
   Widget _child(MatchState state) {
     if (state.isLoading) {
       return const Loading();
+    } else if (state.isSummary ||
+        state.isFinished ||
+        state.match.self.isFinished) {
+      return SummarySection(state);
     } else if (state.isPlaying) {
       return Playing(state);
-    } else if (state.isSummary || state.isFinished) {
-      return SummarySection(state);
     } else {
       return const Loading();
     }
@@ -309,7 +311,7 @@ class OtherPlayers extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           for (final Player player in state.match.players.values)
-            if (player.id != state.playerId)
+            if (!player.isFinished && (player.id != state.playerId))
               OtherPlayerPile(
                 player,
                 state.match.round.playersHand[player.id]!,

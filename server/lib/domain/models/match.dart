@@ -95,7 +95,7 @@ class Match {
             final Hand hand = round.playerHand(player.id);
             final int newPoints = player.updatePoints(hand);
 
-            if (newPoints >= maxPoints) {
+            if (player.points >= maxPoints) {
               player.updateStatus(PlayerStatus.finished);
             } else {
               player.updateStatus(PlayerStatus.readingSummary);
