@@ -62,6 +62,8 @@ class Round {
 
   Hand playerHand(String playerId) => playersHand[playerId]!;
 
+  bool hasHandFor(String playerId) => playersHand.containsKey(playerId);
+
   bool get isBlocked => discardPile.isNotEmpty && _allPlayersBlocked(topCard);
 
   bool _allPlayersBlocked(Card topCard) {

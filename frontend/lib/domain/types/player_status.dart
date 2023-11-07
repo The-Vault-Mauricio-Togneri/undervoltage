@@ -1,4 +1,5 @@
 enum PlayerStatus {
   playing,
-  readingSummary;
+  readingSummary,
+  finished;
 }

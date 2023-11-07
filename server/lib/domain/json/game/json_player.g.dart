@@ -24,4 +24,5 @@ Map<String, dynamic> _$JsonPlayerToJson(JsonPlayer instance) =>
 const _$PlayerStatusEnumMap = {
   PlayerStatus.playing: 'playing',
   PlayerStatus.readingSummary: 'readingSummary',
+  PlayerStatus.finished: 'finished',
 };

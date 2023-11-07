@@ -130,7 +130,7 @@ class SummaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (state.isFinished) {
+    if (state.isFinished || state.match.self.isFinished) {
       return const ElevatedButton(
         onPressed: Navigation.pop,
         child: Text('Finish'),
@@ -191,6 +191,9 @@ class SummaryTable extends StatelessWidget {
                       align: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
+                      decoration: players[playerId]!.isFinished
+                          ? TextDecoration.lineThrough
+                          : null,
                       size: 12,
                     ),
                   ),
@@ -254,7 +257,7 @@ class SummaryTable extends StatelessWidget {
                   child: Label(
                     text: players[playerId]!.points.toString(),
                     color: players[playerId]!.points < maxPoints
-                        ? Palette.grey
+                        ? Palette.green
                         : Palette.red,
                     weight: FontWeight.bold,
                     align: TextAlign.center,

@@ -55,7 +55,7 @@ class Match {
 
   bool get allPlayersReady {
     for (final Player player in players.values) {
-      if (player.status != PlayerStatus.playing) {
+      if (player.status == PlayerStatus.readingSummary) {
         return false;
       }
     }
@@ -63,14 +63,16 @@ class Match {
     return true;
   }
 
-  bool get playerLost {
+  bool get matchFinished {
+    int playersLost = 0;
+
     for (final Player player in players.values) {
       if (player.points >= maxPoints) {
-        return true;
+        playersLost++;
       }
     }
 
-    return false;
+    return playersLost >= (players.length - 1);
   }
 
   void playCard({
@@ -88,15 +90,26 @@ class Match {
         final Summary summaryLine = Summary();
 
         for (final Player player in players.values) {
-          final Hand hand = round.playerHand(player.id);
-          final int newPoints = player.updatePoints(hand);
-          player.updateStatus(PlayerStatus.readingSummary);
-          summaryLine.add(player.id, newPoints);
+          if ((player.status == PlayerStatus.playing) &&
+              round.hasHandFor(player.id)) {
+            final Hand hand = round.playerHand(player.id);
+            final int newPoints = player.updatePoints(hand);
+
+            if (newPoints >= maxPoints) {
+              player.updateStatus(PlayerStatus.finished);
+            } else {
+              player.updateStatus(PlayerStatus.readingSummary);
+            }
+
+            summaryLine.add(player.id, newPoints);
+          } else {
+            summaryLine.add(player.id, player.points);
+          }
         }
 
         summary.add(summaryLine);
 
-        if (playerLost) {
+        if (matchFinished) {
           status = MatchStatus.finished;
         } else {
           status = MatchStatus.summary;
@@ -125,9 +138,13 @@ class Match {
     players[playerId]?.updateStatus(PlayerStatus.playing);
 
     if (allPlayersReady) {
+      final List<Player> playersAlive = players.values
+          .where((p) => p.status == PlayerStatus.playing)
+          .toList();
+
       status = MatchStatus.playing;
       roundCount++;
-      round = Round.create(players.values.toList());
+      round = Round.create(playersAlive);
     }
 
     _sendUpdate();

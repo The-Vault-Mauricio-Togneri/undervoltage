@@ -20,4 +20,6 @@ class Player {
         status: json.status,
         points: json.points,
       );
+
+  bool get isFinished => status == PlayerStatus.finished;
 }
