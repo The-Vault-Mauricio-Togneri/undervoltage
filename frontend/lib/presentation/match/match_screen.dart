@@ -403,6 +403,7 @@ class PlayerHand extends StatelessWidget {
             const VBox(20),
             Row(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 PlayerHandRevealed(
                   cards: state.hand.revealedPile,
@@ -410,14 +411,11 @@ class PlayerHand extends StatelessWidget {
                   onPressed: state.onPlayCard,
                 ),
                 if (state.hand.hiddenPile.isNotEmpty)
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: FaceDownPile(
-                        width: cardWidth,
-                        onPressed: state.onDiscardCard,
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: FaceDownPile(
+                      width: cardWidth,
+                      onPressed: state.onDiscardCard,
                     ),
                   ),
               ],
