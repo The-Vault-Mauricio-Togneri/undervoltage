@@ -177,6 +177,6 @@ class Match {
     print(jsonEncode(data));
 
     final url = Uri.parse('');
-    await http.get(url, headers: {Server.X_API_KEY_HEADER: Server.API_KEY});
+    await http.get(url, headers: {X_API_KEY_HEADER: API_KEY});
   }
 }

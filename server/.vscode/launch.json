@@ -8,6 +8,7 @@
             "program": "lib/main/main_local.dart",
             "args": [
                 "3000",
+                "foo",
             ]
         }
     ]

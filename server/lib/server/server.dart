@@ -6,12 +6,12 @@ import 'package:undervoltage/rooms/rooms_manager.dart';
 import 'package:undervoltage/server/handler.dart';
 import 'package:undervoltage/utils/logger.dart';
 
+const String X_API_KEY_HEADER = 'x-api-key';
+String API_KEY = '';
+
 class Server {
   final Handler handler;
   final RoomsManager roomsManager;
-
-  static const String X_API_KEY_HEADER = 'x-api-key';
-  static const String API_KEY = '73b450b8-aba8-452f-b484-50142f69fe69';
 
   const Server(this.roomsManager, this.handler);
 
