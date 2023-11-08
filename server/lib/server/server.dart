@@ -10,6 +10,9 @@ class Server {
   final Handler handler;
   final RoomsManager roomsManager;
 
+  static const String X_API_KEY_HEADER = 'x-api-key';
+  static const String API_KEY = '73b450b8-aba8-452f-b484-50142f69fe69';
+
   const Server(this.roomsManager, this.handler);
 
   Future start({
@@ -84,10 +87,9 @@ class Server {
   }
 
   Future _handleRoomCreation(HttpRequest request) async {
-    final String? apiKey = request.headers['X-API-Key']?[0];
+    final String? apiKey = request.headers[X_API_KEY_HEADER]?[0];
 
-    // TODO(momo): externalize
-    if (apiKey == 'API_KEY') {
+    if (apiKey == API_KEY) {
       final String content = await utf8.decodeStream(request);
       final JsonCreateRoom json = JsonCreateRoom.fromString(content);
 

@@ -1,6 +1,6 @@
 import axios, {HttpStatusCode} from 'axios'
 import {Room} from '../models/room'
-import {MATCH_SERVER_URL} from '..'
+import {API_KEY, MATCH_SERVER_URL, X_API_KEY_HEADER} from '..'
 
 export const createMatchServerRoom = async (room: Room): Promise<boolean> => {
   const xAxios = axios.create()
@@ -9,7 +9,7 @@ export const createMatchServerRoom = async (room: Room): Promise<boolean> => {
     url: '/rooms',
     method: 'POST',
     headers: {
-      ['X-API-Key']: 'API_KEY', // TODO(momo): externalize
+      [X_API_KEY_HEADER]: API_KEY.value(),
       ['Content-Type']: 'application/json',
     },
     data: {
