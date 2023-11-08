@@ -1,4 +1,5 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:undervoltage/domain/json/messages/json_message.dart';
 import 'package:undervoltage/domain/json/messages/server_client/json_update.dart';
@@ -14,6 +15,7 @@ import 'package:undervoltage/presentation/dialogs/info_dialog.dart';
 import 'package:undervoltage/utils/audio.dart';
 import 'package:undervoltage/utils/connection.dart';
 import 'package:undervoltage/utils/navigation.dart';
+import 'package:undervoltage/utils/platform.dart';
 
 class MatchState extends BaseState {
   final Room room;
@@ -31,6 +33,14 @@ class MatchState extends BaseState {
       onDisconnected: _onDisconnected,
       onError: _onError,
     );
+  }
+
+  double get screenWidth {
+    if (Platform.isMobile) {
+      return MediaQuery.of(Navigation.context()).size.width;
+    } else {
+      return MediaQuery.of(Navigation.context()).size.height / 1.77;
+    }
   }
 
   bool get isLoading => _match == null;

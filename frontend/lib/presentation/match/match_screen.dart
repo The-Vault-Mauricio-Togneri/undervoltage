@@ -39,12 +39,7 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      child: Center(
-        child: StateProvider<MatchState>(
-          state: state,
-          builder: (context, state) => _child(state),
-        ),
-      ),
+      child: _child(state),
     );
   }
 
@@ -317,6 +312,7 @@ class OtherPlayers extends StatelessWidget {
               OtherPlayerPile(
                 player,
                 state.match.round.playersHand[player.id]!,
+                state,
               ),
         ],
       ),
@@ -327,8 +323,9 @@ class OtherPlayers extends StatelessWidget {
 class OtherPlayerPile extends StatelessWidget {
   final Player player;
   final Hand hand;
+  final MatchState state;
 
-  const OtherPlayerPile(this.player, this.hand);
+  const OtherPlayerPile(this.player, this.hand, this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -337,7 +334,7 @@ class OtherPlayerPile extends StatelessWidget {
       children: [
         SummaryPile(
           amount: hand.hiddenPile.length + hand.revealedPile.length,
-          width: MediaQuery.of(context).size.width / 8,
+          width: state.screenWidth / 8,
         ),
         const VBox(10),
         Label(
@@ -360,7 +357,7 @@ class DiscardPile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double cardWidth = (MediaQuery.of(context).size.width - 104) / 4;
+    final double cardWidth = (state.screenWidth - 104) / 4;
 
     return FaceUpCard(
       card: state.match.round.discardPile.last,
@@ -386,8 +383,7 @@ class PlayerHand extends StatelessWidget {
   }
 
   double _fit(BuildContext context, int amount) =>
-      (MediaQuery.of(context).size.width - ((amount + 1) * 20) - amount) /
-      amount;
+      (state.screenWidth - ((amount + 1) * 20) - amount) / amount;
 
   @override
   Widget build(BuildContext context) {
