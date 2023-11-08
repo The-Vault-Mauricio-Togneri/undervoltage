@@ -54,16 +54,28 @@ class Handler {
   }
 
   void onConnect(WebSocket socket) {
-    Logger.log(socket, 'Connected');
-    socket.send(JsonMessage.welcome());
+    try {
+      Logger.log(socket, 'Connected');
+      socket.send(JsonMessage.welcome());
+    } catch (e) {
+      Logger.error(e);
+    }
   }
 
   void onDisconnect(WebSocket socket) {
-    Logger.log(socket, 'Disconnected');
-    roomsManager.leave(socket);
+    try {
+      Logger.log(socket, 'Disconnected');
+      roomsManager.leave(socket);
+    } catch (e) {
+      Logger.error(e);
+    }
   }
 
   void onError(WebSocket socket, dynamic error) {
-    Logger.log(socket, 'Error: $error');
+    try {
+      Logger.log(socket, 'Error: $error');
+    } catch (e) {
+      Logger.error(e);
+    }
   }
 }

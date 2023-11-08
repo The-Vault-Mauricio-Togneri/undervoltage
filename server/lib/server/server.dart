@@ -53,21 +53,25 @@ class Server {
   }
 
   Future _handleRequest(HttpRequest request) async {
-    if ((request.method == 'POST') && (request.uri.toString() == '/rooms')) {
-      _handleRoomCreation(request);
-    } else if (WebSocketTransformer.isUpgradeRequest(request)) {
-      final WebSocket socket = await WebSocketTransformer.upgrade(request);
-      socket.listen(
-        (message) => _onMessage(socket, message),
-        onDone: () => handler.onDisconnect(socket),
-        onError: (error) => handler.onError(socket, error),
-      );
-      handler.onConnect(socket);
-    } else {
-      print('Request cannot be upgraded');
+    try {
+      if ((request.method == 'POST') && (request.uri.toString() == '/rooms')) {
+        _handleRoomCreation(request);
+      } else if (WebSocketTransformer.isUpgradeRequest(request)) {
+        final WebSocket socket = await WebSocketTransformer.upgrade(request);
+        socket.listen(
+          (message) => _onMessage(socket, message),
+          onDone: () => handler.onDisconnect(socket),
+          onError: (error) => handler.onError(socket, error),
+        );
+        handler.onConnect(socket);
+      } else {
+        print('Request cannot be upgraded');
 
-      request.response.statusCode = HttpStatus.forbidden;
-      request.response.close();
+        request.response.statusCode = HttpStatus.forbidden;
+        request.response.close();
+      }
+    } catch (e) {
+      Logger.error(e);
     }
   }
 

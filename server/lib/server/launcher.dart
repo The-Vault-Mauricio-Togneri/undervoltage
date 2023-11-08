@@ -1,6 +1,5 @@
 import 'package:undervoltage/rooms/rooms_manager.dart';
 import 'package:undervoltage/server/handler.dart';
-import 'package:undervoltage/server/looper.dart';
 import 'package:undervoltage/server/server.dart';
 
 class Launcher {
@@ -11,7 +10,7 @@ class Launcher {
   }) async {
     final RoomsManager roomsManager = RoomsManager();
     final Handler handler = Handler(roomsManager);
-    final Looper looper = Looper(roomsManager);
+    // final Looper looper = Looper(roomsManager);
 
     final Server server = Server(roomsManager, handler);
     await server.start(
@@ -20,6 +19,6 @@ class Launcher {
       key: key,
     );
 
-    looper.start();
+    // looper.start();
   }
 }

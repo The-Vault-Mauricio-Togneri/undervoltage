@@ -164,7 +164,9 @@ class SummaryTable extends StatelessWidget {
     final List<String> playerIds = players.keys.toList();
 
     return Table(
-      border: TableBorder.all(),
+      border: TableBorder.all(
+        color: Palette.grey,
+      ),
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       defaultColumnWidth: const IntrinsicColumnWidth(),
       children: [
@@ -408,11 +410,14 @@ class PlayerHand extends StatelessWidget {
                   onPressed: state.onPlayCard,
                 ),
                 if (state.hand.hiddenPile.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: FaceDownPile(
-                      width: cardWidth,
-                      onPressed: state.onDiscardCard,
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: FaceDownPile(
+                        width: cardWidth,
+                        onPressed: state.onDiscardCard,
+                      ),
                     ),
                   ),
               ],

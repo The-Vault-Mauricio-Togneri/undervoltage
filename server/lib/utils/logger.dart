@@ -8,4 +8,10 @@ class Logger {
       print('[${socket.id} ${DateTime.now()}] $text');
     }
   }
+
+  static void error(Object error) {
+    if (Constants.LOGS_ENABLED) {
+      print('Error: $error');
+    }
+  }
 }
