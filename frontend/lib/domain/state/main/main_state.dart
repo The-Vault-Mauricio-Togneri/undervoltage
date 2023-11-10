@@ -20,6 +20,8 @@ class MainState extends BaseState {
 
   void onSettings() => Navigation.settingsScreen(false);
 
+  void onHistory() => Navigation.historyScreen();
+
   void onMatchmaking() => Navigation.lobbyScreen(
         version: 1,
         matchType: 'undervoltage',

@@ -38,16 +38,26 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: IconButton(
-        onPressed: state.onSettings,
-        icon: const Icon(
-          Icons.settings,
-          color: Palette.grey,
-          size: 25,
+    return Row(
+      children: [
+        IconButton(
+          onPressed: state.onHistory,
+          icon: const Icon(
+            Icons.history,
+            color: Palette.grey,
+            size: 25,
+          ),
         ),
-      ),
+        const Spacer(),
+        IconButton(
+          onPressed: state.onSettings,
+          icon: const Icon(
+            Icons.settings,
+            color: Palette.grey,
+            size: 25,
+          ),
+        ),
+      ],
     );
   }
 }
