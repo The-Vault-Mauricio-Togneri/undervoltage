@@ -101,7 +101,6 @@ class Match {
 
             if (player.points >= maxPoints) {
               player.updateStatus(PlayerStatus.finished);
-              _sendMatchData();
             } else {
               player.updateStatus(PlayerStatus.readingSummary);
             }
@@ -116,6 +115,7 @@ class Match {
 
         if (matchFinished) {
           status = MatchStatus.finished;
+          _sendMatchData();
         } else {
           status = MatchStatus.summary;
         }
