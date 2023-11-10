@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:undervoltage/server/environment.dart';
 import 'package:undervoltage/server/launcher.dart';
 
-Future main(List<String> args) async {
+void main(List<String> args) {
   environment = Environment(
     matchFinishedUrl: 'https://matchfinished-hvlufafcya-oa.a.run.app',
     apiKey: args[0],

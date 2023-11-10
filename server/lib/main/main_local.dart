@@ -1,7 +1,7 @@
 import 'package:undervoltage/server/environment.dart';
 import 'package:undervoltage/server/launcher.dart';
 
-Future main(List<String> args) async {
+void main(List<String> args) {
   environment = Environment(
     matchFinishedUrl:
         'http://127.0.0.1:5001/undervoltage/europe-west6/matchFinished',
