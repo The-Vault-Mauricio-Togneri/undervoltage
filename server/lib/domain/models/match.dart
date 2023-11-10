@@ -101,7 +101,7 @@ class Match {
 
             if (player.points >= maxPoints) {
               player.updateStatus(PlayerStatus.finished);
-              sendMatchData();
+              _sendMatchData();
             } else {
               player.updateStatus(PlayerStatus.readingSummary);
             }
@@ -159,7 +159,7 @@ class Match {
 
   void update(double dt) {}
 
-  Future sendMatchData() async {
+  Future _sendMatchData() async {
     final Map<String, int> scores = {};
     final List<String> playerIds = [];
 

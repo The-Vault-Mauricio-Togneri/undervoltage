@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:undervoltage/domain/json/api/json_create_room.dart';
 import 'package:undervoltage/domain/json/messages/json_message.dart';
-import 'package:undervoltage/domain/models/match.dart';
-import 'package:undervoltage/rooms/room.dart';
 import 'package:undervoltage/rooms/rooms_manager.dart';
 import 'package:undervoltage/server/environment.dart';
 import 'package:undervoltage/server/handler.dart';
@@ -18,18 +16,6 @@ class Server {
   const Server(this.roomsManager, this.handler);
 
   Future start() async {
-    final Match match = Match.create(Room(
-      id: '123',
-      createdAt: DateTime.now(),
-      numberOfPlayers: 3,
-      matchType: '',
-      players: {
-        'aaa': 'Pepito',
-        'bbb': 'John',
-      },
-    ));
-    match.sendMatchData();
-
     final HttpServer server = await _server(
       port: environment.port,
       chain: environment.chain,
