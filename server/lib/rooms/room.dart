@@ -15,7 +15,7 @@ class Room {
   final Map<WebSocket, String> webSocketToPlayerId = {};
   Match? match;
 
-  Room._({
+  Room({
     required this.id,
     required this.createdAt,
     required this.numberOfPlayers,
@@ -23,7 +23,7 @@ class Room {
     required this.players,
   });
 
-  factory Room.fromJson(JsonCreateRoom json) => Room._(
+  factory Room.fromJson(JsonCreateRoom json) => Room(
         id: json.roomId,
         createdAt: json.createdAt,
         numberOfPlayers: json.numberOfPlayers,

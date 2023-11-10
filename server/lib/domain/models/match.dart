@@ -10,6 +10,7 @@ import 'package:undervoltage/domain/models/summary.dart';
 import 'package:undervoltage/domain/types/match_status.dart';
 import 'package:undervoltage/domain/types/player_status.dart';
 import 'package:undervoltage/rooms/room.dart';
+import 'package:undervoltage/server/environment.dart';
 import 'package:undervoltage/server/server.dart';
 
 class Match {
@@ -100,7 +101,7 @@ class Match {
 
             if (player.points >= maxPoints) {
               player.updateStatus(PlayerStatus.finished);
-              _sendMatchData();
+              sendMatchData();
             } else {
               player.updateStatus(PlayerStatus.readingSummary);
             }
@@ -158,25 +159,26 @@ class Match {
 
   void update(double dt) {}
 
-  Future _sendMatchData() async {
-    final Map<String, int> playersData = {};
+  Future sendMatchData() async {
+    final Map<String, int> scores = {};
     final List<String> playerIds = [];
 
     for (final Player player in players.values) {
-      playersData[player.name] = player.points;
+      scores[player.name] = player.points;
       playerIds.add(player.id);
     }
 
     final Map<String, dynamic> data = {
       'matchId': room.id,
-      'timestamp': DateTime.now(),
-      'playersData': playersData,
+      'scores': scores,
       'playerIds': playerIds,
     };
 
-    print(jsonEncode(data));
+    final String dataEncoded = jsonEncode(data);
 
-    final url = Uri.parse('');
-    await http.get(url, headers: {X_API_KEY_HEADER: API_KEY});
+    final url = Uri.parse('${environment.matchFinishedUrl}?data=$dataEncoded');
+    await http.get(url, headers: {
+      X_API_KEY_HEADER: environment.apiKey,
+    });
   }
 }

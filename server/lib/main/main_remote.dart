@@ -1,17 +1,16 @@
 import 'dart:io';
+import 'package:undervoltage/server/environment.dart';
 import 'package:undervoltage/server/launcher.dart';
-import 'package:undervoltage/server/server.dart';
 
 Future main(List<String> args) async {
-  final int port = int.parse(args[0]);
-  final String chain = Platform.script.resolve(args[1]).toFilePath();
-  final String key = Platform.script.resolve(args[2]).toFilePath();
-  API_KEY = args[3];
+  environment = Environment(
+    matchFinishedUrl: 'https://matchfinished-hvlufafcya-oa.a.run.app',
+    apiKey: args[0],
+    port: int.parse(args[1]),
+    chain: Platform.script.resolve(args[2]).toFilePath(),
+    key: Platform.script.resolve(args[3]).toFilePath(),
+  );
 
   final Launcher launcher = Launcher();
-  launcher.start(
-    port: port,
-    chain: chain,
-    key: key,
-  );
+  launcher.start();
 }

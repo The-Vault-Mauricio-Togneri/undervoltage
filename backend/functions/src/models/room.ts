@@ -5,7 +5,7 @@ import {merge} from '../utils/merge'
 
 export interface IRoom {
   id: string
-  createdAt: Date,
+  createdAt: Date
   version: number
   numberOfPlayers: number
   visibility: RoomVisibility
