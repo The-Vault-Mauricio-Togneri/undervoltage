@@ -53,6 +53,8 @@ class Server {
 
   Future _handleRequest(HttpRequest request) async {
     try {
+      Logger.info('HTTP Request: ${request.method} ${request.requestedUri}');
+
       if ((request.method == 'POST') && (request.uri.toString() == '/rooms')) {
         _handleRoomCreation(request);
       } else if (WebSocketTransformer.isUpgradeRequest(request)) {

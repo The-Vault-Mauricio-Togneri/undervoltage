@@ -36,12 +36,42 @@ class HistoryScreen extends StatelessWidget {
               ),
             ),
             if (state.isLoading)
-              const Center(
-                child: CircularProgressIndicator(),
-              )
+              const Loading()
+            else if (state.matches.isEmpty)
+              const Empty()
             else
               Content(state.matches),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class Loading extends StatelessWidget {
+  const Loading();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Expanded(
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+}
+
+class Empty extends StatelessWidget {
+  const Empty();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Expanded(
+      child: Center(
+        child: Label(
+          text: 'No past matches',
+          color: Palette.grey,
+          size: 14,
         ),
       ),
     );

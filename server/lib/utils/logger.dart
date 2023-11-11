@@ -9,6 +9,12 @@ class Logger {
     }
   }
 
+  static void info(String text) {
+    if (Constants.LOGS_ENABLED) {
+      print(text);
+    }
+  }
+
   static void error(Object error) {
     if (Constants.LOGS_ENABLED) {
       print('Error: $error');
