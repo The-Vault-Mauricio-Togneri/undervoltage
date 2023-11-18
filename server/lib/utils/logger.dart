@@ -11,7 +11,7 @@ class Logger {
 
   static void info(String text) {
     if (Constants.LOGS_ENABLED) {
-      print(text);
+      print('[${DateTime.now()}] $text');
     }
   }
 

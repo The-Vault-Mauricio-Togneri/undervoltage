@@ -22,7 +22,7 @@ class Server {
       key: environment.key,
     );
     server.listen(_handleRequest);
-    print('Server running on ${server.port}');
+    Logger.info('Server running on ${server.port}');
   }
 
   Future<HttpServer> _server({
@@ -66,7 +66,7 @@ class Server {
         );
         handler.onConnect(socket);
       } else {
-        print('Request cannot be upgraded');
+        Logger.info('Request cannot be upgraded');
 
         request.response.statusCode = HttpStatus.forbidden;
         request.response.close();
