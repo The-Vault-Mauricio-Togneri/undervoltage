@@ -58,6 +58,9 @@ class Card {
     return result;
   }
 
+  @override
+  String toString() => 'ID=$id,COLOR=${color.name},DIFF=$diff,VALUE=$value';
+
   static List<Card> all() {
     final CardId cardId = CardId(1);
 

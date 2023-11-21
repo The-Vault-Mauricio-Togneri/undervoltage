@@ -12,6 +12,7 @@ import 'package:undervoltage/domain/types/player_status.dart';
 import 'package:undervoltage/rooms/room.dart';
 import 'package:undervoltage/server/environment.dart';
 import 'package:undervoltage/server/server.dart';
+import 'package:undervoltage/utils/logger.dart';
 
 class Match {
   final Room room;
@@ -86,6 +87,8 @@ class Match {
     final Hand hand = round.playerHand(playerId);
     final Card selectedCard = hand.cardById(cardId);
 
+    Logger.info('Playing card: $selectedCard');
+
     if (round.topCard.canAccept(selectedCard) || hand.isLastCard) {
       round.addCard(selectedCard);
       hand.removeCard(selectedCard);
@@ -120,6 +123,7 @@ class Match {
           status = MatchStatus.summary;
         }
       } else if (round.isBlocked) {
+        Logger.info('Detected round is blocked');
         round.unblock();
       }
 

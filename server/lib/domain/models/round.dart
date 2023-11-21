@@ -3,6 +3,7 @@ import 'package:undervoltage/domain/json/game/json_round.dart';
 import 'package:undervoltage/domain/models/card.dart';
 import 'package:undervoltage/domain/models/hand.dart';
 import 'package:undervoltage/domain/models/player.dart';
+import 'package:undervoltage/utils/logger.dart';
 
 class Round {
   final List<Card> discardPile;
@@ -82,7 +83,10 @@ class Round {
     while (isBlocked && (limit > 0)) {
       final Card bottom = discardPile.removeAt(0);
       discardPile.add(bottom);
+      Logger.info('Moved card: $bottom to top of discard pile');
       limit--;
     }
+
+    Logger.info('Round no longer blocked');
   }
 }
