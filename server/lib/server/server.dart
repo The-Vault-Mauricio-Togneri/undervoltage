@@ -21,6 +21,8 @@ class Server {
       chain: environment.chain,
       key: environment.key,
     );
+    server.idleTimeout = null;
+    server.sessionTimeout = 0;
     server.listen(_handleRequest);
     Logger.info('Server running on ${server.port}');
   }
