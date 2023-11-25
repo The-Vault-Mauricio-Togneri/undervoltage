@@ -21,10 +21,15 @@ class Server {
       chain: environment.chain,
       key: environment.key,
     );
-    server.idleTimeout = null;
-    server.sessionTimeout = 0;
-    server.listen(_handleRequest);
     Logger.info('Server running on ${server.port}');
+
+    while (true) {
+      try {
+        await server.forEach(_handleRequest);
+      } catch (e) {
+        Logger.error('Error listening for requests', e);
+      }
+    }
   }
 
   Future<HttpServer> _server({
@@ -74,7 +79,7 @@ class Server {
         request.response.close();
       }
     } catch (e) {
-      Logger.error(e);
+      Logger.error('Error handling request', e);
     }
   }
 

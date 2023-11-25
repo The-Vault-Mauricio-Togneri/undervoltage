@@ -58,7 +58,7 @@ class Handler {
       Logger.log(socket, 'Connected');
       socket.send(JsonMessage.welcome());
     } catch (e) {
-      Logger.error(e);
+      Logger.error('Error onConnect', e);
     }
   }
 
@@ -67,7 +67,7 @@ class Handler {
       Logger.log(socket, 'Disconnected');
       roomsManager.leave(socket);
     } catch (e) {
-      Logger.error(e);
+      Logger.error('Error onDisconnect', e);
     }
   }
 
@@ -75,7 +75,7 @@ class Handler {
     try {
       Logger.log(socket, 'Error: $error');
     } catch (e) {
-      Logger.error(e);
+      Logger.error('Error onError', e);
     }
   }
 }

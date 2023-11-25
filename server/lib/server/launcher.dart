@@ -6,11 +6,7 @@ class Launcher {
   Future start() async {
     final RoomsManager roomsManager = RoomsManager();
     final Handler handler = Handler(roomsManager);
-    // final Looper looper = Looper(roomsManager);
-
     final Server server = Server(roomsManager, handler);
     await server.start();
-
-    // looper.start();
   }
 }
