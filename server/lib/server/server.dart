@@ -21,15 +21,8 @@ class Server {
       chain: environment.chain,
       key: environment.key,
     );
+    server.listen(_handleRequest);
     Logger.info('Server running on ${server.port}');
-
-    while (true) {
-      try {
-        await server.forEach(_handleRequest);
-      } catch (e) {
-        Logger.error('Error listening for requests', e);
-      }
-    }
   }
 
   Future<HttpServer> _server({
